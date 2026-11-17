@@ -1,5 +1,6 @@
 {
   "themes": [
-    { "name": "golden-hills", "types": ["email", "login"] }
+    { "name": "golden-hills", "types": ["email", "login"] },
+    { "name": "golden-hills-staff", "types": ["login"] }
   ]
 }
