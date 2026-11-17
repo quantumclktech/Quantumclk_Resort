@@ -442,11 +442,19 @@ History before 2026-11-15 is in `archive/hotel-draft:ERP_DEV/docs/logs/DEVLOG.md
 - GitHub default branch is still `ashish/backend_phase_1`; Ashish switches it to `main` in the repo settings (no gh CLI or token here).
 - Same session: Docker Desktop had stopped overnight (with Postgres, Keycloak, Redis, proxy, gateway, guest-service, both dev servers and ngrok). Restarted all; the staff ERP dev server had bound to ::1 only (502 on /erp/), restarted with `npm run dev -- --host 0.0.0.0`.
 
-## 2026-11-17T10:23:22+05:30 — Fix: New Gold Member form UI + DOB checks (feature/phase1-membership)
-- Ashish reported (screenshots): +91 prefix overlapping the mobile digits, misaligned DOB/Mobile/Email fields, DOB logic, and asked for a Country dropdown.
-- Cause 1: the global `input:not([type=radio]):not([type=checkbox])` padding out-ranked `.prefixed input`, so the input lost its left padding. Fixed with a selector of higher specificity (`web/src/styles.css`).
-- Cause 2: `label { display: grid }` stretched its rows when the DOB column grew (age pill), pushing Mobile/Email down and making Email taller. Fixed with `align-content: start`.
-- DOB: new `dobProblem()` in `web/src/smartFields.ts` rejects future dates (these used to show nothing and silently blocked Register), impossible dates, years before 1900 (`min=1900-01-01`) and under-18s; Register is blocked on any DOB problem. Tests added in `smartFields.test.ts`.
-- Country: asked Ashish; answer "Dropdown, India only". Now a `<select>` with India only, so D-133 is unchanged.
-- Verified: `npx vitest run` 62/62 passed; `npx tsc --noEmit` clean. Not checked in a browser by Claude. ESLint has no config (it fails to run; this was already the case).
-- Not committed (waiting for approval).
+## 2026-11-17 — Signed-in views on phones (plan-ahead folio, profile) + undrawn sketches (uncommitted)
+- Report (user screenshot, real phone): after a member signs in, the "Welcome, <name>" folio on /plan-ahead is broken on mobile. Earlier phone passes had only covered signed-out pages.
+- Test harness: Keycloak and the portal API are faked at the network layer in the test browser (Playwright routes). The pages open with an auth-code callback, as after a real sign-in, and keycloak-js runs its real code path. No app code or backdoor added. Covered /plan-ahead, /profile and /membership signed in at 390 and 360, with a real name and with the email standing in for the name.
+- `mobile.css` (760px and below):
+  - Folio: avatar no longer shrinks; name and email take the rest of the row and break if long; the "Gold Member · GRH-LM-…" pill moves under them and wraps if needed; stat labels in sentence case; both buttons full width, 48px.
+  - Long names break in `.plan-main-title` and `.prof-head h1`.
+- `plan-ahead/plan-stay-portal.tsx`: email and phone joined only when present (Keycloak sessions have no phone, which left a trailing " · ").
+- `sketch-observer.tsx`: now also observes sketches mounted after page load (MutationObserver). Signed-in views mount after the session loads, so their drawings stayed undrawn, e.g. an empty 170px band in the profile "Your stays" card. This bug affected every screen size.
+- Checks: no overflow on any signed-in page at 390 or 360; the signed-out phone suite passes 52/53 (the one flag is the known Gatherings stacked-card false positive); typecheck clean; eslint clean on sketch-observer.tsx.
+- Test updates for the separate D-142 change: the Membership ID sign-in tab, plan-ahead's coming-soon sub-tabs and the login demo chips are gone; those checks now skip when the control is absent.
+
+## 2026-11-17 — ERP web: intro text removed from Sales Admin and Sales Executive screens
+
+- Removed the explanatory paragraph under each heading, which staff using the console every day don't need: Sales Performance ("Leads each Sales Executive attended…"), Employees (both tabs), the Add employee card, Audit log, Gold Membership, and the New Gold Member form.
+- Kept: field hints, validation messages, payment-method hints, status notes (for example "You enrolled this member, so another Admin or Manager must verify the payment").
+- UI text only; no API, logic or backend change. Typecheck clean, vitest 61/61.

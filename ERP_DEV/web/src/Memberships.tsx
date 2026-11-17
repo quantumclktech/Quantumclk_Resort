@@ -7,7 +7,7 @@ import { ApiError, type Me } from "./api";
 import { config } from "./config";
 import { Camera, ImageIcon, X, ZoomIn } from "lucide-react";
 import {
-  INDIAN_STATES, MIN_DOB, aadhaarProblem, calculateAge, cleanMobile, dobProblem, formatAadhaar, isValidMobile, isValidPincode, licenceProblem,
+  INDIAN_STATES, aadhaarProblem, calculateAge, cleanMobile, formatAadhaar, isValidMobile, isValidPincode, licenceProblem,
   localToday, lookupPincode, maskAadhaar, maskLicence, maxDobFor18, parseFeeChips, rupees, toTitleCase,
 } from "./smartFields";
 
@@ -110,7 +110,6 @@ export function Memberships({ me, request }: { me: Me; request: Request }) {
       <header className="page-head">
         <p className="page-kicker">Privilege Club</p>
         <h1>Gold Membership</h1>
-        <p>Register members in the field, follow your registrations and verify payments.</p>
       </header>
 
       <div className="mem-tabs" role="tablist" aria-label="Memberships">
@@ -154,13 +153,12 @@ function RegisterMember({ me, request, onRegistered }: { me: Me; request: Reques
 
   // Smart fields (D-131…D-134): checked as the executive types; the server checks everything again.
   const age = calculateAge(form.dob);
-  const dobErr = dobProblem(form.dob);
   const mobileOk = isValidMobile(form.mobile);
   const idProblem = form.idType === "AADHAAR" ? aadhaarProblem(form.idNumber) : licenceProblem(form.idNumber);
   const idComplete = form.idType === "AADHAAR" ? form.idNumber.replace(/\D/g, "").length === 12 : form.idNumber.trim().length >= 13;
   const pincodeOk = isValidPincode(form.pincode);
   const [pinNote, setPinNote] = useState<string | null>(null);
-  const blocked = !form.dob || dobErr !== null || !mobileOk || idProblem !== null || !pincodeOk;
+  const blocked = !age?.isEligible || !mobileOk || idProblem !== null || !pincodeOk;
 
   async function pincodeTyped(raw: string) {
     const pin = raw.replace(/\D/g, "").slice(0, 6);
@@ -232,7 +230,6 @@ function RegisterMember({ me, request, onRegistered }: { me: Me; request: Reques
         <div className="mem-head">
           <div>
             <h2>New Gold Member</h2>
-            <p>Fill in the customer's details, take the payment, and submit for verification.</p>
           </div>
           <div className="mem-tag" aria-live="polite">
             <span className="mem-tag-label">Membership ID</span>
@@ -257,14 +254,13 @@ function RegisterMember({ me, request, onRegistered }: { me: Me; request: Reques
           </div>
           <div className="form-row three-col">
             <label>Date of birth
-              <input type="date" aria-label="Date of birth" required min={MIN_DOB} max={maxDobFor18()} value={form.dob} aria-invalid={!!fields.dob || dobErr !== null}
+              <input type="date" aria-label="Date of birth" required max={maxDobFor18()} value={form.dob} aria-invalid={!!fields.dob || (age !== null && !age.isEligible)}
                      onChange={(e) => set("dob")(e.target.value)} />
-              {age && form.dob >= MIN_DOB && (
+              {age && (
                 <span className={`smart-pill ${age.isEligible ? "ok" : "bad"}`} role="status">
                   {age.isEligible ? `Age: ${age.age} years · Eligible ✓` : `Age: ${age.age} years · Must be 18+ ✗`}
                 </span>
               )}
-              {dobErr && !(age && form.dob >= MIN_DOB) && <small role="alert">{dobErr}</small>}
               {fields.dob && <small role="alert">{fields.dob}</small>}
             </label>
             <label>Mobile
@@ -343,11 +339,7 @@ function RegisterMember({ me, request, onRegistered }: { me: Me; request: Reques
               {fields.state && <small role="alert">{fields.state}</small>}
             </label>
             <label>Country
-              {/* India only for now (D-133): the server rejects other countries. Add options here when that changes. */}
-              <select required value={form.country} onChange={(e) => set("country")(e.target.value)} aria-invalid={!!fields.country}>
-                <option value="India">India</option>
-              </select>
-              {fields.country && <small role="alert">{fields.country}</small>}
+              <input type="text" value="India" readOnly aria-readonly="true" />
             </label>
           </div>
         </fieldset>

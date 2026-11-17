@@ -437,7 +437,8 @@ export default function PlanStayPortal() {
                 </div>
                 <div className="plan-folio-info">
                   <h3>{currentUser.name}</h3>
-                  <p>{currentUser.email} · {currentUser.phone}</p>
+                  {/* Keycloak sessions carry no phone: no trailing " · " then. */}
+                  <p>{[currentUser.email, currentUser.phone].filter(Boolean).join(" · ")}</p>
                 </div>
                 <span className="plan-folio-tier">{realMembership ? `Gold Member · ${realMembership.membershipNo}` : "Privilege Member"}</span>
               </div>

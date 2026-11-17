@@ -30,8 +30,24 @@ export default function SketchObserver() {
       }
     }, { threshold: [0.1, 0.2, 0.35] });
 
-    for (const el of document.querySelectorAll(".sketch:not(.is-drawn):not(.sketch-manual)")) observer.observe(el);
-    return () => observer.disconnect();
+    const SELECTOR = ".sketch:not(.is-drawn):not(.sketch-manual)";
+    for (const el of document.querySelectorAll(SELECTOR)) observer.observe(el);
+
+    // Sketches that mount after the scan (signed-in views appear once the
+    // session loads; panels swap in) would otherwise stay undrawn — hidden
+    // strokes, an empty space where the drawing should be.
+    const added = new MutationObserver((mutations) => {
+      for (const m of mutations) {
+        for (const node of m.addedNodes) {
+          if (!(node instanceof Element)) continue;
+          if (node.matches(SELECTOR)) observer.observe(node);
+          for (const el of node.querySelectorAll(SELECTOR)) observer.observe(el);
+        }
+      }
+    });
+    added.observe(document.body, { childList: true, subtree: true });
+
+    return () => { observer.disconnect(); added.disconnect(); };
   }, [pathname]);
 
   return null;
