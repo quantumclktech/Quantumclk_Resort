@@ -1,0 +1,10 @@
+/* Golden Hills colours on Keycloak's sign-in pages (same palette as the staff ERP and the landing page). */
+:root {
+  --pf-v5-global--primary-color--100: #85642d;
+  --pf-v5-global--primary-color--200: #6f5223;
+  --pf-v5-global--link--Color: #85642d;
+  --pf-v5-global--link--Color--hover: #6f5223;
+}
+body, .pf-v5-c-login { background: #f8f6f0; }
+.pf-v5-c-login__main { border-top: 4px solid #c9a45c; border-radius: 12px; }
+#kc-header-wrapper { color: #16201a; font-family: Georgia, "Times New Roman", serif; letter-spacing: 0.04em; }

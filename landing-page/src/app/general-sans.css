@@ -1,0 +1,57 @@
+/* General Sans */
+@font-face {
+  font-family: 'General Sans';
+  src: url('/fonts/general-sans/XC3ORZWTJXPLYORAWMH6ZXES6GBV3W5L.woff2') format('woff2'),
+       url('/fonts/general-sans/XC3ORZWTJXPLYORAWMH6ZXES6GBV3W5L.woff') format('woff'),
+       url('/fonts/general-sans/XC3ORZWTJXPLYORAWMH6ZXES6GBV3W5L.ttf') format('truetype');
+  font-weight: 200;
+  font-display: swap;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'General Sans';
+  src: url('/fonts/general-sans/TW4KNQIPR4LNP4I6I6C6HKQ23B2EQAU5.woff2') format('woff2'),
+       url('/fonts/general-sans/TW4KNQIPR4LNP4I6I6C6HKQ23B2EQAU5.woff') format('woff'),
+       url('/fonts/general-sans/TW4KNQIPR4LNP4I6I6C6HKQ23B2EQAU5.ttf') format('truetype');
+  font-weight: 300;
+  font-display: swap;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'General Sans';
+  src: url('/fonts/general-sans/7YY3ZAAE3TRV2LANYOLXNHTPHLXVWTKH.woff2') format('woff2'),
+       url('/fonts/general-sans/7YY3ZAAE3TRV2LANYOLXNHTPHLXVWTKH.woff') format('woff'),
+       url('/fonts/general-sans/7YY3ZAAE3TRV2LANYOLXNHTPHLXVWTKH.ttf') format('truetype');
+  font-weight: 400;
+  font-display: swap;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'General Sans';
+  src: url('/fonts/general-sans/SB2OEB6IKZPRR6JT4GFJ2TFT6HBB6AZN.woff2') format('woff2'),
+       url('/fonts/general-sans/SB2OEB6IKZPRR6JT4GFJ2TFT6HBB6AZN.woff') format('woff'),
+       url('/fonts/general-sans/SB2OEB6IKZPRR6JT4GFJ2TFT6HBB6AZN.ttf') format('truetype');
+  font-weight: 500;
+  font-display: swap;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'General Sans';
+  src: url('/fonts/general-sans/3ZLMEXZEQPLTEPMHTQDAUXP5ZZXCZAEN.woff2') format('woff2'),
+       url('/fonts/general-sans/3ZLMEXZEQPLTEPMHTQDAUXP5ZZXCZAEN.woff') format('woff'),
+       url('/fonts/general-sans/3ZLMEXZEQPLTEPMHTQDAUXP5ZZXCZAEN.ttf') format('truetype');
+  font-weight: 600;
+  font-display: swap;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'General Sans';
+  src: url('/fonts/general-sans/NIQ54PVBBIWVK3PFSOIOUJSXIJ5WTNDP.woff2') format('woff2'),
+       url('/fonts/general-sans/NIQ54PVBBIWVK3PFSOIOUJSXIJ5WTNDP.woff') format('woff'),
+       url('/fonts/general-sans/NIQ54PVBBIWVK3PFSOIOUJSXIJ5WTNDP.ttf') format('truetype');
+  font-weight: 700 900;
+  font-display: swap;
+  font-style: normal;
+}
+
+

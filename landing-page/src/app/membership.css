@@ -1,0 +1,762 @@
+/* ==========================================================================
+   Privilege Club (unit 3.19)
+   The page is a members' card and the ledger that goes with it. Brass foil on
+   forest board up top, then a paper account that tallies to 180. One accent
+   (brass), one object, no decoration anywhere else.
+   ========================================================================== */
+
+.mem-page { background: var(--color-paper); }
+
+.mem-kicker {
+  font-family: var(--font-sans);
+  font-size: var(--type-label);
+  font-weight: 500;
+  letter-spacing: 0.01em;
+  text-transform: none;
+  color: var(--color-muted);
+}
+.mem-kicker.is-on-dark { color: var(--color-garden); }
+
+/* --- Hero ----------------------------------------------------------------- */
+.mem-hero {
+  background: var(--color-forest);
+  color: var(--color-chalk);
+  padding-block: clamp(48px, 7vw, 104px) clamp(32px, 4vw, 56px);
+}
+.mem-hero-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: clamp(32px, 6vw, 88px);
+  align-items: center;
+}
+.mem-hero-copy h1 {
+  margin-top: 16px;
+  font-family: var(--font-display);
+  font-size: clamp(40px, 5.4vw, 76px);
+  font-weight: var(--weight-section);
+  line-height: 1.02;
+  letter-spacing: -0.03em;
+  color: var(--color-chalk);
+}
+.mem-hero-line {
+  margin-top: 24px;
+  max-width: 40ch;
+  font-size: var(--type-body);
+  line-height: 1.6;
+  color: color-mix(in srgb, var(--color-chalk) 80%, transparent);
+}
+.mem-hero-actions {
+  margin-top: 32px;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+.mem-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 52px;
+  padding: 0 28px;
+  font-family: var(--font-sans);
+  font-size: var(--type-small);
+  font-weight: 600;
+  color: var(--color-ink);
+  background: var(--color-brass);
+  border-radius: 12px;
+  text-decoration: none;
+  transition: background-color .2s var(--ease-out);
+}
+@media (hover: hover) and (pointer: fine) { .mem-btn:hover { background: color-mix(in srgb, var(--color-brass) 88%, #000); } }
+.mem-btn:focus-visible { outline: 2px solid var(--color-chalk); outline-offset: 3px; }
+.mem-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: var(--type-small);
+  font-weight: 500;
+  color: var(--color-chalk);
+  text-decoration: none;
+  border-bottom: 1px solid color-mix(in srgb, var(--color-garden) 60%, transparent);
+}
+@media (hover: hover) and (pointer: fine) { .mem-link:hover { color: var(--color-garden); } }
+
+/* --- The card ------------------------------------------------------------- */
+.mcard-stage { perspective: 1100px; }
+.mcard {
+  position: relative;
+  aspect-ratio: 1.586;          /* the proportion of a real card */
+  max-width: 460px;
+  margin-inline: auto;
+  border-radius: 18px;
+  transform-style: preserve-3d;
+  transition: transform .5s var(--ease-out);
+  /* A soft neutral shadow is allowed on an object floating over a surface. */
+  box-shadow: 0 30px 60px -20px rgba(4, 12, 8, .65);
+}
+.mcard-face {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: clamp(20px, 2.4vw, 30px);
+  border-radius: inherit;
+  /* One tone shift inside a single colour, plus a brass foil edge. */
+  background:
+    linear-gradient(152deg, #16402b 0%, #0e2e1e 52%, #0a2217 100%);
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--color-brass) 55%, transparent);
+  overflow: hidden;
+}
+.mcard-top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+}
+.mcard-logo { width: clamp(104px, 11vw, 132px); height: auto; }
+.mcard-kind {
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;    /* the one engraved line on the object */
+  color: var(--color-brass);
+}
+/* A foil chip, drawn rather than photographed. */
+.mcard-chip {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2px;
+  width: 44px;
+  height: 34px;
+  padding: 4px;
+  border-radius: 6px;
+  background: linear-gradient(145deg, #d9ad51, #9d7421);
+}
+.mcard-chip span { background: color-mix(in srgb, #5a4312 45%, transparent); border-radius: 2px; }
+.mcard-serial {
+  font-family: ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
+  font-size: clamp(22px, 2.4vw, 30px);
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.06em;
+  color: var(--color-chalk);
+}
+.mcard-serial i { font-style: normal; color: var(--color-brass); }
+.mcard-serial-label {
+  margin-top: 4px;
+  font-size: 11px;
+  letter-spacing: 0.04em;
+  color: color-mix(in srgb, var(--color-chalk) 60%, transparent);
+}
+/* A single still highlight, not a moving shine. */
+.mcard-sheen {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: linear-gradient(118deg, rgba(255, 255, 255, .11) 0%, rgba(255, 255, 255, 0) 42%);
+  pointer-events: none;
+}
+.mcard-caption {
+  margin-top: 16px;
+  font-size: 12px;
+  text-align: center;
+  color: color-mix(in srgb, var(--color-chalk) 55%, transparent);
+}
+
+/* --- Figures -------------------------------------------------------------- */
+.mem-figures {
+  margin-top: clamp(40px, 6vw, 72px);
+  padding-top: clamp(24px, 3vw, 36px);
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 16px;
+  border-top: 1px solid color-mix(in srgb, var(--color-chalk) 20%, transparent);
+}
+.mem-figures > div { display: flex; flex-direction: column-reverse; gap: 6px; }
+.mem-figures dd {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: clamp(30px, 3.4vw, 46px);
+  font-weight: 600;
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+  color: var(--color-brass);
+}
+.mem-figures dt { font-size: 13px; color: var(--color-forest-soft); }
+
+/* --- Ledger --------------------------------------------------------------- */
+.mem-ledger-section { padding-block: clamp(56px, 8vw, 112px); }
+.mem-ledger-head { margin-bottom: clamp(32px, 4vw, 56px); }
+.mem-ledger-head h2,
+.mem-kit-head h2,
+.mem-faq-head h2,
+.mem-inquiry-heading {
+  margin-top: 12px;
+  font-family: var(--font-display);
+  font-size: var(--type-section);
+  font-weight: var(--weight-section);
+  line-height: var(--leading-section);
+  letter-spacing: var(--tracking-section);
+  color: var(--color-ink);
+}
+
+.ledger {
+  display: grid;
+  grid-template-columns: minmax(0, 260px) minmax(0, 1fr);
+  gap: clamp(32px, 5vw, 80px);
+  align-items: start;
+}
+.ledger-tally {
+  position: sticky;
+  top: 116px;                   /* clears the 84px sticky header */
+  padding: 24px;
+  background: var(--color-chalk);
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-card);
+}
+.ledger-tally-step {
+  font-family: ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
+  font-size: 13px;
+  letter-spacing: 0.04em;
+  color: var(--color-muted);
+}
+.ledger-tally-step i { font-style: normal; opacity: .55; }
+.ledger-tally-name {
+  margin-top: 8px;
+  font-family: var(--font-display);
+  font-size: 24px;
+  font-weight: var(--weight-card);
+  line-height: 1.15;
+  color: var(--color-ink);
+}
+.ledger-tally-rows { margin: 20px 0 0; display: grid; gap: 10px; }
+.ledger-tally-rows > div {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+  font-size: var(--type-small);
+  color: var(--color-muted);
+}
+.ledger-tally-rows dd {
+  margin: 0;
+  font-family: ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
+  font-variant-numeric: tabular-nums;
+  color: var(--color-ink);
+}
+.ledger-tally-total {
+  padding-top: 10px;
+  border-top: 1px solid var(--color-line);
+}
+.ledger-tally-total dd { font-family: var(--font-display); font-size: 22px; font-weight: 600; color: var(--color-forest) !important; }
+.ledger-tally-bar {
+  margin-top: 16px;
+  height: 3px;
+  border-radius: 999px;
+  background: var(--color-limestone);
+  overflow: hidden;
+}
+.ledger-tally-bar span {
+  display: block;
+  height: 100%;
+  background: var(--color-brass);
+  transform-origin: left;
+  transition: transform .5s var(--ease-out);
+}
+
+.ledger-entries {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: clamp(28px, 3.5vw, 48px);
+}
+/* Picture beside the words, so an entry is one band rather than a tall stack. */
+.ledger-entry {
+  display: grid;
+  grid-template-columns: minmax(0, 0.9fr) minmax(0, 1fr);
+  grid-template-areas: "media head" "media lines";
+  align-content: start;
+  column-gap: clamp(20px, 2.5vw, 36px);
+  row-gap: 16px;
+  opacity: .72;
+  transition: opacity .4s var(--ease-out);
+}
+.ledger-entry-head { grid-area: head; }
+.ledger-entry-media { grid-area: media; align-self: start; }
+.ledger-entry-lines { grid-area: lines; align-self: start; }
+.ledger-entry.is-current { opacity: 1; }
+.ledger-entry-head { display: grid; gap: 8px; }
+.ledger-entry-no {
+  font-family: ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
+  font-size: 13px;
+  letter-spacing: 0.06em;
+  color: var(--color-brass-ink);
+}
+.ledger-entry-head h3 {
+  font-family: var(--font-display);
+  font-size: clamp(24px, 2.8vw, 36px);
+  font-weight: var(--weight-section);
+  line-height: 1.12;
+  letter-spacing: var(--tracking-section);
+  color: var(--color-ink);
+}
+.ledger-entry-count {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+  font-size: var(--type-small);
+  font-variant-numeric: tabular-nums;
+  color: var(--color-muted);
+}
+.ledger-entry-media {
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+  border-radius: var(--radius-card);
+  background: var(--color-limestone);
+}
+.ledger-entry-media img { display: block; width: 100%; height: 100%; object-fit: cover; }
+.ledger-entry-lines {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  gap: 10px;
+}
+.ledger-entry-lines li {
+  position: relative;
+  padding-left: 20px;
+  font-size: var(--type-small);
+  line-height: 1.55;
+  color: var(--color-muted);
+}
+.ledger-entry-lines li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 9px;
+  width: 8px;
+  height: 1px;
+  background: var(--color-brass);
+}
+.ledger-note { margin-top: 32px; font-size: 12px; color: var(--color-muted); }
+
+/* --- Keepsake kit --------------------------------------------------------- */
+.mem-kit {
+  padding-block: clamp(48px, 6vw, 88px);
+  border-top: 1px solid var(--color-line);
+}
+.mem-kit-head { margin-bottom: 32px; }
+/* The box: a lid line, then the five objects inside it. */
+.kit-box {
+  background: var(--color-chalk);
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-card);
+  overflow: hidden;
+}
+.kit-box-lid {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 14px 20px;
+  font-size: 13px;
+  /* ink, not muted: muted on limestone measures 4.44:1, under AA */
+  color: var(--color-ink);
+  background: var(--color-limestone);
+  border-bottom: 1px solid var(--color-line);
+}
+.kit-box-count { font-variant-numeric: tabular-nums; }
+.kit-grid {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+}
+.kit-grid li {
+  position: relative;
+  display: grid;
+  justify-items: start;
+  gap: 4px;
+  padding: clamp(20px, 2.4vw, 28px) clamp(14px, 1.6vw, 20px) clamp(20px, 2.4vw, 28px);
+  border-right: 1px solid var(--color-line);
+}
+.kit-grid li:last-child { border-right: 0; }
+.kit-icon {
+  display: grid;
+  place-items: center;
+  width: 52px;
+  height: 52px;
+  margin-bottom: 10px;
+  color: var(--color-forest);
+  background: var(--color-garden);
+  border-radius: 14px;
+}
+.kit-no {
+  position: absolute;
+  top: clamp(20px, 2.4vw, 28px);
+  right: clamp(14px, 1.6vw, 20px);
+  font-family: ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
+  font-size: 11px;
+  color: var(--color-brass-ink);
+}
+.kit-grid strong {
+  font-size: 15px;
+  font-weight: 600;
+  line-height: 1.25;
+  color: var(--color-ink);
+}
+.kit-detail { font-size: 13px; line-height: 1.4; color: var(--color-muted); }
+
+.mem-kit-terms { margin-top: 28px; font-size: 13px; color: var(--color-muted); }
+
+/* --- Questions ------------------------------------------------------------ */
+.mem-faq {
+  padding-block: clamp(48px, 6vw, 88px);
+  border-top: 1px solid var(--color-line);
+}
+.mem-faq-head { margin-bottom: 28px; }
+.mem-faq-list { display: grid; }
+.mem-faq-list details { border-top: 1px solid var(--color-line); }
+.mem-faq-list details:last-child { border-bottom: 1px solid var(--color-line); }
+.mem-faq-list summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 20px 0;
+  font-family: var(--font-sans);
+  font-size: var(--type-body);
+  font-weight: 500;
+  color: var(--color-ink);
+  cursor: pointer;
+  list-style: none;
+}
+.mem-faq-list summary::-webkit-details-marker { display: none; }
+.mem-faq-list summary::after { content: "+"; font-size: 20px; color: var(--color-brass-ink); }
+.mem-faq-list details[open] summary::after { content: "−"; }
+.mem-faq-list p {
+  padding-bottom: 24px;
+  max-width: 68ch;
+  font-size: var(--type-small);
+  line-height: 1.65;
+  color: var(--color-muted);
+}
+
+/* --- Enquiry -------------------------------------------------------------- */
+.mem-perks {
+  margin: 28px 0 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  gap: 12px;
+}
+.mem-perks li {
+  position: relative;
+  padding-left: 20px;
+  font-size: var(--type-small);
+  color: var(--color-muted);
+}
+.mem-perks li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 9px;
+  width: 8px;
+  height: 1px;
+  background: var(--color-brass);
+}
+
+/* --- Tablet --------------------------------------------------------------- */
+@media (max-width: 1000px) {
+  .kit-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .kit-grid li:nth-child(2n) { border-right: 0; }
+  .kit-grid li:not(:nth-last-child(-n+2)) { border-bottom: 1px solid var(--color-line); }
+  .mem-hero-grid { grid-template-columns: minmax(0, 1fr); }
+  .mcard { max-width: 420px; }
+  .mem-figures { grid-template-columns: repeat(3, minmax(0, 1fr)); row-gap: 28px; }
+  .ledger { grid-template-columns: minmax(0, 1fr); }
+  /* On one column the tally rides along the top rather than beside the list. */
+  .ledger-tally {
+    position: sticky;
+    top: 92px;
+    z-index: 2;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    align-items: center;
+    gap: 16px;
+    padding: 16px 20px;
+  }
+  .ledger-tally-rows { margin: 0; grid-auto-flow: column; gap: 20px; }
+  .ledger-tally-rows > div { flex-direction: column; align-items: flex-end; gap: 2px; }
+  .ledger-tally-bar { grid-column: 1 / -1; margin-top: 4px; }
+  .ledger-entry { opacity: 1; grid-template-columns: minmax(0, 1fr); grid-template-areas: "head" "media" "lines"; }
+}
+
+/* --- Phone ---------------------------------------------------------------- */
+@media (max-width: 640px) {
+  .kit-grid { grid-template-columns: minmax(0, 1fr); }
+  .kit-grid li { border-right: 0; }
+  .kit-grid li:not(:last-child) { border-bottom: 1px solid var(--color-line); }
+  .mem-figures { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .mem-figures > div:last-child { grid-column: span 2; }
+  .ledger-tally-rows { grid-auto-flow: row; gap: 6px; }
+  .ledger-tally-rows > div { flex-direction: row; align-items: baseline; }
+  .ledger-tally { grid-template-columns: minmax(0, 1fr); }
+  .mcard-stage { perspective: none; }
+  .mcard { transform: none !important; }
+}
+
+/* ==========================================================================
+   Tickets — "What is inside" as a booklet dealt onto the table (unit 3.25)
+   ========================================================================== */
+.tickets-total { display: grid; gap: 16px; margin-bottom: clamp(32px, 4vw, 48px); }
+.tickets-total p { font-size: 16px; color: var(--color-ink); }
+.tickets-total strong {
+  font-family: var(--font-display);
+  font-size: clamp(40px, 4.4vw, 64px);
+  font-weight: var(--weight-section);
+  letter-spacing: -0.03em;
+  color: var(--color-forest);
+  margin-right: 8px;
+  font-variant-numeric: tabular-nums;
+}
+.tickets-bar {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  gap: 4px;
+  height: 36px;
+}
+.tickets-bar li {
+  flex-basis: 0;
+  display: flex;
+  align-items: center;
+  padding-left: 8px;
+  border-radius: 6px;
+  background: var(--color-forest);
+  color: var(--color-chalk);
+  font-size: 12px;
+  font-weight: 500;
+  font-variant-numeric: tabular-nums;
+  overflow: hidden;
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform 0.6s var(--ease-out);
+}
+.tickets-bar li:nth-child(even) { background: color-mix(in srgb, var(--color-forest) 72%, var(--color-chalk)); }
+.tickets.is-dealt .tickets-bar li { transform: none; }
+
+.tickets-grid {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 20px;
+}
+.ticket {
+  position: relative;
+  height: 420px;
+  perspective: 1400px;
+  transition: transform 0.7s var(--ease-out), opacity 0.4s ease;
+}
+.sketch-js .tickets:not(.is-dealt) .ticket { opacity: 0; }
+.ticket-inner {
+  position: relative;
+  height: 100%;
+  transform-style: preserve-3d;
+  transition: transform 0.45s cubic-bezier(0.77, 0, 0.175, 1);
+}
+.ticket.is-turned .ticket-inner { transform: rotateY(180deg); }
+.ticket-face {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  border-radius: 16px;
+  overflow: hidden;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  background: var(--color-chalk);
+  border: 1px solid rgb(24 36 29 / 0.1);
+  box-shadow: 0 10px 28px rgb(24 36 29 / 0.08);
+}
+.ticket-back { transform: rotateY(180deg); background: var(--color-forest); color: var(--color-chalk); padding: 24px 20px 64px; }
+
+.ticket-photo { position: relative; flex: 1 1 auto; min-height: 0; background: var(--color-limestone); }
+.ticket-photo img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.ticket-no {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  padding: 4px 10px;
+  border-radius: 999px;
+  background: var(--color-chalk);
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--color-brass-ink);
+  font-variant-numeric: tabular-nums;
+}
+/* The tear line: a dashed perforation with a notch cut at each edge. */
+.ticket-stub {
+  position: relative;
+  padding: 20px 20px 64px;
+  border-top: 2px dashed rgb(24 36 29 / 0.18);
+}
+.ticket-stub::before,
+.ticket-stub::after {
+  content: "";
+  position: absolute;
+  top: -11px;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: var(--color-paper);
+}
+.ticket-stub::before { left: -11px; }
+.ticket-stub::after { right: -11px; }
+.ticket-stub h3 {
+  font-family: var(--font-display);
+  font-size: 20px;
+  font-weight: var(--weight-section);
+  line-height: 1.2;
+  color: var(--color-forest);
+}
+.ticket-counts { margin-top: 12px; display: flex; gap: 20px; font-size: 13px; color: var(--color-ink); }
+.ticket-counts strong {
+  display: block;
+  font-family: var(--font-display);
+  font-size: 28px;
+  font-weight: var(--weight-section);
+  line-height: 1;
+  color: var(--color-forest);
+  font-variant-numeric: tabular-nums;
+}
+
+.ticket-back-title {
+  font-size: 13px;
+  font-weight: 500;
+  color: color-mix(in srgb, var(--color-brass) 62%, var(--color-chalk));
+}
+.ticket-back ul { list-style: none; margin: 12px 0 0; padding: 0; display: grid; gap: 10px; overflow-y: auto; }
+.ticket-back li { display: grid; grid-template-columns: 36px 1fr; gap: 8px; font-size: 14px; line-height: 1.4; }
+.ticket-back li strong { font-family: var(--font-display); font-size: 18px; font-weight: var(--weight-section); }
+.ticket-back em {
+  display: inline-block;
+  margin-left: 6px;
+  padding: 1px 8px;
+  border-radius: 999px;
+  border: 1px solid rgb(255 250 243 / 0.3);
+  font-size: 11px;
+  font-style: normal;
+  font-weight: 500;
+}
+
+.ticket-hit {
+  position: absolute;
+  left: 16px;
+  bottom: 16px;
+  z-index: 2;
+  height: 36px;
+  padding-inline: 16px;
+  border-radius: 999px;
+  border: 1px solid var(--color-forest);
+  background: var(--color-chalk);
+  color: var(--color-forest);
+  font: inherit;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.18s ease, color 0.18s ease, transform 0.12s var(--ease-out);
+}
+.ticket-hit:active { transform: scale(0.97); }
+.ticket-hit:focus-visible { outline: 2px solid var(--color-brass); outline-offset: 3px; }
+@media (hover: hover) and (pointer: fine) {
+  .ticket-hit:hover { background: var(--color-forest); color: var(--color-chalk); }
+}
+
+.ticket-cover {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  gap: 8px;
+  padding: 24px;
+  border-radius: 16px;
+  background: var(--color-forest);
+  color: var(--color-chalk);
+  perspective: none;
+}
+.ticket-cover-kicker { margin-bottom: auto; font-size: 13px; font-weight: 500; color: color-mix(in srgb, var(--color-brass) 62%, var(--color-chalk)); }
+.ticket-cover-total { font-size: 16px; }
+.ticket-cover-total strong {
+  display: block;
+  font-family: var(--font-display);
+  font-size: 72px;
+  font-weight: var(--weight-section);
+  line-height: 1;
+  letter-spacing: -0.04em;
+}
+.ticket-cover-terms { font-size: 14px; color: rgb(255 250 243 / 0.82); }
+
+@media (max-width: 1100px) { .tickets-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+/* Phones: one swipeable row instead of seven tall tickets. */
+@media (max-width: 600px) {
+  .tickets-grid {
+    display: flex;
+    gap: 12px;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    overscroll-behavior-x: contain;
+    margin-inline: calc(-1 * var(--gutter));
+    padding: 4px var(--gutter) 12px;
+    scrollbar-width: none;
+  }
+  .tickets-grid::-webkit-scrollbar { display: none; }
+  .ticket { flex: 0 0 80%; height: 400px; scroll-snap-align: center; }
+  .ticket-cover { display: none; }
+  .tickets-bar li span { display: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ticket, .tickets-bar li { transition: none; transform: none; }
+  .ticket-inner { transition: none; transform: none !important; }
+  .ticket-face { backface-visibility: visible; transition: opacity 0.2s ease; }
+  .ticket-back { transform: none; opacity: 0; }
+  .ticket.is-turned .ticket-back { opacity: 1; }
+  .ticket.is-turned .ticket-front { opacity: 0; }
+}
+
+/* --- Ledger: drawings and reveals (unit 3.26) ----------------------------
+   The tally carries a drawing of the part being read; it redraws on every
+   change of part (a fresh element each time, so a one-shot CSS animation is
+   the right tool). Entries uncover their photograph and bring in their lines
+   the first time they are reached. Hidden states apply only once JavaScript
+   is running (.sketch-js), and never under reduced motion. */
+.ledger-tally-sketch { display: block; width: 100%; max-width: 180px; height: auto; margin: 4px 0 8px; }
+.sketch-js .ledger-tally-sketch path {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  transition: none;
+  animation: ledger-draw 1.2s var(--ease-out) forwards;
+  animation-delay: calc(var(--i, 0) * 70ms);
+}
+@keyframes ledger-draw { to { stroke-dashoffset: 0; } }
+
+.sketch-js .ledger-entry-media { clip-path: inset(0 0 100% 0 round var(--radius-card)); transition: clip-path 0.9s var(--ease-out); }
+.sketch-js .ledger-entry-media img { transform: scale(1.08); transition: transform 1.2s var(--ease-out); }
+.sketch-js .ledger-entry.is-seen .ledger-entry-media { clip-path: inset(0 0 0 0 round var(--radius-card)); }
+.sketch-js .ledger-entry.is-seen .ledger-entry-media img { transform: none; }
+.sketch-js .ledger-entry-lines li { opacity: 0; transform: translateY(8px); transition: opacity 0.5s var(--ease-out), transform 0.5s var(--ease-out); }
+.sketch-js .ledger-entry.is-seen .ledger-entry-lines li { opacity: 1; transform: none; }
+.ledger-entry-lines li:nth-child(2) { transition-delay: 60ms; }
+.ledger-entry-lines li:nth-child(3) { transition-delay: 120ms; }
+.ledger-entry-lines li:nth-child(4) { transition-delay: 180ms; }
+.ledger-entry-lines li:nth-child(5) { transition-delay: 240ms; }
+
+/* Section drawings on this page */
+.mem-sketch { position: absolute; top: 12px; right: 0; width: clamp(96px, 9vw, 132px); height: auto; pointer-events: none; }
+@media (max-width: 760px) { .mem-sketch { width: 80px; } .ledger-tally-sketch { display: none; } }
+.mem-ledger-head, .mem-kit, .mem-faq, .mem-inquiry-section { position: relative; }

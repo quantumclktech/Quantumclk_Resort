@@ -1,0 +1,632 @@
+/* ==========================================================================
+   Dining (unit 3.20)
+   Opens on a forest band: the headline, a thali drawn in one brass line, and
+   an index of the six outlets set large. Below, each outlet gets its own
+   section with the photograph leading; the two bars sit on a darker band so
+   the page runs from day into evening.
+
+   Motion budget, all of it once-only:
+   - the thali draws itself on first paint (explanation of the page's subject)
+   - headline and index rows rise in with a 50ms stagger
+   - each photograph is uncovered by clip-path as it is reached
+   - the viewer fades and scales from .97
+   Reduced motion: opacity only, the thali is simply drawn.
+   ========================================================================== */
+
+.dining-page { background: var(--color-paper); color: var(--color-ink); }
+
+/* --- Opening ------------------------------------------------------------- */
+.dhero {
+  background: var(--color-forest);
+  color: var(--color-chalk);
+  padding-block: clamp(48px, 7vw, 96px) clamp(48px, 6vw, 80px);
+  overflow: hidden;
+}
+.dhero-top {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) clamp(220px, 30vw, 380px);
+  align-items: center;
+  gap: clamp(24px, 5vw, 72px);
+}
+.dhero-kicker {
+  font-size: var(--type-label);
+  font-weight: 500;
+  /* Brass lifted toward chalk: plain brass is 3.7:1 on forest at this size. */
+  color: color-mix(in srgb, var(--color-brass) 62%, var(--color-chalk));
+}
+.dhero h1 {
+  margin-top: 16px;
+  max-width: 13ch;
+  font-family: var(--font-display);
+  font-size: clamp(44px, 7vw, 96px);
+  font-weight: var(--weight-section);
+  line-height: 1;
+  letter-spacing: -0.03em;
+  color: var(--color-chalk);
+}
+.dhero-line {
+  margin-top: 24px;
+  max-width: 44ch;
+  font-size: var(--type-body);
+  line-height: 1.6;
+  color: color-mix(in srgb, var(--color-chalk) 82%, transparent);
+}
+
+.dhero-kicker, .dhero h1, .dhero-line {
+  animation: dining-rise 0.8s var(--ease-out) both;
+}
+.dhero h1 { animation-delay: 60ms; }
+.dhero-line { animation-delay: 120ms; }
+
+@keyframes dining-rise {
+  from { opacity: 0; transform: translateY(16px); }
+}
+
+/* The thali, drawn in brass. */
+.dthali { width: 100%; height: auto; overflow: visible; }
+.dthali :is(circle, ellipse, path) {
+  fill: none;
+  stroke: var(--color-brass);
+  stroke-width: 1.4;
+  stroke-linecap: round;
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  animation: dining-draw 1.6s var(--ease-out) forwards;
+  animation-delay: calc(200ms + var(--i, 0) * 90ms);
+}
+.dthali .dthali-faint { stroke-opacity: 0.45; stroke-width: 1; }
+
+@keyframes dining-draw { to { stroke-dashoffset: 0; } }
+
+/* --- Index of outlets ---------------------------------------------------- */
+.dindex { margin-top: clamp(40px, 6vw, 72px); }
+.dindex-list { list-style: none; margin: 0; padding: 0; border-top: 1px solid color-mix(in srgb, var(--color-chalk) 18%, transparent); }
+.dindex-list > li {
+  border-bottom: 1px solid color-mix(in srgb, var(--color-chalk) 18%, transparent);
+  animation: dining-rise 0.7s var(--ease-out) both;
+  animation-delay: calc(320ms + var(--i, 0) * 50ms);
+}
+.dindex-item {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 24px;
+}
+.dindex-row {
+  display: grid;
+  grid-template-columns: 40px minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 8px 24px;
+  padding-block: 20px;
+  color: inherit;
+  text-decoration: none;
+}
+.dindex-num {
+  font-size: 14px;
+  font-variant-numeric: tabular-nums;
+  color: color-mix(in srgb, var(--color-chalk) 70%, transparent);
+}
+.dindex-name {
+  font-family: var(--font-display);
+  font-size: clamp(24px, 3vw, 40px);
+  font-weight: var(--weight-section);
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  transition: transform 0.25s var(--ease-out), color 0.2s ease;
+}
+.dindex-hours {
+  font-size: 15px;
+  font-variant-numeric: tabular-nums;
+  color: color-mix(in srgb, var(--color-chalk) 86%, transparent);
+  text-align: right;
+}
+/* .dindex-status removed */
+
+.dindex-row:focus-visible { outline: 2px solid var(--color-brass); outline-offset: 4px; }
+
+@media (hover: hover) and (pointer: fine) {
+  .dindex-row:hover .dindex-name { transform: translateX(8px); color: var(--color-brass); }
+}
+
+/* The photograph that trails the cursor. Positioned at the pointer by JS
+   (transform only); the frame is offset so it never sits under the text. */
+.dindex-preview {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 40;
+  pointer-events: none;
+}
+.dindex-preview-frame {
+  position: relative;
+  width: 300px;
+  aspect-ratio: 4 / 3;
+  margin: -112px 0 0 48px;
+  border-radius: 12px;
+  overflow: hidden;
+  background: var(--color-forest-soft);
+  box-shadow: 0 24px 48px rgb(0 0 0 / 0.28);
+  opacity: 0;
+  transform: scale(0.94) rotate(-2deg);
+  transition: opacity 0.2s var(--ease-out), transform 0.3s var(--ease-out);
+}
+.dindex-preview.is-on .dindex-preview-frame { opacity: 1; transform: none; }
+.dindex-preview-frame img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+.dindex-preview-frame img.is-shown { opacity: 1; }
+
+/* --- Live status chip ---------------------------------------------------- */
+.dstatus {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 12px;
+  border-radius: 999px;
+  border: 1px solid color-mix(in srgb, currentColor 24%, transparent);
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 1;
+  white-space: nowrap;
+  font-variant-numeric: tabular-nums;
+}
+.dstatus::before {
+  content: "";
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: color-mix(in srgb, currentColor 40%, transparent);
+}
+.dstatus.is-open::before { background: #3fae6a; box-shadow: 0 0 0 3px rgb(63 174 106 / 0.22); }
+
+/* --- Outlet sections ----------------------------------------------------- */
+.dfeat {
+  padding-block: clamp(56px, 8vw, 112px);
+  scroll-margin-top: calc(var(--header-height, 84px) + 16px);
+}
+.dfeat + .dfeat:not(.is-evening) { padding-top: 0; }
+.dfeat.is-evening + .dfeat:not(.is-evening) { padding-top: clamp(56px, 8vw, 112px); }
+.dfeat.is-evening { background: #0b2d1c; color: var(--color-chalk); }
+.dfeat.is-evening + .dfeat.is-evening { padding-top: 0; }
+
+.dfeat-inner {
+  display: grid;
+  grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr);
+  align-items: center;
+  gap: clamp(32px, 5vw, 80px);
+}
+.dfeat.is-flip .dfeat-shot { order: 2; }
+
+/* The photograph: a button that opens the viewer. */
+.dfeat-shot {
+  position: relative;
+  display: block;
+  width: 100%;
+  padding: 0;
+  border: 0;
+  background: none;
+  cursor: zoom-in;
+  border-radius: 16px;
+}
+.dfeat-shot:focus-visible { outline: 2px solid var(--color-brass); outline-offset: 4px; }
+.dfeat-shot-clip {
+  display: block;
+  aspect-ratio: 4 / 3;
+  border-radius: 16px;
+  overflow: hidden;
+  background: var(--color-limestone);
+  clip-path: inset(0 0 100% 0 round 16px);
+  transition: clip-path 0.9s var(--ease-out);
+}
+.dfeat-shot-clip img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transform: scale(1.08);
+  transition: transform 1.2s var(--ease-out);
+}
+.dfeat.is-in .dfeat-shot-clip { clip-path: inset(0 0 0 0 round 16px); }
+.dfeat.is-in .dfeat-shot-clip img { transform: none; }
+.dfeat.is-evening .dfeat-shot-clip { background: var(--color-forest-soft); }
+
+.dfeat-view {
+  position: absolute;
+  right: 16px;
+  bottom: 16px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 14px;
+  border-radius: 999px;
+  background: rgb(16 64 40 / 0.82);
+  color: var(--color-chalk);
+  font-size: 14px;
+  font-weight: 500;
+  backdrop-filter: blur(6px);
+  transition: transform 0.2s var(--ease-out);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .dfeat.is-in .dfeat-shot:hover .dfeat-shot-clip img { transform: scale(1.03); transition-duration: 0.6s; }
+  .dfeat-shot:hover .dfeat-view { transform: translateY(-2px); }
+}
+
+/* Text column */
+.dfeat-kicker {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: var(--type-label);
+  font-weight: 500;
+  color: var(--color-brass-ink);
+}
+.dfeat.is-evening .dfeat-kicker { color: var(--color-brass); }
+.dfeat-num { font-variant-numeric: tabular-nums; }
+.dfeat-mark {
+  display: inline-grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 1px solid currentColor;
+}
+.dfeat-name {
+  margin-top: 16px;
+  font-family: var(--font-display);
+  font-size: clamp(32px, 4vw, 56px);
+  font-weight: var(--weight-section);
+  line-height: 1.04;
+  letter-spacing: -0.025em;
+  color: var(--color-forest);
+}
+.dfeat.is-evening .dfeat-name { color: var(--color-chalk); }
+
+.dfeat-when {
+  margin-top: 16px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px 16px;
+  font-size: 16px;
+  font-weight: 500;
+  font-variant-numeric: tabular-nums;
+}
+
+/* Three things the outlet is known for, set like the courses on a menu card. */
+.dfeat-dishes {
+  list-style: none;
+  margin: 32px 0;
+  padding: 0;
+  border-top: 1px solid color-mix(in srgb, currentColor 14%, transparent);
+}
+.dfeat-dishes li {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding-block: 14px;
+  border-bottom: 1px solid color-mix(in srgb, currentColor 14%, transparent);
+  font-family: var(--font-display);
+  font-size: clamp(20px, 1.8vw, 24px);
+  font-weight: var(--weight-section);
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+}
+.dfeat-dishes li::before {
+  content: "";
+  flex: none;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  border: 1px solid var(--color-brass);
+}
+
+/* --- View menu button ---------------------------------------------------- */
+.dmenu-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 40px;
+  padding-inline: 18px;
+  border-radius: 999px;
+  border: 1px solid color-mix(in srgb, var(--color-chalk) 40%, transparent);
+  background: transparent;
+  color: var(--color-chalk);
+  font: inherit;
+  font-size: 14px;
+  font-weight: 500;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: background-color 0.18s ease, color 0.18s ease, border-color 0.18s ease, transform 0.12s var(--ease-out);
+}
+.dmenu-btn:active { transform: scale(0.97); }
+.dmenu-btn:focus-visible { outline: 2px solid var(--color-brass); outline-offset: 3px; }
+.dmenu-btn.is-large {
+  height: 48px;
+  padding-inline: 24px;
+  font-size: 15px;
+  border-color: var(--color-forest);
+  background: var(--color-forest);
+  color: var(--color-chalk);
+}
+.dfeat.is-evening .dmenu-btn.is-large {
+  border-color: var(--color-chalk);
+  background: var(--color-chalk);
+  color: var(--color-forest);
+}
+@media (hover: hover) and (pointer: fine) {
+  .dmenu-btn:hover { background: var(--color-chalk); color: var(--color-forest); border-color: var(--color-chalk); }
+  /* --color-forest-soft is a pale sage, so the hover is the darker forest. */
+  .dmenu-btn.is-large:hover { background: #0b2d1c; border-color: #0b2d1c; color: var(--color-chalk); }
+  .dfeat.is-evening .dmenu-btn.is-large:hover { background: var(--color-limestone); border-color: var(--color-limestone); color: var(--color-forest); }
+}
+
+.dfeat-text {
+  opacity: 0;
+  transform: translateY(16px);
+  transition: opacity 0.6s var(--ease-out) 0.15s, transform 0.6s var(--ease-out) 0.15s;
+}
+.dfeat.is-in .dfeat-text { opacity: 1; transform: none; }
+
+/* --- Viewer -------------------------------------------------------------- */
+.dbox {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  display: grid;
+  place-items: center;
+  padding: 72px 80px 32px;
+  background: rgb(6 22 14 / 0.96);
+  color: var(--color-chalk);
+  animation: dining-fade 0.25s var(--ease-out);
+}
+.dbox-figure {
+  margin: 0;
+  display: grid;
+  gap: 16px;
+  max-width: min(1400px, 100%);
+  animation: dining-pop 0.3s var(--ease-out);
+}
+.dbox-img { position: relative; }
+.dbox-img img {
+  display: block;
+  width: auto;
+  height: auto;
+  max-width: 100%;
+  max-height: calc(100dvh - 200px);
+  margin-inline: auto;
+  border-radius: 8px;
+}
+.dbox figcaption {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 8px 16px;
+  font-size: 14px;
+  color: color-mix(in srgb, var(--color-chalk) 78%, transparent);
+}
+.dbox figcaption strong {
+  font-family: var(--font-display);
+  font-size: 22px;
+  font-weight: var(--weight-section);
+  color: var(--color-chalk);
+}
+.dbox-count { font-variant-numeric: tabular-nums; color: var(--color-brass); }
+
+.dbox-btn {
+  position: absolute;
+  display: grid;
+  place-items: center;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  border: 1px solid color-mix(in srgb, var(--color-chalk) 30%, transparent);
+  background: rgb(16 64 40 / 0.6);
+  color: var(--color-chalk);
+  cursor: pointer;
+  transition: background-color 0.18s ease, transform 0.12s var(--ease-out);
+}
+.dbox-btn:active { transform: scale(0.96); }
+.dbox-btn:focus-visible { outline: 2px solid var(--color-brass); outline-offset: 3px; }
+@media (hover: hover) and (pointer: fine) {
+  .dbox-btn:hover { background: var(--color-forest); }
+}
+.dbox-close { top: 16px; right: 16px; }
+.dbox-prev { left: 16px; top: 50%; translate: 0 -50%; }
+.dbox-next { right: 16px; top: 50%; translate: 0 -50%; }
+
+@keyframes dining-fade { from { opacity: 0; } }
+@keyframes dining-pop { from { opacity: 0; transform: scale(0.97); } }
+
+/* --- Small screens ------------------------------------------------------- */
+@media (max-width: 900px) {
+  .dhero-top { grid-template-columns: 1fr; }
+  .dthali { width: min(200px, 56vw); justify-self: start; }
+  .dindex-item { gap: 12px; }
+  .dindex-row { grid-template-columns: 28px minmax(0, 1fr); gap: 6px 12px; padding-block: 16px; }
+  .dindex-hours { grid-column: 2; text-align: left; }
+  .dindex-status:empty { display: none; }
+
+  .dfeat-inner { grid-template-columns: 1fr; }
+  .dfeat.is-flip .dfeat-shot { order: 0; }
+
+  .dbox { padding: 64px 16px 88px; }
+  .dbox-prev, .dbox-next { top: auto; bottom: 20px; translate: none; }
+  .dbox-prev { left: calc(50% - 56px); }
+  .dbox-next { right: calc(50% - 56px); }
+}
+@media (max-width: 600px) {
+  .dfeat { padding-block: 48px; }
+  .dfeat.is-evening + .dfeat:not(.is-evening) { padding-top: 48px; }
+  .dfeat-inner { gap: 24px; }
+  .dfeat-shot-clip { aspect-ratio: 3 / 2; }
+  .dfeat-dishes { margin: 20px 0 24px; border: 0; display: flex; flex-wrap: wrap; gap: 8px; }
+  .dfeat-dishes li {
+    padding: 8px 12px;
+    border: 1px solid color-mix(in srgb, currentColor 18%, transparent);
+    border-radius: 999px;
+    font-family: inherit;
+    font-size: 14px;
+    font-weight: 500;
+    letter-spacing: 0;
+  }
+  .dfeat-dishes li::before { display: none; }
+  .dmenu-btn.is-large { width: 100%; }
+}
+
+/* --- Reduced motion ------------------------------------------------------ */
+@media (prefers-reduced-motion: reduce) {
+  .dhero-kicker, .dhero h1, .dhero-line, .dindex-list > li { animation-name: dining-fade; }
+  .dthali :is(circle, ellipse, path) { animation: none; stroke-dashoffset: 0; }
+  .dfeat-shot-clip { clip-path: none; opacity: 0; transition: opacity 0.6s ease; }
+  .dfeat.is-in .dfeat-shot-clip { clip-path: none; opacity: 1; }
+  .dfeat-shot-clip img, .dfeat.is-in .dfeat-shot-clip img { transform: none; transition: none; }
+  .dfeat-text { transform: none; }
+  .dfeat-view, .dindex-name, .dindex-status > svg { transition: none; }
+  @media (hover: hover) and (pointer: fine) { .dindex-row:hover .dindex-name { transform: none; } }
+  .dbox-figure { animation-name: dining-fade; }
+}
+.dining-close { padding-bottom: clamp(64px, 8vw, 104px); }
+
+/* --- Menu sheet (unit 3.21) ----------------------------------------------
+   Always mounted; .is-open slides it in. Transitions rather than keyframes so
+   a quick open-close retargets from where it is. Leaves the way it came. */
+.dmenu {
+  position: fixed;
+  inset: 0;
+  z-index: 150;
+  pointer-events: none;
+}
+.dmenu.is-open { pointer-events: auto; }
+.dmenu-scrim {
+  position: absolute;
+  inset: 0;
+  background: rgb(6 22 14 / 0.56);
+  opacity: 0;
+  transition: opacity 0.3s var(--ease-out);
+}
+.dmenu.is-open .dmenu-scrim { opacity: 1; }
+.dmenu-sheet {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: min(480px, 100%);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  background: var(--color-paper);
+  color: var(--color-ink);
+  box-shadow: -24px 0 48px rgb(0 0 0 / 0.18);
+  transform: translateX(100%);
+  transition: transform 0.32s var(--ease-out), visibility 0s linear 0.32s;
+  visibility: hidden;
+}
+.dmenu.is-open .dmenu-sheet {
+  transform: none;
+  visibility: visible;
+  transition: transform 0.32s var(--ease-out), visibility 0s;
+}
+
+.dmenu-head { position: relative; padding: 0 32px 24px; border-bottom: 1px solid color-mix(in srgb, var(--color-ink) 10%, transparent); }
+.dmenu-photo {
+  position: relative;
+  margin: 0 -32px 24px;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  background: var(--color-limestone);
+}
+.dmenu-photo img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.dmenu-close {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border: 0;
+  border-radius: 50%;
+  background: var(--color-chalk);
+  color: var(--color-forest);
+  cursor: pointer;
+  transition: transform 0.12s var(--ease-out);
+}
+.dmenu-close:active { transform: scale(0.95); }
+.dmenu-close:focus-visible { outline: 2px solid var(--color-brass); outline-offset: 3px; }
+.dmenu-kicker { font-size: var(--type-label); font-weight: 500; color: var(--color-brass-ink); }
+.dmenu-head h2 {
+  margin-top: 8px;
+  font-family: var(--font-display);
+  font-size: 32px;
+  font-weight: var(--weight-section);
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  color: var(--color-forest);
+}
+.dmenu-hours { margin-top: 8px; font-size: 15px; font-weight: 500; font-variant-numeric: tabular-nums; }
+
+.dmenu-body { padding: 8px 32px 40px; }
+.dmenu-group { padding-top: 24px; }
+.dmenu-group h3 {
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--color-brass-ink);
+}
+.dmenu-group ul { list-style: none; margin: 8px 0 0; padding: 0; }
+.dmenu-group li {
+  padding-block: 12px;
+  border-bottom: 1px dashed color-mix(in srgb, var(--color-ink) 18%, transparent);
+  font-family: var(--font-display);
+  font-size: 19px;
+  font-weight: var(--weight-section);
+  line-height: 1.3;
+}
+.dmenu-note {
+  margin-top: 28px;
+  padding: 12px 16px;
+  border-radius: 10px;
+  background: var(--color-limestone);
+  font-size: 14px;
+  color: var(--color-ink);
+}
+.dmenu-file { display: block; width: 100%; margin-top: 24px; border: 0; border-radius: 8px; }
+iframe.dmenu-file { height: 70dvh; background: var(--color-chalk); }
+.dmenu-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 16px;
+  font-weight: 500;
+  color: var(--color-forest);
+  text-decoration: underline;
+  text-decoration-color: var(--color-brass);
+  text-underline-offset: 4px;
+}
+
+/* Phones: a bottom sheet. */
+@media (max-width: 600px) {
+  .dmenu-sheet {
+    top: auto;
+    left: 0;
+    width: 100%;
+    max-height: 88dvh;
+    border-radius: 16px 16px 0 0;
+    box-shadow: 0 -16px 40px rgb(0 0 0 / 0.2);
+    transform: translateY(100%);
+  }
+  .dmenu-head { padding-inline: 20px; }
+  .dmenu-photo { margin-inline: -20px; aspect-ratio: 2 / 1; }
+  .dmenu-body { padding-inline: 20px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .dmenu-sheet, .dmenu.is-open .dmenu-sheet { transform: none; opacity: 0; transition: opacity 0.2s ease, visibility 0s linear 0.2s; }
+  .dmenu.is-open .dmenu-sheet { opacity: 1; transition: opacity 0.2s ease, visibility 0s; }
+}

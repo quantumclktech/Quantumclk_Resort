@@ -1,0 +1,75 @@
+# Configuration names: docs/02-architecture/identity/KEYCLOAK-SETUP.md §9. Secrets come from the environment only.
+server:
+  port: ${PORT:8091}
+
+spring:
+  application:
+    name: access-service
+  datasource:
+    url: ${ACCESS_DB_URL:jdbc:postgresql://localhost:5433/access_db}
+    username: ${ACCESS_DB_USER:access_svc}
+    password: ${ACCESS_DB_PASSWORD}
+  jpa:
+    open-in-view: false
+    hibernate:
+      ddl-auto: validate   # Flyway owns the schema
+  flyway:
+    enabled: true
+  servlet:
+    multipart:
+      # Gold Membership payment proof: one image of at most 5 MB (inc-membership-PLAN S1). The gateway allows
+      # 6 MB on that route only. Bigger uploads get 413 before reaching the controller.
+      max-file-size: 5MB
+      max-request-size: 6MB
+
+erp:
+  keycloak:
+    url: ${KEYCLOAK_URL:http://localhost:8081}          # public base: must match the token `iss` exactly
+    # Where the Admin API is actually called. Defaults to `url`; set it to the internal address when `url`
+    # is a public hostname, so provisioning does not depend on the tunnel being up (KEYCLOAK-SETUP §9).
+    # NOTE: the fallback references `erp.keycloak.url`, not `KEYCLOAK_URL`, so tests that override the URL
+    # dynamically (Testcontainers) also move the admin calls with it.
+    admin-url: ${KEYCLOAK_ADMIN_URL:${erp.keycloak.url}}
+    realm: ${KEYCLOAK_REALM:gh-staff}
+    issuer: ${erp.keycloak.url}/realms/${erp.keycloak.realm}
+    guest-issuer: ${erp.keycloak.url}/realms/gh-guests   # members on the landing page (/api/v1/portal/**)
+    admin-client-id: access-service
+    admin-client-secret: ${KC_ACCESS_SERVICE_CLIENT_SECRET}
+  web:
+    origin: ${ERP_WEB_ORIGIN:http://localhost:5173}   # the ERP's origin (scheme + host), no path
+    url: ${ERP_WEB_URL:http://localhost:5173/erp/}    # where the setup email's link returns to: origin + /erp/ (D-124)
+  membership:   # Gold Membership (ERP-05), docs/04-modules/membership.md
+    # Encrypted payment-proof files (AES-256-GCM). Keep this directory out of git and backed up with the DB.
+    proof-dir: ${MEMBERSHIP_PROOF_DIR:./data/membership-proofs}
+    # 32 random bytes, base64 (openssl rand -base64 32). Required: without it registrations with a proof fail.
+    # Losing it makes the stored proofs unreadable.
+    proof-key: ${MEMBERSHIP_PROOF_KEY:}
+    # Key for the ID-proof hash (HMAC-SHA256; D-131): at least 32 random bytes, base64 (openssl rand -base64 32).
+    # Required for registration. Changing it later breaks duplicate detection against existing members.
+    id-hash-key: ${MEMBERSHIP_ID_HASH_KEY:}
+    validity: ${MEMBERSHIP_VALIDITY:P12M}   # Gold validity from verification (membership-data.ts: 12 months)
+  guest-service:   # customer accounts + welcome email (D-120); internal API, not via the gateway
+    url: ${GUEST_SERVICE_URL:http://localhost:8092}
+  sync:
+    interval: ${ACCOUNT_SYNC_INTERVAL:PT5M}
+  bootstrap-admin:   # used only while no ADMIN exists (KEYCLOAK-SETUP §10)
+    email: ${BOOTSTRAP_ADMIN_EMAIL:}
+    username: ${BOOTSTRAP_ADMIN_USERNAME:}
+    first-name: ${BOOTSTRAP_ADMIN_FIRST_NAME:}
+    last-name: ${BOOTSTRAP_ADMIN_LAST_NAME:}
+    mobile: ${BOOTSTRAP_ADMIN_MOBILE:}
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health
+  endpoint:
+    health:
+      probes:
+        enabled: true
+
+logging:
+  structured:
+    format:
+      console: ecs   # JSON logs; correlationId comes from the MDC (CorrelationIdFilter)

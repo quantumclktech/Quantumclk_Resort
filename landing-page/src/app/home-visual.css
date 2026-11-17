@@ -1,0 +1,362 @@
+/* ==========================================================================
+   Home page, visual storytelling (unit 3.18, phase 1)
+   Less text, small visual pieces. Every image sits in the same calm rounded
+   frame and lines up with the page edge — nothing bleeds off the screen.
+   Section rhythm uses the site's own --space-section.
+   ========================================================================== */
+
+/* Story: one line and a credit -------------------------------------------- */
+.story-content .story-lead { margin-top: 20px; max-width: 42ch; }
+.story-credit {
+  margin-top: 20px;
+  font-size: 13px;
+  line-height: 1.5;
+  color: var(--color-muted);
+}
+
+/* Shared head for row sections: title left, link right -------------------- */
+.home-rooms,
+.home-moments {
+  padding-block: var(--space-section);
+  border-bottom: 1px solid var(--color-line);
+}
+.home-row-head {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 24px;
+  margin-bottom: clamp(24px, 3vw, 36px);
+}
+.home-row-head h2 {
+  margin-top: 12px;
+  font-family: var(--font-display);
+  font-size: var(--type-section);
+  font-weight: var(--weight-section);
+  line-height: var(--leading-section);
+  letter-spacing: var(--tracking-section);
+  color: var(--color-ink);
+}
+.home-row-link {
+  flex: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding-bottom: 4px;
+  font-size: var(--type-small);
+  font-weight: 500;
+  color: var(--color-ink);
+  text-decoration: none;
+  border-bottom: 1px solid var(--color-brass);
+  transition: color .2s var(--ease-out);
+}
+@media (hover: hover) and (pointer: fine) { .home-row-link:hover { color: var(--color-forest); } }
+.home-row-note {
+  margin-top: 12px;
+  font-size: 12px;
+  color: var(--color-muted);
+}
+
+/* Swipe row ----------------------------------------------------------------- */
+.swipe-row { position: relative; }
+.swipe-row-track {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: calc((100% - 3 * 20px) / 4);
+  gap: 20px;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+  overscroll-behavior-x: contain;
+}
+.swipe-row-track::-webkit-scrollbar { display: none; }
+.swipe-row-nav {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+  margin-top: 16px;
+}
+.swipe-row-nav button {
+  width: 40px;
+  height: 40px;
+  display: grid;
+  place-items: center;
+  padding: 0;
+  color: var(--color-ink);
+  background: var(--color-chalk);
+  border: 1px solid var(--color-line);
+  border-radius: 999px;
+  cursor: pointer;
+  transition: border-color .2s var(--ease-out), background-color .2s var(--ease-out);
+}
+@media (hover: hover) and (pointer: fine) { .swipe-row-nav button:hover { border-color: var(--color-ink); } }
+
+/* Room tile: photo, name, price. */
+.room-tile {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-width: 0;
+  scroll-snap-align: start;
+  color: var(--color-ink);
+  text-decoration: none;
+}
+.room-tile-media {
+  display: block;
+  margin-bottom: 10px;
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+  border-radius: var(--radius-card);
+  background: var(--color-limestone);
+}
+.room-tile-media img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: filter .3s var(--ease-out);
+}
+@media (hover: hover) and (pointer: fine) { .room-tile:hover .room-tile-media img { filter: brightness(.92); } }
+.room-tile:focus-visible { outline: none; }
+.room-tile:focus-visible .room-tile-media { outline: 2px solid var(--color-brass); outline-offset: 3px; }
+.room-tile-name { font-size: var(--type-body); font-weight: 600; }
+.room-tile-price { font-size: var(--type-small); font-variant-numeric: tabular-nums; color: var(--color-muted); }
+
+/* Amenities: icon tiles ------------------------------------------------------ */
+.amenities-section {
+  padding-block: var(--space-section);
+  border-bottom: 1px solid var(--color-line);
+}
+.amenities-section .amenities-heading { margin-bottom: clamp(24px, 3vw, 36px); }
+.amenity-grid {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 12px;
+}
+.amenity-tile {
+  width: 100%;
+  height: 100%;
+  display: grid;
+  grid-template-columns: 44px minmax(0, 1fr);
+  grid-template-rows: auto auto;
+  column-gap: 14px;
+  align-items: center;
+  padding: 16px;
+  text-align: left;
+  font-family: var(--font-sans);
+  color: var(--color-ink);
+  background: var(--color-chalk);
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-card);
+  cursor: pointer;
+  transition: border-color .2s var(--ease-out), background-color .2s var(--ease-out);
+}
+@media (hover: hover) and (pointer: fine) { .amenity-tile:hover { border-color: color-mix(in srgb, var(--color-ink) 35%, transparent); } }
+.amenity-tile.is-active { border-color: var(--color-forest); background: color-mix(in srgb, var(--color-garden) 45%, var(--color-chalk)); }
+.amenity-tile:focus-visible { outline: 2px solid var(--color-brass); outline-offset: 2px; }
+.amenity-tile-icon {
+  grid-row: 1 / 3;
+  width: 44px;
+  height: 44px;
+  display: grid;
+  place-items: center;
+  color: var(--color-forest);
+  background: var(--color-garden);
+  border-radius: 12px;
+}
+.amenity-tile-label { font-size: 15px; font-weight: 600; line-height: 1.3; }
+.amenity-tile-hours { font-size: 13px; font-variant-numeric: tabular-nums; color: var(--color-muted); }
+.amenity-panel {
+  margin-top: 12px;
+  padding: 18px 20px;
+  background: var(--color-chalk);
+  border: 1px solid var(--color-line);
+  border-left: 3px solid var(--color-forest);
+  border-radius: var(--radius-inner);
+}
+.amenity-panel-title { font-weight: 600; color: var(--color-ink); }
+.amenity-panel-title span { font-weight: 400; color: var(--color-muted); }
+.amenity-panel ul { margin: 10px 0 0; padding-left: 18px; color: var(--color-muted); font-size: var(--type-small); line-height: 1.7; }
+
+/* Dining: outlet chips ------------------------------------------------------ */
+.home-chips {
+  margin: 20px 0 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.home-chips li {
+  padding: 8px 14px;
+  font-size: var(--type-small);
+  color: var(--color-ink);
+  background: var(--color-limestone);
+  border-radius: 999px;
+}
+
+/* Experiences: square photo tiles, name on the photo ----------------------- */
+.moment-strip {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 20px;
+}
+.moment-tile {
+  position: relative;
+  display: block;
+  aspect-ratio: 1 / 1;
+  overflow: hidden;
+  border-radius: var(--radius-card);
+  background: var(--color-limestone);
+  color: var(--color-chalk);
+  text-decoration: none;
+}
+.moment-tile img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: filter .3s var(--ease-out);
+}
+@media (hover: hover) and (pointer: fine) { .moment-tile:hover img { filter: brightness(.9); } }
+.moment-tile:focus-visible { outline: 2px solid var(--color-brass); outline-offset: 3px; }
+.moment-tile-caption {
+  position: absolute;
+  inset: auto 0 0 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: 48px 20px 18px;
+  background: linear-gradient(to top, rgba(12, 22, 16, .78), rgba(12, 22, 16, 0));
+}
+.moment-tile-caption strong { font-family: var(--font-display); font-size: 20px; font-weight: 600; }
+.moment-tile-caption span { font-size: 13px; color: color-mix(in srgb, var(--color-chalk) 82%, transparent); }
+
+/* Gatherings: numbers, image on the left ------------------------------------ */
+@media (min-width: 901px) {
+  .showcase-split-layout.is-flipped { grid-template-columns: 1.15fr 1fr; }
+  .showcase-split-layout.is-flipped .showcase-left { order: 2; }
+}
+.home-numbers {
+  margin: 24px 0 32px;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 16px;
+}
+.home-numbers > div {
+  display: flex;
+  flex-direction: column-reverse; /* dt precedes dd in the markup, the figure reads first */
+  gap: 6px;
+  padding-top: 14px;
+  border-top: 1px solid var(--color-line);
+}
+.home-numbers dd {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: clamp(28px, 3vw, 40px);
+  font-weight: 600;
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+  color: var(--color-forest);
+}
+.home-numbers dt { font-size: 13px; color: var(--color-muted); }
+
+/* Location: distance chips -------------------------------------------------- */
+.home-distances {
+  margin: 20px 0 24px;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  max-width: 440px;
+}
+.home-distances li {
+  display: grid;
+  grid-template-columns: 16px minmax(0, 1fr) auto;
+  gap: 12px;
+  align-items: center;
+  padding: 12px 16px;
+  font-size: var(--type-small);
+  color: var(--color-ink);
+  background: var(--color-chalk);
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-control);
+}
+.home-distances li svg { color: var(--color-brass-ink); }
+.home-distances strong { font-weight: 600; font-variant-numeric: tabular-nums; color: var(--color-forest); }
+
+/* Highlights: six icon tiles ------------------------------------------------ */
+.highlight-tiles {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+}
+.highlight-tile {
+  display: grid;
+  grid-template-columns: 44px minmax(0, 1fr);
+  grid-template-rows: auto auto;
+  column-gap: 14px;
+  align-items: center;
+  padding: 18px;
+  background: var(--color-chalk);
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-card);
+}
+.highlight-tile-icon {
+  grid-row: 1 / 3;
+  width: 44px;
+  height: 44px;
+  display: grid;
+  place-items: center;
+  color: var(--color-brass-ink);
+  background: var(--color-limestone);
+  border-radius: 12px;
+}
+.highlight-tile-title { font-size: 15px; font-weight: 600; color: var(--color-ink); }
+.highlight-tile-desc { font-size: 13px; color: var(--color-muted); }
+
+/* Tablet -------------------------------------------------------------------- */
+@media (max-width: 1000px) {
+  .swipe-row-track { grid-auto-columns: calc((100% - 2 * 16px) / 3); gap: 16px; }
+  .amenity-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .highlight-tiles { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+
+/* Phone: rows swipe, tiles stay two-up ------------------------------------- */
+@media (max-width: 760px) {
+  .home-row-head { align-items: flex-start; flex-direction: column; gap: 12px; }
+  .swipe-row-track { grid-auto-columns: 74%; gap: 12px; }
+  .swipe-row-nav { display: none; }
+  .moment-strip {
+    display: grid;
+    grid-auto-flow: column;
+    grid-template-columns: none;
+    grid-auto-columns: 74%;
+    gap: 12px;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+  }
+  .moment-strip::-webkit-scrollbar { display: none; }
+  .moment-strip li { scroll-snap-align: start; }
+  .amenity-tile { grid-template-columns: 40px minmax(0, 1fr); column-gap: 10px; padding: 12px; }
+  .amenity-tile-icon { width: 40px; height: 40px; }
+  .amenity-tile-label { font-size: 14px; }
+  .amenity-tile-hours { font-size: 12px; }
+  /* Two up on a phone, icon above the text, so six tiles stay short. */
+  .highlight-tiles { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+  .highlight-tile { grid-template-columns: minmax(0, 1fr); row-gap: 4px; padding: 14px; align-items: start; }
+  .highlight-tile-icon { grid-row: auto; width: 40px; height: 40px; margin-bottom: 8px; }
+  .highlight-tile-title { font-size: 14px; }
+  .home-distances { max-width: none; }
+  .home-numbers dd { font-size: 28px; }
+}

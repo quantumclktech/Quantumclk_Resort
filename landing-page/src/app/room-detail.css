@@ -1,0 +1,636 @@
+/* ==========================================================================
+   Room detail pages (unit 3.17) — /stay/<room>
+   Airbnb's listing layout in the Golden Hills palette: photos first, a few
+   scannable facts, the paragraph last, and a booking card on the right.
+   Colour is used more boldly than elsewhere on the site but never leaves
+   the brand: forest for the price, brass for the one action, garden and
+   limestone tints behind the facts.
+   ========================================================================== */
+
+.room-page {
+  padding-block: 24px 120px;
+}
+
+.room-back {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: var(--type-small);
+  color: var(--color-muted);
+  text-decoration: none;
+  transition: color .2s var(--ease-out);
+}
+@media (hover: hover) and (pointer: fine) { .room-back:hover { color: var(--color-ink); } }
+
+.room-title-row {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 24px;
+  margin: 16px 0 24px;
+}
+.room-title-row h1 {
+  font-family: var(--font-display);
+  font-size: clamp(28px, 3vw, 40px);
+  font-weight: var(--weight-section);
+  line-height: 1.1;
+  letter-spacing: var(--tracking-section);
+  color: var(--color-ink);
+}
+.room-share {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  flex: none;
+  min-height: 40px;
+  padding: 0 12px;
+  font-family: var(--font-sans);
+  font-size: var(--type-small);
+  font-weight: 500;
+  color: var(--color-ink);
+  background: none;
+  border: 0;
+  border-radius: var(--radius-control);
+  cursor: pointer;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+  transition: background-color .2s var(--ease-out);
+}
+@media (hover: hover) and (pointer: fine) { .room-share:hover { background: var(--color-limestone); } }
+
+/* Photo grid --------------------------------------------------------------- */
+.room-grid-wrap { position: relative; }
+.room-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  gap: 8px;
+  height: clamp(320px, 38vw, 520px);
+  border-radius: var(--radius-card);
+  overflow: hidden;
+}
+.room-grid-tile {
+  position: relative;
+  min-width: 0;
+  min-height: 0;
+  padding: 0;
+  border: 0;
+  overflow: hidden;
+  background: var(--color-limestone);
+  cursor: zoom-in;
+}
+.room-grid-tile img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: filter .3s var(--ease-out);
+}
+@media (hover: hover) and (pointer: fine) { .room-grid-tile:hover img { filter: brightness(.9); } }
+.room-grid-tile:focus-visible { outline: 2px solid var(--color-brass); outline-offset: -4px; }
+.room-grid-tile.is-lead { grid-column: 1; grid-row: 1 / 3; }
+
+/* Fewer than five renders: the right side still fills, never leaves a hole. */
+.room-grid-4 .room-grid-tile:nth-child(2) { grid-column: 2 / 4; }
+.room-grid-3 .room-grid-tile:nth-child(2) { grid-column: 2 / 4; grid-row: 1; }
+.room-grid-3 .room-grid-tile:nth-child(3) { grid-column: 2 / 4; grid-row: 2; }
+
+.room-grid-all {
+  position: absolute;
+  right: 16px;
+  bottom: 16px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 36px;
+  padding: 0 14px;
+  font-family: var(--font-sans);
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--color-ink);
+  background: var(--color-chalk);
+  border: 1px solid var(--color-ink);
+  border-radius: var(--radius-control);
+  cursor: pointer;
+  transition: background-color .2s var(--ease-out);
+}
+@media (hover: hover) and (pointer: fine) { .room-grid-all:hover { background: var(--color-limestone); } }
+.room-grid-note {
+  margin: 8px 0 0;
+  font-size: 12px;
+  color: var(--color-muted);
+  text-align: right;
+}
+
+/* Body: details left, booking right --------------------------------------- */
+.room-body {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(320px, 380px);
+  gap: clamp(40px, 6vw, 96px);
+  align-items: start;
+  margin-top: 40px;
+}
+
+.room-summary {
+  padding-bottom: 28px;
+  border-bottom: 1px solid var(--color-line);
+}
+.room-summary h2 {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-display);
+  font-size: clamp(20px, 1.8vw, 24px);
+  font-weight: var(--weight-card);
+  line-height: 1.25;
+  color: var(--color-ink);
+}
+.room-summary h2 svg { flex: none; color: var(--color-brass-ink); }
+.room-facts {
+  margin-top: 8px;
+  font-size: var(--type-body);
+  color: var(--color-muted);
+}
+
+/* Features: the part people actually read. */
+.room-features {
+  margin: 0;
+  padding: 28px 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  border-bottom: 1px solid var(--color-line);
+}
+.room-features li {
+  display: grid;
+  grid-template-columns: 48px minmax(0, 1fr);
+  gap: 16px;
+  align-items: center;
+}
+.room-feature-icon {
+  width: 48px;
+  height: 48px;
+  display: grid;
+  place-items: center;
+  color: var(--color-forest);
+  background: var(--color-garden);
+  border-radius: 12px;
+}
+.room-features strong {
+  display: block;
+  font-size: var(--type-body);
+  font-weight: 600;
+  color: var(--color-ink);
+}
+.room-features li span:not(.room-feature-icon) {
+  display: block;
+  margin-top: 2px;
+  font-size: var(--type-small);
+  color: var(--color-muted);
+}
+
+.room-meals {
+  padding: 28px 0;
+  border-bottom: 1px solid var(--color-line);
+}
+.room-meals h3,
+.room-about h3 {
+  font-family: var(--font-display);
+  font-size: 20px;
+  font-weight: var(--weight-card);
+  color: var(--color-ink);
+}
+.room-meals ul {
+  margin: 16px 0 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.room-meals li {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 8px;
+  padding: 10px 14px;
+  font-size: var(--type-small);
+  color: var(--color-ink);
+  background: var(--color-limestone);
+  border-radius: var(--radius-control);
+}
+.room-meals li strong { font-weight: 600; color: var(--color-forest); }
+
+.room-about { padding-top: 28px; }
+.room-about p {
+  margin-top: 12px;
+  max-width: 60ch;
+  font-size: var(--type-body);
+  line-height: 1.65;
+  color: var(--color-muted);
+}
+
+/* Booking card ------------------------------------------------------------- */
+.room-aside {
+  position: sticky;
+  top: 108px; /* clears the 84px sticky header */
+}
+.bk {
+  background: var(--color-chalk);
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-card);
+  box-shadow: 0 12px 32px rgba(24, 36, 29, 0.08);
+  overflow: hidden;
+  scroll-margin-top: 108px;
+}
+.bk-head {
+  padding: 20px 24px;
+  color: var(--color-chalk);
+  background: var(--color-forest);
+}
+.bk-price { font-size: var(--type-body); }
+.bk-price strong {
+  font-family: var(--font-display);
+  font-size: 30px;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.01em;
+  margin-right: 4px;
+}
+.bk-price-note {
+  margin-top: 4px;
+  font-size: 13px;
+  color: var(--color-forest-soft);
+}
+.bk-body {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 20px 24px 24px;
+}
+
+/* Dates and guests share one bordered box, as on Airbnb. */
+.bk-box {
+  border: 1px solid color-mix(in srgb, var(--color-ink) 40%, transparent);
+  border-radius: 12px;
+  overflow: hidden;
+}
+.bk-dates { display: grid; grid-template-columns: 1fr 1fr; }
+.bk-dates .bk-field + .bk-field { border-left: 1px solid color-mix(in srgb, var(--color-ink) 40%, transparent); }
+.bk-field {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: 10px 12px;
+  min-width: 0;
+}
+.bk-field > span,
+.bk-field-label {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--color-ink);
+}
+.bk-field input {
+  width: 100%;
+  min-width: 0;
+  padding: 0;
+  font-family: var(--font-sans);
+  font-size: var(--type-small);
+  font-variant-numeric: tabular-nums;
+  color: var(--color-ink);
+  background: transparent;
+  border: 0;
+}
+.bk-field input:focus-visible { outline: 2px solid var(--color-brass); outline-offset: 2px; border-radius: 4px; }
+.bk-guests {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 10px 12px;
+  border-top: 1px solid color-mix(in srgb, var(--color-ink) 40%, transparent);
+}
+.bk-stepper {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: var(--type-small);
+  font-variant-numeric: tabular-nums;
+  color: var(--color-ink);
+}
+.bk-stepper button {
+  width: 32px;
+  height: 32px;
+  display: grid;
+  place-items: center;
+  padding: 0;
+  color: var(--color-ink);
+  background: var(--color-chalk);
+  border: 1px solid var(--color-line);
+  border-radius: 999px;
+  cursor: pointer;
+  transition: background-color .2s var(--ease-out), border-color .2s var(--ease-out);
+}
+@media (hover: hover) and (pointer: fine) { .bk-stepper button:hover:not(:disabled) { border-color: var(--color-ink); } }
+.bk-stepper button:disabled { opacity: .35; cursor: default; }
+
+.bk-row {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--color-ink);
+}
+.bk-row select,
+.bk-row input {
+  height: 44px;
+  padding: 0 12px;
+  font-family: var(--font-sans);
+  font-size: var(--type-small);
+  font-weight: 400;
+  color: var(--color-ink);
+  background: #ffffff;
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-control);
+}
+.bk-row select:focus-visible,
+.bk-row input:focus-visible {
+  outline: none;
+  border-color: var(--color-brass);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-brass) 22%, transparent);
+}
+
+.bk-check {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  font-size: var(--type-small);
+  font-weight: 500;
+  color: var(--color-ink);
+  cursor: pointer;
+}
+.bk-check input { margin-top: 3px; width: 16px; height: 16px; accent-color: var(--color-forest); }
+.bk-check em { display: block; font-style: normal; font-weight: 400; font-size: 13px; color: var(--color-muted); }
+
+.bk-estimate {
+  margin: 4px 0 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.bk-estimate > div {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  font-size: var(--type-small);
+  color: var(--color-muted);
+}
+.bk-estimate dd { margin: 0; font-variant-numeric: tabular-nums; color: var(--color-ink); }
+.bk-estimate .bk-total {
+  padding-top: 12px;
+  border-top: 1px solid var(--color-line);
+  font-size: var(--type-body);
+  font-weight: 600;
+  color: var(--color-ink);
+}
+.bk-estimate .bk-total dd { color: var(--color-forest); }
+
+.bk-contact {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding-top: 4px;
+}
+.bk-contact-lead { font-size: var(--type-small); font-weight: 600; color: var(--color-ink); }
+
+.bk-cta {
+  width: 100%;
+  min-height: 52px;
+  font-family: var(--font-sans);
+  font-size: var(--type-body);
+  font-weight: 600;
+  color: var(--color-ink);
+  background: var(--color-brass);
+  border: 0;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: background-color .2s var(--ease-out);
+}
+@media (hover: hover) and (pointer: fine) { .bk-cta:hover:not(:disabled) { background: color-mix(in srgb, var(--color-brass) 88%, #000); } }
+.bk-cta:disabled { opacity: .5; cursor: default; }
+.bk-cta:focus-visible { outline: 2px solid var(--color-forest); outline-offset: 3px; }
+
+.bk-fine {
+  font-size: 13px;
+  line-height: 1.5;
+  text-align: center;
+  color: var(--color-muted);
+}
+.bk-error {
+  margin: 0;
+  padding: 10px 12px;
+  font-size: 13px;
+  color: #7f2a2a;
+  background: color-mix(in srgb, #a33 8%, var(--color-chalk));
+  border: 1px solid color-mix(in srgb, #a33 24%, transparent);
+  border-radius: var(--radius-inner);
+}
+.bk-link {
+  width: fit-content;
+  font-size: var(--type-small);
+  font-weight: 500;
+  color: var(--color-ink);
+  text-decoration: none;
+  border-bottom: 1px solid var(--color-brass);
+}
+@media (hover: hover) and (pointer: fine) { .bk-link:hover { color: var(--color-forest); } }
+
+/* Sent state: the receipt. */
+.bk-sent {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 28px 24px;
+}
+.bk-sent-mark {
+  width: 40px;
+  height: 40px;
+  display: grid;
+  place-items: center;
+  color: var(--color-chalk);
+  background: var(--color-forest);
+  border-radius: 999px;
+}
+.bk-sent h2 {
+  font-family: var(--font-display);
+  font-size: 24px;
+  font-weight: 600;
+  color: var(--color-ink);
+}
+.bk-sent > p { font-size: var(--type-small); line-height: 1.55; color: var(--color-muted); }
+.bk-sent-rows { margin: 0; border-top: 1px solid var(--color-line); }
+.bk-sent-rows > div {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 12px 0;
+  font-size: var(--type-small);
+  border-bottom: 1px solid var(--color-line);
+}
+.bk-sent-rows dt { color: var(--color-muted); }
+.bk-sent-rows dd { margin: 0; color: var(--color-ink); font-variant-numeric: tabular-nums; }
+.bk-ref {
+  font-family: ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
+  letter-spacing: 0.04em;
+  color: var(--color-brass-ink) !important;
+}
+.bk-again {
+  align-self: flex-start;
+  padding: 0;
+  font-family: var(--font-sans);
+  font-size: var(--type-small);
+  color: var(--color-muted);
+  background: none;
+  border: 0;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+  cursor: pointer;
+}
+
+/* Phone bar: hidden on wide screens, where the card is always in view. */
+.bk-bar { display: none; }
+
+/* Full-screen photos ------------------------------------------------------- */
+.room-lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  overflow-y: auto;
+  background: var(--color-paper);
+}
+.room-lightbox-bar {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 12px var(--gutter);
+  font-size: 13px;
+  color: var(--color-muted);
+  background: color-mix(in srgb, var(--color-paper) 94%, transparent);
+  border-bottom: 1px solid var(--color-line);
+}
+.room-lightbox-close {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 40px;
+  padding: 0 14px;
+  font-family: var(--font-sans);
+  font-size: var(--type-small);
+  font-weight: 500;
+  color: var(--color-ink);
+  background: var(--color-chalk);
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-control);
+  cursor: pointer;
+}
+.room-lightbox-list {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 32px var(--gutter) 80px;
+}
+.room-lightbox-list figure { margin: 0 0 40px; scroll-margin-top: 80px; }
+.room-lightbox-list img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: var(--radius-image);
+}
+.room-lightbox-list figcaption {
+  margin-top: 10px;
+  font-size: var(--type-small);
+  color: var(--color-muted);
+}
+
+/* Stay cards link to their room page ---------------------------------------
+   The whole card is clickable through a stretched link on the room name;
+   the slider arrows, details toggle and book button stay above it. */
+.ref-card { position: relative; }
+.rc-name-link { color: inherit; text-decoration: none; }
+.rc-name-link::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  border-radius: inherit;
+}
+.rc-name-link:focus-visible { outline: none; }
+.rc-name-link:focus-visible::after { outline: 2px solid var(--color-brass); outline-offset: 4px; }
+.rc-more-btn,
+.rc-cta-btn,
+.rc-dropdown { position: relative; z-index: 2; }
+
+/* Tablet ------------------------------------------------------------------- */
+@media (max-width: 960px) {
+  .room-body { grid-template-columns: minmax(0, 1fr); }
+  .room-aside { position: static; }
+  .room-page { padding-bottom: 104px; }
+  .bk-bar {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 80;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 12px var(--gutter);
+    font-size: var(--type-small);
+    color: var(--color-ink);
+    background: var(--color-chalk);
+    border-top: 1px solid var(--color-line);
+  }
+  .bk-bar { transition: transform .3s var(--ease-out), opacity .3s var(--ease-out); }
+  .bk-bar.is-hidden { transform: translateY(100%); opacity: 0; pointer-events: none; }
+  .bk-bar strong { font-size: var(--type-body); font-variant-numeric: tabular-nums; }
+  .bk-bar span { color: var(--color-muted); }
+  .bk-bar-cta {
+    flex: none;
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+    padding: 0 20px;
+    font-weight: 600;
+    color: var(--color-ink);
+    background: var(--color-brass);
+    border-radius: 12px;
+    text-decoration: none;
+  }
+}
+
+/* Phone: photos become a swipeable strip ----------------------------------- */
+@media (max-width: 760px) {
+  .room-title-row { align-items: flex-start; }
+  .room-grid-wrap { margin-inline: calc(-1 * var(--gutter)); }
+  .room-grid {
+    display: flex;
+    height: auto;
+    border-radius: 0;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+  }
+  .room-grid::-webkit-scrollbar { display: none; }
+  .room-grid-tile {
+    flex: 0 0 100%;
+    aspect-ratio: 4 / 3;
+    scroll-snap-align: start;
+  }
+  .room-grid-all { right: 12px; bottom: 12px; }
+  .room-grid-note { text-align: left; }
+}

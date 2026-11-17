@@ -1,0 +1,353 @@
+/* ==========================================================================
+   A different body and a different ground for each list page
+   (unit 3.18, phase 4). The opener band stays shared, because that is the
+   brand; everything below it is particular to the page.
+
+     stay         cream   · two-column browse grid, price led
+     dining       forest  · alternating bands, the one dark page
+     experiences  stone   · tall portrait tiles, a picture wall
+     gatherings   chalk   · capacity table, the number leads
+   ========================================================================== */
+
+.sp-page-stay { background: var(--color-paper); }
+.sp-page-exp { background: var(--color-limestone); }
+.sp-page-gather { background: var(--color-chalk); }
+.sp-page-dining { background: var(--color-forest); }
+
+/* --- /stay: browse grid --------------------------------------------------- */
+.browse-grid {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: clamp(24px, 3vw, 40px);
+}
+.browse-link {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  color: var(--color-ink);
+  text-decoration: none;
+}
+.browse-media {
+  position: relative;
+  display: block;
+  aspect-ratio: 3 / 2;
+  overflow: hidden;
+  border-radius: var(--radius-card);
+  background: var(--color-limestone);
+}
+.browse-media img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform .4s var(--ease-out);
+}
+@media (hover: hover) and (pointer: fine) { .browse-link:hover .browse-media img { transform: scale(1.03); } }
+.browse-link:focus-visible { outline: none; }
+.browse-link:focus-visible .browse-media { outline: 2px solid var(--color-brass); outline-offset: 3px; }
+.browse-count {
+  position: absolute;
+  right: 12px;
+  bottom: 12px;
+  padding: 5px 10px;
+  font-size: 12px;
+  color: var(--color-ink);
+  background: color-mix(in srgb, var(--color-chalk) 92%, transparent);
+  border-radius: 999px;
+}
+.browse-body {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding-top: 16px;
+}
+.browse-zone { font-size: 13px; color: var(--color-muted); }
+.browse-name {
+  font-family: var(--font-display);
+  font-size: clamp(20px, 1.9vw, 26px);
+  font-weight: var(--weight-card);
+  line-height: 1.2;
+}
+.browse-feats { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 4px; }
+.browse-feats span {
+  padding: 5px 10px;
+  font-size: 12px;
+  color: var(--color-muted);
+  /* chalk, not limestone: muted on limestone measured 4.44:1, just under AA */
+  background: var(--color-chalk);
+  border: 1px solid var(--color-line);
+  border-radius: 999px;
+}
+.browse-foot {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 16px;
+  margin-top: 12px;
+  padding-top: 12px;
+  border-top: 1px solid var(--color-line);
+}
+.browse-price { font-size: var(--type-small); color: var(--color-muted); }
+.browse-price strong {
+  font-family: var(--font-display);
+  font-size: 22px;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  color: var(--color-forest);
+  margin-right: 4px;
+}
+.browse-go {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: var(--type-small);
+  font-weight: 500;
+  color: var(--color-ink);
+  border-bottom: 1px solid var(--color-brass);
+  transition: gap .25s var(--ease-out);
+}
+@media (hover: hover) and (pointer: fine) { .browse-link:hover .browse-go { gap: 10px; } }
+
+/* --- /dining: the dark page ----------------------------------------------- */
+.sp-page-dining .sp-open-line { color: color-mix(in srgb, var(--color-chalk) 80%, transparent); }
+.sp-page-dining .sp-open-note { color: var(--color-forest-soft); }
+.sp-page-dining .sp-facts > div { border-top-color: color-mix(in srgb, var(--color-chalk) 24%, transparent); }
+.sp-page-dining .sp-facts dd { color: var(--color-garden); }
+.sp-page-dining .sp-facts dt { color: var(--color-forest-soft); }
+/* The green callout would vanish on green, so it inverts here. */
+.sp-page-dining .sp-callout {
+  background: color-mix(in srgb, var(--color-chalk) 10%, transparent);
+  border: 1px solid color-mix(in srgb, var(--color-chalk) 22%, transparent);
+}
+
+.band-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: clamp(40px, 6vw, 88px);
+}
+.band {
+  display: grid;
+  grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr);
+  gap: clamp(24px, 4vw, 64px);
+  align-items: center;
+}
+.band.is-reversed .band-media { order: 2; }
+.band-media {
+  aspect-ratio: 3 / 2;
+  overflow: hidden;
+  border-radius: var(--radius-card);
+  background: color-mix(in srgb, var(--color-chalk) 8%, transparent);
+}
+.band-media img { display: block; width: 100%; height: 100%; object-fit: cover; }
+.band-tag {
+  font-size: var(--type-label);
+  font-weight: 500;
+  color: var(--color-garden);
+}
+.band-name {
+  margin-top: 10px;
+  font-family: var(--font-display);
+  font-size: clamp(26px, 3vw, 40px);
+  font-weight: var(--weight-section);
+  line-height: 1.12;
+  letter-spacing: var(--tracking-section);
+  color: var(--color-chalk);
+}
+.band-meta {
+  margin: 24px 0 0;
+  display: grid;
+  gap: 14px;
+}
+.band-meta > div {
+  display: grid;
+  grid-template-columns: 88px minmax(0, 1fr);
+  gap: 16px;
+  padding-top: 12px;
+  border-top: 1px solid color-mix(in srgb, var(--color-chalk) 18%, transparent);
+}
+.band-meta dt { font-size: 13px; color: var(--color-forest-soft); }
+.band-meta dd {
+  margin: 0;
+  font-size: var(--type-small);
+  font-variant-numeric: tabular-nums;
+  color: var(--color-chalk);
+}
+
+/* --- /experiences: picture wall -------------------------------------------- */
+.tile-wall {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 16px;
+}
+.tile {
+  position: relative;
+  aspect-ratio: 3 / 4;
+  overflow: hidden;
+  border-radius: var(--radius-card);
+  background: var(--color-garden);
+}
+/* The first experience takes a double square, so the wall is not a plain grid. */
+.tile.is-lead { grid-column: span 2; aspect-ratio: auto; }
+.tile-img { display: block; width: 100%; height: 100%; object-fit: cover; }
+.tile::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(10, 20, 14, .84) 0%, rgba(10, 20, 14, .45) 32%, transparent 62%);
+}
+.tile-text {
+  position: absolute;
+  inset: auto 0 0 0;
+  z-index: 1;
+  padding: clamp(16px, 2vw, 28px);
+  color: var(--color-chalk);
+}
+.tile-text h2 {
+  font-family: var(--font-display);
+  font-size: clamp(18px, 1.9vw, 26px);
+  font-weight: var(--weight-card);
+  line-height: 1.18;
+}
+.tile-meta {
+  margin: 12px 0 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+.tile-meta li {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 10px;
+  font-size: 12px;
+  color: var(--color-chalk);
+  background: color-mix(in srgb, #0a140e 55%, transparent);
+  border-radius: 999px;
+}
+
+/* --- /gatherings: capacity table ------------------------------------------- */
+.venue-rows {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  border-top: 1px solid var(--color-line);
+}
+.venue-row {
+  display: grid;
+  grid-template-columns: minmax(96px, 128px) minmax(0, 1fr) 200px;
+  gap: clamp(16px, 3vw, 40px);
+  align-items: center;
+  padding: clamp(16px, 2vw, 24px) 0;
+  border-bottom: 1px solid var(--color-line);
+}
+.venue-figure { display: flex; flex-direction: column; gap: 2px; }
+.venue-figure strong {
+  font-family: var(--font-display);
+  font-size: clamp(30px, 3.6vw, 48px);
+  font-weight: 600;
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+  color: var(--color-forest);
+}
+.venue-figure span { font-size: 12px; color: var(--color-muted); }
+.venue-main { display: flex; flex-direction: column; gap: 4px; min-width: 0; }
+.venue-name {
+  font-family: var(--font-display);
+  font-size: clamp(19px, 1.8vw, 24px);
+  font-weight: var(--weight-card);
+  line-height: 1.2;
+  color: var(--color-ink);
+}
+.venue-type { font-size: var(--type-small); color: var(--color-muted); }
+.venue-thumb {
+  display: block;
+  aspect-ratio: 3 / 2;
+  overflow: hidden;
+  border-radius: var(--radius-inner);
+  background: var(--color-limestone);
+}
+.venue-thumb img { display: block; width: 100%; height: 100%; object-fit: cover; }
+
+/* --- Tablet ---------------------------------------------------------------- */
+@media (max-width: 1000px) {
+  .tile-wall { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .tile.is-lead { grid-column: span 2; aspect-ratio: 16 / 10; }
+}
+
+/* --- Phone ----------------------------------------------------------------- */
+@media (max-width: 760px) {
+  .browse-grid { grid-template-columns: minmax(0, 1fr); gap: 28px; }
+
+  .band { grid-template-columns: minmax(0, 1fr); gap: 16px; }
+  .band.is-reversed .band-media { order: 0; }
+  .band-meta > div { grid-template-columns: 76px minmax(0, 1fr); gap: 12px; }
+
+  .tile-wall { grid-template-columns: minmax(0, 1fr); gap: 12px; }
+  .tile, .tile.is-lead { aspect-ratio: 4 / 5; grid-column: auto; }
+
+  .venue-row {
+    grid-template-columns: 84px minmax(0, 1fr);
+    grid-template-areas: "figure main" "thumb thumb";
+    row-gap: 14px;
+  }
+  .venue-figure { grid-area: figure; }
+  .venue-main { grid-area: main; }
+  .venue-thumb { grid-area: thumb; aspect-ratio: 16 / 7; }
+}
+
+/* --- Detail disclosures ----------------------------------------------------
+   The operational detail these pages used to show in a card drawer. A closed
+   <details> keeps it one tap away without putting it on the screen. */
+.band-more, .venue-more, .tile-more { margin-top: 16px; }
+.band-more summary, .venue-more summary, .tile-more summary {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  width: fit-content;
+  font-family: var(--font-sans);
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  list-style: none;
+}
+.band-more summary::-webkit-details-marker,
+.venue-more summary::-webkit-details-marker,
+.tile-more summary::-webkit-details-marker { display: none; }
+.band-more summary::after,
+.venue-more summary::after,
+.tile-more summary::after { content: "+"; font-size: 15px; line-height: 1; }
+.band-more[open] summary::after,
+.venue-more[open] summary::after,
+.tile-more[open] summary::after { content: "−"; }
+.band-more ul, .venue-more ul, .tile-more ul {
+  margin: 12px 0 0;
+  padding-left: 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  font-size: 13px;
+  line-height: 1.55;
+}
+/* Dark band */
+.band-more summary { color: var(--color-garden); border-bottom: 1px solid color-mix(in srgb, var(--color-garden) 50%, transparent); }
+.band-more ul { color: color-mix(in srgb, var(--color-chalk) 78%, transparent); }
+/* Light rows */
+.venue-more summary { color: var(--color-ink); border-bottom: 1px solid var(--color-brass); }
+.venue-more ul { color: var(--color-muted); }
+.venue-more { margin-top: 12px; }
+/* Over a photograph */
+.tile-more summary { color: var(--color-chalk); border-bottom: 1px solid color-mix(in srgb, var(--color-chalk) 55%, transparent); }
+.tile-more ul { color: color-mix(in srgb, var(--color-chalk) 88%, transparent); }
+.tile-more[open] { max-height: 42vh; overflow-y: auto; }
+.tile:has(.tile-more[open])::after { background: linear-gradient(to top, rgba(10, 20, 14, .92) 0%, rgba(10, 20, 14, .8) 55%, rgba(10,20,14,.35) 100%); }

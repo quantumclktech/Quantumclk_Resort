@@ -1,0 +1,84 @@
+# Configuration names: docs/02-architecture/identity/KEYCLOAK-SETUP.md §9. Secrets come from the environment only.
+server:
+  port: ${PORT:8082}   # the unchanged landing page calls :8082 (ARCHITECTURE §2)
+
+spring:
+  application:
+    name: api-gateway
+  data:
+    redis:
+      host: ${REDIS_HOST:localhost}
+      port: ${REDIS_PORT:6379}
+      password: ${REDIS_PASSWORD}
+  cloud:
+    gateway:
+      server:
+        webflux:
+          # Body size is limited per route (not as a default filter: a default and a route limit would both apply).
+          default-filters:
+            - name: RequestRateLimiter
+              args:
+                key-resolver: "#{@callerKeyResolver}"
+                redis-rate-limiter.replenishRate: ${RATE_LIMIT_PER_SECOND:20}
+                redis-rate-limiter.burstCapacity: ${RATE_LIMIT_BURST:40}
+                redis-rate-limiter.requestedTokens: 1
+          routes:
+            # Gold Membership registration (ERP-05): multipart with one payment screenshot of at most 5 MB, so this
+            # route alone allows 6 MB. Listed first so it wins over the general access-service route.
+            - id: membership-registration
+              uri: ${ACCESS_SERVICE_URL:http://localhost:8091}
+              predicates:
+                - Path=/api/v1/sales/memberships
+                - Method=POST
+              filters:
+                - name: RequestSize
+                  args:
+                    maxSize: ${MAX_UPLOAD_SIZE:6MB}
+            # Lead service: inquiries, leads, executive claims and attendance
+            - id: lead-service
+              uri: ${LEAD_SERVICE_URL:http://localhost:8093}
+              predicates:
+                - Path=/api/v1/sales/leads/**,/api/v1/portal/inquiries/**
+              filters:
+                - name: RequestSize
+                  args:
+                    maxSize: ${MAX_REQUEST_SIZE:1MB}
+            - id: access-service
+              uri: ${ACCESS_SERVICE_URL:http://localhost:8091}
+              predicates:
+                - Path=/api/v1/me,/api/v1/admin/**,/api/v1/sales/**,/api/v1/portal/membership/**
+              filters:
+                - name: RequestSize
+                  args:
+                    maxSize: ${MAX_REQUEST_SIZE:1MB}
+            # Signed-in member's profile (gh-guests token, checked by guest-service). guest-service's /internal/**
+            # is deliberately NOT routed: only access-service calls it, directly.
+            - id: guest-service
+              uri: ${GUEST_SERVICE_URL:http://localhost:8092}
+              predicates:
+                - Path=/api/v1/portal/me
+              filters:
+                - name: RequestSize
+                  args:
+                    maxSize: ${MAX_REQUEST_SIZE:1MB}
+
+erp:
+  keycloak:
+    issuer: ${KEYCLOAK_URL:http://localhost:8081}/realms/${KEYCLOAK_REALM:gh-staff}
+  cors:
+    allowed-origins: ${CORS_ALLOWED_ORIGINS:http://localhost:5173,http://localhost:3000}
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health
+  endpoint:
+    health:
+      probes:
+        enabled: true
+
+logging:
+  structured:
+    format:
+      console: ecs

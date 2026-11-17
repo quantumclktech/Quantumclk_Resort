@@ -1,0 +1,53 @@
+# Secrets, credentials, client raw files: NEVER commit these.
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+secrets/
+credentials/
+
+# Client-supplied raw documents, personal data, production data
+*.docx
+*.pdf
+!docs/01-requirements/source-extracts/*.md
+uploads/
+media/
+backups/
+*.sql
+!**/src/main/resources/db/migration/*.sql
+!**/src/main/resources/db/dev-seed/*.sql
+!scripts/dev/*.sql
+*.csv
+*.xlsx
+
+# Build output / dependencies (populated per-stack in Phase 2)
+target/
+node_modules/
+dist/
+build/
+__pycache__/
+*.pyc
+.venv/
+
+# Local databases / runtime data
+*.db
+*.sqlite
+data/
+
+# Editor / OS
+.vscode/
+.idea/
+*.swp
+.DS_Store
+Thumbs.db
+
+# Logs (local runs; project logs live in docs/logs/ and ARE committed)
+*.log
+
+# Runtime JSON logs (Loki/Promtail input); docs/logs/ stays tracked
+/logs/
+/services/erp-app/logs/
+
+# Built Keycloak extension jars (infra/keycloak-extensions/*, mounted into Keycloak)
+infra/keycloak-providers/

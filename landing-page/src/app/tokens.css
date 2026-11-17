@@ -1,0 +1,124 @@
+/* Hallmark · redesign: full · brand: preserved (forest/gold/cream, Bodoni Moda + Manrope)
+ * pre-emit critique: P4 H4 E5 S4 R5 V4 · weakest: S, resort concept preview is an evocative category; led with immediate full-bleed hero immersion and architectural typography
+ * genre: editorial · job: visit · hero: Settled · nav: transparent-to-cream · footer: mast
+ * shape: Photographic spread · signature: cinematic cottage scroll story
+ * deal: manual (brand) · v2.0.0 */
+/* Hallmark · answered F15 · existing chapters keep their tuned editorial rhythm */
+
+:root {
+  /* Brand */
+  --brand-forest: #104028;
+  --brand-gold: #b88828;
+  --brand-cream: #f7f2ec;
+  --brand-ink: #18241d;
+
+  /* Surfaces & Solids */
+  --color-paper: var(--brand-cream);
+  --color-forest: var(--brand-forest);
+  --color-ink: var(--brand-ink);
+  --color-limestone: #e8e1d7;
+  --color-garden: #e0e2d3;
+  --color-brass: var(--brand-gold);
+  /* Brass as ink: the accent at AA on cream surfaces (#b88828 is 3.07:1). */
+  --color-brass-ink: #7a5712;
+  --color-chalk: #fffaf3;
+  --color-forest-soft: #cfd9c9;
+  --color-muted: #596a5e;
+  --color-line: #c3c9bd;
+
+  /* Alpha Tints & Scrims (strictly tokenized) */
+  --color-chalk-82: color-mix(in srgb, var(--color-chalk) 82%, transparent);
+  --color-chalk-78: color-mix(in srgb, var(--color-chalk) 78%, transparent);
+  --color-chalk-66: color-mix(in srgb, var(--color-chalk) 66%, transparent);
+  --color-chalk-58: color-mix(in srgb, var(--color-chalk) 58%, transparent);
+  --color-chalk-45: color-mix(in srgb, var(--color-chalk) 45%, transparent);
+  --color-chalk-28: color-mix(in srgb, var(--color-chalk) 28%, transparent);
+  --color-chalk-18: color-mix(in srgb, var(--color-chalk) 18%, transparent);
+
+  --color-shade-dark: color-mix(in srgb, var(--color-forest) 84%, transparent);
+  --color-shade-mid: color-mix(in srgb, var(--color-forest) 58%, transparent);
+  --color-shade-light: color-mix(in srgb, var(--color-forest) 34%, transparent);
+  --color-shade-whisper: color-mix(in srgb, var(--color-forest) 22%, transparent);
+
+  --color-scrim-deep: color-mix(in srgb, var(--color-forest) 90%, transparent);
+  --color-scrim-mid: color-mix(in srgb, var(--color-forest) 26%, transparent);
+  --color-scrim-haze: color-mix(in srgb, var(--color-forest) 4%, transparent);
+
+  /* Type */
+  --font-sans: "Inter Variable", "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-display: "General Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+
+  /* Scale: Unified, harmonious typography scale */
+  --type-hero: clamp(54px, 5.8vw, 80px);
+  --type-display: clamp(32px, 3.4vw, 44px);
+  --type-section: clamp(32px, 3.4vw, 44px);
+  --type-card: clamp(19px, 1.4vw, 22px);
+  --type-subtitle: clamp(16px, 1.3vw, 19px);
+  --type-body: 16px;
+  --type-card-body: 14px;
+  --type-card-meta: 12px;
+  --type-card-features: 13px;
+  --type-small: 14px;
+  --type-label: 12px;
+  --type-badge: 11px;
+  --type-footnote: 11px;
+
+  /* Legacy aliases mapped cleanly to new scale */
+  --type-statement: clamp(32px, 3.4vw, 44px);
+  --type-title: clamp(32px, 3.4vw, 44px);
+  --type-lead: clamp(16px, 1.3vw, 19px);
+
+  /* Weights */
+  --weight-hero: 600;
+  --weight-section: 600;
+  --weight-card: 600;
+  --weight-subheading: 500;
+  --weight-meta: 500;
+  --weight-badge: 600;
+  --weight-body: 400;
+
+  /* Letter Spacing (Tracking) */
+  --tracking-hero: -0.03em;
+  --tracking-section: -0.02em;
+  --tracking-card: -0.01em;
+  --tracking-body: 0;
+  --tracking-nav: 0.02em;
+  --tracking-display: -0.02em;
+  --tracking-label: 0.06em;
+  --tracking-badge: 0.05em;
+
+  /* Leading */
+  --leading-hero: 1.08;
+  --leading-display: 1.15;
+  --leading-section: 1.15;
+  --leading-title: 1.25;
+  --leading-card: 1.25;
+  --leading-body: 1.6;
+
+  /* Space - strictly 4px aligned */
+  --space-section: clamp(48px, 5.5vw, 88px);
+  --space-section-tight: clamp(36px, 4vw, 60px);
+  --gutter: clamp(20px, 4vw, 64px);
+  --grid-gap: clamp(28px, 3.5vw, 48px);
+  --container: 1440px;
+
+  /* Motion */
+  --ease-out: cubic-bezier(.22, 1, .36, 1);
+  --dur-micro: .16s;
+  --dur-short: .3s;
+
+  /* Uniform Border Radius System (All Cards, Tiles, Images, and Boxes) */
+  --radius-card: 16px;
+  --radius-box: 16px;
+  --radius-image: 16px;
+  --radius-inner: 10px;
+  --radius-control: 8px;
+  --radius-pill: 999px;
+
+  /* Chrome */
+  --header-height: 80px;
+}
+
+@media (max-width: 1119px) {
+  :root { --header-height: 68px; }
+}

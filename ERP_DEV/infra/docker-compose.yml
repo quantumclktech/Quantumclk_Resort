@@ -1,0 +1,112 @@
+# Local development infrastructure — Phase 1, increment 1 (docs/03-phases/phase-1/inc1-PLAN.md, slice S1).
+# Run from the repo root:
+#   docker compose --env-file ERP_DEV/.env -f ERP_DEV/infra/docker-compose.yml up -d
+# Every secret comes from the env file (names listed in ERP_DEV/.env.example). Ports bind to 127.0.0.1 only.
+# Kafka is added in increment 2, when lead-service first produces events.
+name: golden-hills-erp
+
+services:
+  postgres:
+    image: postgres:18.7
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?set POSTGRES_PASSWORD in ERP_DEV/.env}
+      KC_DB_PASSWORD: ${KC_DB_PASSWORD:?set KC_DB_PASSWORD in ERP_DEV/.env}
+      ACCESS_DB_PASSWORD: ${ACCESS_DB_PASSWORD:?set ACCESS_DB_PASSWORD in ERP_DEV/.env}
+      GUEST_DB_PASSWORD: ${GUEST_DB_PASSWORD:?set GUEST_DB_PASSWORD in ERP_DEV/.env}
+    ports:
+      - "127.0.0.1:${POSTGRES_HOST_PORT:-5433}:5432"   # 5433: a system PostgreSQL often already owns 5432
+    volumes:
+      - pgdata:/var/lib/postgresql                       # PostgreSQL 18 images keep data under this path
+      - ./postgres/init:/docker-entrypoint-initdb.d:ro
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d access_db"]
+      interval: 5s
+      retries: 20
+
+  keycloak:
+    image: quay.io/keycloak/keycloak:26.8.2
+    command: ["start-dev", "--import-realm"]
+    environment:
+      KC_DB: postgres
+      KC_DB_URL: jdbc:postgresql://postgres:5432/keycloak
+      KC_DB_USERNAME: keycloak
+      KC_DB_PASSWORD: ${KC_DB_PASSWORD:?set KC_DB_PASSWORD in ERP_DEV/.env}
+      KC_BOOTSTRAP_ADMIN_USERNAME: ${KC_BOOTSTRAP_ADMIN_USERNAME:?set KC_BOOTSTRAP_ADMIN_USERNAME in ERP_DEV/.env}
+      KC_BOOTSTRAP_ADMIN_PASSWORD: ${KC_BOOTSTRAP_ADMIN_PASSWORD:?set KC_BOOTSTRAP_ADMIN_PASSWORD in ERP_DEV/.env}
+      KC_HEALTH_ENABLED: "true"
+      KC_HTTP_PORT: "8081"
+      # Public base URL Keycloak puts in links (invite/reset emails) and in tokens.
+      # It must be the host a phone can reach: a LAN IP or a public hostname, never "localhost".
+      KC_HOSTNAME: ${KC_PUBLIC_URL:-http://localhost:8081}
+      KC_HOSTNAME_STRICT: "false"
+      KC_PROXY_HEADERS: "xforwarded"
+      # Placeholders resolved inside infra/keycloak/gh-staff-realm.json at import time
+      KC_ACCESS_SERVICE_CLIENT_SECRET: ${KC_ACCESS_SERVICE_CLIENT_SECRET:?set KC_ACCESS_SERVICE_CLIENT_SECRET in ERP_DEV/.env}
+      # Realm gh-guests (Gold Membership members, D-119…D-122): guest-service's client secret and the public
+      # landing-page origin (redirect URIs, web origins, the welcome-email link).
+      KC_GUEST_SERVICE_CLIENT_SECRET: ${KC_GUEST_SERVICE_CLIENT_SECRET:?set KC_GUEST_SERVICE_CLIENT_SECRET in ERP_DEV/.env}
+      LANDING_PUBLIC_URL: ${LANDING_PUBLIC_URL:-http://localhost:3000}
+      ERP_WEB_ORIGIN: ${ERP_WEB_ORIGIN:-http://localhost:5173}
+      SMTP_HOST: ${SMTP_HOST:-mailpit}
+      SMTP_PORT: ${SMTP_PORT:-1025}
+      SMTP_FROM: ${SMTP_FROM:-no-reply@goldenhills.local}
+      SMTP_REPLY_TO: ${SMTP_REPLY_TO:-}
+      SMTP_AUTH: ${SMTP_AUTH:-false}
+      SMTP_STARTTLS: ${SMTP_STARTTLS:-false}
+      SMTP_USER: ${SMTP_USER:-}
+      SMTP_PASSWORD: ${SMTP_PASSWORD:-}
+    ports:
+      # 127.0.0.1 keeps it private; set KEYCLOAK_BIND=0.0.0.0 to reach it from a phone on the LAN.
+      - "${KEYCLOAK_BIND:-127.0.0.1}:8081:8081"
+    volumes:
+      - ./keycloak:/opt/keycloak/data/import:ro
+      # Our Keycloak extension (member activation link + Golden Hills themes). Build it first:
+      #   (cd ERP_DEV/infra/keycloak-extensions/gh-member-activation && ./mvnw -q package -DskipTests)
+      - ./keycloak-providers:/opt/keycloak/providers:ro
+    depends_on:
+      postgres:
+        condition: service_healthy
+    healthcheck:
+      # The image has no curl; ask the management port (9000) over bash's /dev/tcp.
+      test: ["CMD-SHELL", "exec 3<>/dev/tcp/localhost/9000 && printf 'GET /health/ready HTTP/1.0\\r\\n\\r\\n' >&3 && grep -q '\"UP\"' <&3"]
+      interval: 10s
+      retries: 30
+
+  redis:
+    image: redis:8.10.3
+    command: ["redis-server", "--requirepass", "${REDIS_PASSWORD:?set REDIS_PASSWORD in ERP_DEV/.env}"]
+    ports:
+      - "127.0.0.1:6379:6379"
+    healthcheck:
+      test: ["CMD-SHELL", "redis-cli -a \"$$REDIS_PASSWORD\" --no-auth-warning ping | grep -q PONG"]
+      interval: 5s
+      retries: 20
+    environment:
+      REDIS_PASSWORD: ${REDIS_PASSWORD}
+
+  mailpit:
+    image: axllent/mailpit:v1.33.1
+    ports:
+      - "127.0.0.1:1025:1025"   # SMTP (Keycloak sends here in dev)
+      - "127.0.0.1:8025:8025"   # web UI: http://localhost:8025
+
+  # One public origin for all apps, split by path (D-124): point the tunnel at http://localhost:8088.
+  proxy:
+    image: caddy:2.11.7
+    ports:
+      - "127.0.0.1:8088:8088"
+    volumes:
+      - ./proxy/Caddyfile:/etc/caddy/Caddyfile:ro
+    extra_hosts:
+      - "host.docker.internal:host-gateway"   # the ERP apps run on the host in development
+    environment:
+      KEYCLOAK_UPSTREAM: ${PROXY_KEYCLOAK_UPSTREAM:-keycloak:8081}
+      GATEWAY_UPSTREAM: ${PROXY_GATEWAY_UPSTREAM:-host.docker.internal:8082}
+      ERP_WEB_UPSTREAM: ${PROXY_ERP_WEB_UPSTREAM:-host.docker.internal:5173}
+      LANDING_UPSTREAM: ${PROXY_LANDING_UPSTREAM:-host.docker.internal:3000}
+    depends_on:
+      - keycloak
+
+volumes:
+  pgdata:

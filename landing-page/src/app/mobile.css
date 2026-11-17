@@ -1,0 +1,203 @@
+/* ==========================================================================
+   Phones and small tablets: room to breathe.
+   Loaded last. Every rule sits inside a max-width query, so nothing here can
+   reach the desktop layout (wider than 980px stays exactly as it was).
+   ========================================================================== */
+
+/* --- Single-column grids that were wider than the phone ------------------
+   A bare `1fr` column has a min-content floor: one long <select> option or
+   a no-wrap tab row pushes the whole column past the screen edge.
+   `minmax(0, 1fr)` lets the column be the width of the screen. */
+@media (max-width: 980px) {
+  .plan-portal-shell { grid-template-columns: minmax(0, 1fr); }
+  .plan-form-column, .plan-visual-column { min-width: 0; }
+}
+@media (max-width: 900px) {
+  .mem-inquiry-grid { grid-template-columns: minmax(0, 1fr); }
+  .mem-inquiry-grid > * { min-width: 0; }
+  .pre-opening-card select,
+  .pre-opening-card input,
+  .pre-opening-card textarea { max-width: 100%; min-width: 0; text-overflow: ellipsis; }
+}
+
+/* --- Gatherings stacked venue cards ---------------------------------------
+   The opened "What is included" list had its own 22svh scroll box inside the
+   panel's own scrolling text column: two nested scroll areas, and the last
+   item sliced at the card edge with no hint there was more. One scroll area
+   (the text column), padded so the last line clears a soft fade that says
+   "scrolls". */
+@media (max-width: 900px) {
+  .vstack.is-stacked .vpanel-more[open] ul { max-height: none; overflow: visible; }
+  .vstack.is-stacked .vpanel-text:has(.vpanel-more[open]) {
+    padding-bottom: 32px;
+    -webkit-mask-image: linear-gradient(to bottom, #000 calc(100% - 32px), transparent);
+    mask-image: linear-gradient(to bottom, #000 calc(100% - 32px), transparent);
+  }
+}
+
+@media (max-width: 760px) {
+  /* --- Sticky header: translucent, the bold headings scrolling under it
+     stayed readable behind the logo. Solid on phones (same colour); the
+     clear header over the home hero is a separate rule and keeps its look. */
+  .site-navbar-header:not(.is-clear) { background: #fcfaf6; }
+
+  /* --- Section label + count: wrap instead of running off the card ------ */
+  /* Home labels are a row whose count takes its own line (flex-basis 100%);
+     an older phone rule turned the row into a column, which sent the count
+     into a second column off the card. */
+  #main-content .status-line { flex-direction: row; flex-wrap: wrap; row-gap: 4px; min-width: 0; }
+  .section-status { max-width: 100%; white-space: normal; }
+
+  /* --- First screen: less text over the photo ---------------------------
+     The kicker repeated the place the headline already names (and the
+     statement below names again); the slide name in the note repeats the
+     caption that follows. Guests and the button share a row, so the card
+     is two rows instead of three. */
+  .hop-kicker { display: none; }
+  .hop-title { margin-top: 0; }
+  .hop-impression-label { display: none; }
+  .hop-book label:nth-of-type(3) { grid-column: auto; }
+  .hop-book button { grid-column: auto; margin: 0; padding-inline: 12px; }
+
+  /* --- The statement after the opening: a calmer block ------------------ */
+  .hop-statement { gap: 12px; }
+  .hop-statement-lead { font-size: 16px; line-height: 1.55; }
+  .hop-statement-credit { font-size: 12px; line-height: 1.5; max-width: 34ch; }
+
+  /* --- Hero booking bar: the date fields fit their half ----------------- */
+  .hop-book { padding: 8px; gap: 6px; }
+  .hop-book label { padding: 10px 12px; min-width: 0; }
+  .hop-book input { min-width: 0; }
+  .hop-book input::-webkit-calendar-picker-indicator { margin: 0; padding: 0; }
+  .hop-book button { min-height: 52px; }
+
+  /* --- Concept sketches under the statement: more air between rows ------ */
+  .hop-intro ul { gap: 36px 16px; }
+
+  /* --- Amenities: two to a row, so names and hours read on one line ----- */
+  .atrail-stops { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 40px 20px; }
+  .atrail-stop .sketch { max-width: 112px; }
+  .atrail-stop h3 { font-size: 16px; }
+  .atrail-stop p { font-size: 14px; }
+
+  /* --- Dining teaser: the button no longer sits on the chips ------------ */
+  .showcase-cta-wrap { margin-top: 24px; }
+
+  /* --- Gallery filters: one swipeable row instead of a wall of chips ---- */
+  .gallery-filters {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    overscroll-behavior-x: contain;
+    scroll-snap-type: x proximity;
+    scrollbar-width: none;
+    margin-inline: calc(-1 * var(--gutter, 24px));
+    padding: 2px var(--gutter, 24px);
+    scroll-padding-inline: var(--gutter, 24px);
+  }
+  .gallery-filters::-webkit-scrollbar { display: none; }
+  .gallery-filter-btn { flex: none; min-height: 40px; scroll-snap-align: start; white-space: nowrap; }
+
+  /* --- Map card: name gets the full row, the view toggle drops below ---- */
+  .map-card-header { flex-wrap: wrap; row-gap: 12px; }
+  .map-card-identity { flex: 1 1 100%; }
+  .map-card-title, .map-card-subtitle { white-space: normal; overflow: visible; text-overflow: clip; }
+  .map-view-btn { min-height: 36px; padding-inline: 14px; }
+  .map-zoom-btn { width: 40px; height: 40px; }
+  .map-card-directions-btn, .map-card-open-btn { min-height: 44px; }
+
+  /* --- Why choose us: one tile per row, icon beside the text ------------
+     Same height as the old 2×3 grid, but each tile reads as one line of
+     thought instead of a narrow column of wrapped words. */
+  .highlight-tiles { grid-template-columns: minmax(0, 1fr); gap: 10px; }
+  .highlight-tile {
+    grid-template-columns: 44px minmax(0, 1fr);
+    column-gap: 16px;
+    row-gap: 2px;
+    align-items: center;
+    padding: 16px 18px;
+  }
+  .highlight-tile-icon { grid-row: 1 / 3; width: 44px; height: 44px; margin-bottom: 0; }
+  .highlight-tile-title { font-size: 15px; }
+
+  /* --- Text links that were too short to tap ---------------------------- */
+  .home-row-link { min-height: 44px; display: inline-flex; align-items: center; }
+  .back-top { min-height: 44px; display: inline-flex; align-items: center; }
+  .bk-stepper button { width: 40px; height: 40px; }
+
+  /* --- Plan your stay portal -------------------------------------------- */
+  .plan-form-column { padding: 24px 20px; }
+  .plan-mode-switcher { width: 100%; }
+  /* `.plan-mode-tab span { position: relative }` out-ranks the pill's own
+     rule, so the green pill collapsed to 0×0 and the active label (chalk on
+     limestone) vanished. Same bug exists on desktop; left there by request. */
+  .plan-mode-tab .plan-mode-pill-bg { position: absolute; inset: 0; z-index: 0; }
+  .plan-mode-tab { flex: 1 1 0; justify-content: center; min-height: 44px; padding: 8px 6px; white-space: nowrap; }
+  .plan-subtabs {
+    overflow-x: auto;
+    scrollbar-width: none;
+    overscroll-behavior-x: contain;
+  }
+  .plan-subtabs::-webkit-scrollbar { display: none; }
+  .plan-subtab-btn { flex: none; min-height: 36px; white-space: nowrap; }
+  .plan-demo-pill, .plan-angle-pill { min-height: 36px; }
+
+  /* --- Guest sign-in: method tabs wrap instead of spilling out ---------- */
+  .login-tabs { flex-wrap: wrap; }
+  .login-tab { flex: 1 1 auto; min-height: 40px; }
+  .login-mode-pill { min-height: 36px; }
+}
+
+/* --- Membership ledger on phones ------------------------------------------
+   The sticky tally stacked step, drawing, name, three rows and a bar: 404px,
+   half the screen, with each entry's photo clip-revealing and zooming and its
+   lines sliding up underneath it. Now a slim strip (step · part · total)
+   underlined by the progress bar, and the entries keep one quiet effect:
+   their lines fade in once. The bar filling as you scroll stays. */
+@media (max-width: 760px) {
+  .ledger { gap: 20px; }
+  .ledger .ledger-tally {
+    top: calc(var(--header-height, 84px) + 8px);
+    grid-template-columns: auto minmax(0, 1fr) auto;
+    grid-template-areas: "step name total" "bar bar bar";
+    align-items: center;
+    column-gap: 12px;
+    row-gap: 10px;
+    padding: 12px 16px 10px;
+    background: var(--color-chalk);
+    box-shadow: 0 8px 20px -12px rgb(24 36 29 / 0.25);
+  }
+  .ledger .ledger-tally .ledger-tally-sketch { display: none; }
+  .ledger-tally-step { grid-area: step; margin: 0; font-size: 12px; }
+  .ledger-tally-name {
+    grid-area: name;
+    margin: 0;
+    font-size: 15px;
+    line-height: 1.2;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .ledger .ledger-tally-rows { grid-area: total; margin: 0; display: block; }
+  .ledger .ledger-tally-rows > div:not(.ledger-tally-total) { display: none; }
+  .ledger .ledger-tally-total { display: flex; align-items: baseline; gap: 6px; padding: 0; border: 0; margin: 0; }
+  /* "118 / 180" says more in less room than "Running total 118". The tally
+     is aria-hidden, so the label is visual only. */
+  .ledger .ledger-tally-total dt { display: none; }
+  .ledger .ledger-tally-total dd { font-size: 18px; margin: 0; font-variant-numeric: tabular-nums; }
+  .ledger .ledger-tally-total dd::after { content: " / 180"; font-family: var(--font-sans); font-size: 12px; font-weight: 400; color: var(--color-muted); }
+  .ledger .ledger-tally-bar { grid-area: bar; margin: 0; }
+
+  .ledger-entry { scroll-margin-top: calc(var(--header-height, 84px) + 72px); }
+  .sketch-js .ledger-entry-media,
+  .sketch-js .ledger-entry.is-seen .ledger-entry-media { clip-path: none; transition: none; }
+  .sketch-js .ledger-entry-media img,
+  .sketch-js .ledger-entry.is-seen .ledger-entry-media img { transform: none; transition: none; }
+  .sketch-js .ledger-entry-lines li { transform: none; transition: opacity 0.4s var(--ease-out); transition-delay: 0ms; }
+}
+
+/* Very narrow phones (iPhone SE, small Androids) --------------------------- */
+@media (max-width: 380px) {
+  .hop-book { grid-template-columns: minmax(0, 1fr); }
+  .hop-book label:nth-of-type(3), .hop-book button { grid-column: auto; }
+  .atrail-stops { gap: 32px 12px; }
+}

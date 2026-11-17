@@ -1,0 +1,237 @@
+/* ==========================================================================
+   Experiences — a day at Golden Hills (unit 3.23)
+   An intro with a drawn horizon, then the seven experiences on a track that
+   runs sideways through the day as the page scrolls. The sun crosses the bar
+   above and the ground darkens behind the evening cards.
+   Pinned on wide screens only; phones and reduced motion get a plain list.
+   ========================================================================== */
+
+.xpage { background: var(--color-paper); padding-bottom: clamp(64px, 8vw, 104px); }
+
+/* --- Intro --------------------------------------------------------------- */
+.xintro {
+  display: grid;
+  grid-template-columns: minmax(0, 1.2fr) minmax(0, 0.8fr);
+  align-items: center;
+  gap: clamp(24px, 5vw, 72px);
+  padding-block: clamp(48px, 7vw, 104px) clamp(32px, 4vw, 56px);
+}
+.xintro-kicker { font-size: var(--type-label); font-weight: 500; color: var(--color-brass-ink); }
+.xintro h1 {
+  margin-top: 16px;
+  max-width: 13ch;
+  font-family: var(--font-display);
+  font-size: clamp(44px, 6.4vw, 92px);
+  font-weight: var(--weight-section);
+  line-height: 1;
+  letter-spacing: -0.03em;
+  color: var(--color-forest);
+}
+.xintro-line { margin-top: 24px; max-width: 46ch; font-size: var(--type-body); line-height: 1.6; }
+.xintro-facts {
+  margin: 32px 0 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px 40px;
+}
+.xintro-facts > div { display: flex; flex-direction: column-reverse; gap: 4px; }
+.xintro-facts dt { font-size: 13px; color: var(--color-muted); }
+.xintro-facts dd {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: clamp(24px, 2.4vw, 32px);
+  font-weight: var(--weight-section);
+  color: var(--color-forest);
+  font-variant-numeric: tabular-nums;
+}
+.xintro-sketch { width: 100%; max-width: 440px; height: auto; justify-self: end; }
+
+.xintro-text > * { animation: xrise 0.8s var(--ease-out) both; }
+.xintro-text > :nth-child(2) { animation-delay: 60ms; }
+.xintro-text > :nth-child(3) { animation-delay: 120ms; }
+.xintro-text > :nth-child(4) { animation-delay: 180ms; }
+@keyframes xrise { from { opacity: 0; transform: translateY(16px); } }
+@keyframes xfade { from { opacity: 0; } }
+
+/* --- The day track ------------------------------------------------------- */
+.xday {
+  position: relative;
+  margin-bottom: clamp(80px, 12vw, 160px);
+}
+.xday-stage { position: relative; }
+.xday.is-pinned .xday-stage {
+  position: sticky;
+  top: 0;
+  height: 100svh;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 24px;
+  padding-top: var(--header-height, 84px);
+}
+.xday-sunset,
+.xday-night {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+.xday-sunset { background: color-mix(in srgb, var(--color-brass) 34%, var(--color-paper)); }
+.xday-night { background: #0b2d1c; }
+
+/* The bar the sun crosses. A chalk pill so it reads on day and night. */
+.xday-bar { position: relative; z-index: 1; }
+.xday-bar-track {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  padding: 10px 20px;
+  border-radius: 999px;
+  background: var(--color-chalk);
+  border: 1px solid rgb(24 36 29 / 0.08);
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--color-ink);
+}
+.xday-sun {
+  position: absolute;
+  top: -14px;
+  left: 0;
+  width: 28px;
+  height: 28px;
+  will-change: transform;
+}
+.xday-sun svg {
+  position: absolute;
+  inset: 0;
+  fill: var(--color-chalk);
+  stroke: var(--color-brass-ink);
+  stroke-width: 1.4;
+  stroke-linecap: round;
+}
+
+.xday-track {
+  position: relative;
+  z-index: 1;
+  list-style: none;
+  margin: 0;
+  padding: 0 var(--gutter);
+  display: flex;
+  gap: 24px;
+  width: max-content;
+  will-change: transform;
+}
+.xday:not(.is-pinned) .xday-track {
+  width: auto;
+  max-width: var(--container);
+  margin-inline: auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 340px), 1fr));
+}
+
+/* --- Cards --------------------------------------------------------------- */
+.xcard {
+  width: clamp(320px, 30vw, 440px);
+  display: flex;
+  flex-direction: column;
+  padding: 16px;
+  border-radius: 20px;
+  background: var(--color-chalk);
+  border: 1px solid rgb(24 36 29 / 0.08);
+}
+.xday:not(.is-pinned) .xcard { width: auto; }
+.xcard-when {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 4px 4px 12px;
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--color-forest);
+  font-variant-numeric: tabular-nums;
+}
+.xcard-num { font-size: 13px; color: var(--color-brass-ink); }
+.xcard-visual {
+  position: relative;
+  aspect-ratio: 4 / 3;
+  max-height: 38svh;
+  border-radius: 12px;
+  overflow: hidden;
+  background: var(--color-limestone);
+}
+.xcard-visual img { object-fit: cover; }
+.xcard-visual.is-drawing {
+  display: grid;
+  place-items: center;
+  background: color-mix(in srgb, var(--color-garden) 45%, var(--color-chalk));
+}
+.xcard-visual.is-drawing .sketch { width: 72%; height: auto; }
+.xcard--evening .xcard-visual.is-drawing { background: #123d27; --sketch-ink: rgb(255 250 243 / 0.82); }
+.xcard--sunset .xcard-visual.is-drawing { background: color-mix(in srgb, var(--color-brass) 18%, var(--color-chalk)); }
+
+.xcard-name {
+  margin-top: 16px;
+  padding-inline: 4px;
+  font-family: var(--font-display);
+  font-size: clamp(22px, 1.8vw, 26px);
+  font-weight: var(--weight-section);
+  line-height: 1.15;
+  letter-spacing: -0.015em;
+  color: var(--color-forest);
+}
+.xcard-meta {
+  list-style: none;
+  margin: 12px 0 0;
+  padding: 0 4px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 16px;
+  font-size: 14px;
+  color: var(--color-ink);
+}
+.xcard-meta li { display: inline-flex; align-items: center; gap: 6px; }
+.xcard-meta svg { color: var(--color-brass-ink); }
+.xcard-more { margin-top: auto; padding: 16px 4px 4px; font-size: 14px; }
+.xcard-more summary {
+  cursor: pointer;
+  width: fit-content;
+  font-weight: 500;
+  color: var(--color-forest);
+  text-decoration: underline;
+  text-decoration-color: var(--color-brass);
+  text-underline-offset: 4px;
+}
+.xcard-more summary:focus-visible { outline: 2px solid var(--color-brass); outline-offset: 4px; }
+.xcard-more ul { margin: 10px 0 0; padding-left: 18px; display: grid; gap: 6px; line-height: 1.5; }
+
+/* Cards in the vertical list rise in as they are reached. */
+@supports (animation-timeline: view()) {
+  .xday:not(.is-pinned) .xcard {
+    animation: xrise linear both;
+    animation-timeline: view();
+    animation-range: entry 0% entry 40%;
+  }
+}
+
+@media (max-width: 900px) {
+  .xintro { grid-template-columns: 1fr; }
+  .xintro-sketch { max-width: 240px; justify-self: start; order: -1; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .xintro-text > * { animation-name: xfade; }
+  .xday:not(.is-pinned) .xcard { animation: none; }
+}
+
+/* Phones and tablets, pinned (unit 3.32): cards sized to the screen so one
+   reads at a time with the next peeking in; the bar tightens. */
+@media (max-width: 900px) {
+  .xday.is-pinned .xday-stage { gap: 20px; padding-top: calc(var(--header-height, 84px) + 16px); justify-content: center; }
+  .xday.is-pinned .xcard { width: min(80vw, 460px); padding: 12px; }
+  /* Taller pictures on tall screens, so the card fills the stage. */
+  .xday.is-pinned .xcard-visual { aspect-ratio: auto; height: clamp(200px, 42svh, 520px); max-height: none; }
+  .xday.is-pinned .xcard-name { font-size: 20px; margin-top: 12px; }
+  .xday.is-pinned .xcard-meta { font-size: 13px; gap: 4px 12px; }
+  .xday-track { gap: 14px; }
+  .xday-bar-track { padding: 8px 16px; font-size: 12px; }
+}

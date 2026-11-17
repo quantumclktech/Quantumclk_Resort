@@ -1,0 +1,156 @@
+{
+  "realm": "gh-guests",
+  "displayName": "Golden Hills Resort",
+  "enabled": true,
+  "sslRequired": "external",
+  "registrationAllowed": true,
+  "registrationEmailAsUsername": true,
+  "loginWithEmailAllowed": true,
+  "duplicateEmailsAllowed": false,
+  "editUsernameAllowed": false,
+  "verifyEmail": true,
+  "resetPasswordAllowed": true,
+  "rememberMe": true,
+  "passwordPolicy": "length(12) and maxLength(128) and notUsername and notEmail and passwordHistory(3)",
+  "bruteForceProtected": true,
+  "permanentLockout": false,
+  "failureFactor": 5,
+  "waitIncrementSeconds": 60,
+  "maxFailureWaitSeconds": 900,
+  "maxDeltaTimeSeconds": 43200,
+  "quickLoginCheckMilliSeconds": 1000,
+  "minimumQuickLoginWaitSeconds": 60,
+  "accessTokenLifespan": 300,
+  "ssoSessionIdleTimeout": 604800,
+  "ssoSessionMaxLifespan": 2592000,
+  "ssoSessionIdleTimeoutRememberMe": 2592000,
+  "ssoSessionMaxLifespanRememberMe": 2592000,
+  "revokeRefreshToken": true,
+  "refreshTokenMaxReuse": 0,
+  "actionTokenGeneratedByAdminLifespan": 259200,
+  "actionTokenGeneratedByUserLifespan": 900,
+  "loginTheme": "golden-hills",
+  "emailTheme": "golden-hills",
+  "internationalizationEnabled": false,
+  "eventsEnabled": true,
+  "eventsExpiration": 7776000,
+  "enabledEventTypes": ["LOGIN", "LOGIN_ERROR", "LOGOUT", "REGISTER", "REGISTER_ERROR", "CODE_TO_TOKEN_ERROR",
+    "REFRESH_TOKEN_ERROR", "UPDATE_PASSWORD", "VERIFY_EMAIL", "SEND_RESET_PASSWORD", "RESET_PASSWORD"],
+  "adminEventsEnabled": true,
+  "adminEventsDetailsEnabled": false,
+  "smtpServer": {
+    "host": "${SMTP_HOST}",
+    "port": "${SMTP_PORT}",
+    "from": "${SMTP_FROM}",
+    "fromDisplayName": "Golden Hills Resort",
+    "replyTo": "${SMTP_REPLY_TO}",
+    "envelopeFrom": "",
+    "auth": "${SMTP_AUTH}",
+    "starttls": "${SMTP_STARTTLS}",
+    "ssl": "false",
+    "user": "${SMTP_USER}",
+    "password": "${SMTP_PASSWORD}"
+  },
+  "components": {
+    "org.keycloak.userprofile.UserProfileProvider": [
+      {
+        "providerId": "declarative-user-profile",
+        "subComponents": {},
+        "config": {
+          "kc.user.profile.config": [
+            "{\"unmanagedAttributePolicy\":\"ADMIN_VIEW\",\"attributes\":[{\"name\":\"username\",\"displayName\":\"Username\",\"validations\":{\"length\":{\"min\":3,\"max\":255},\"username-prohibited-characters\":{},\"up-username-not-idn-homograph\":{}},\"permissions\":{\"view\":[\"admin\",\"user\"],\"edit\":[\"admin\",\"user\"]},\"multivalued\":false},{\"name\":\"email\",\"displayName\":\"Email\",\"validations\":{\"email\":{},\"length\":{\"max\":255}},\"required\":{\"roles\":[\"user\"]},\"permissions\":{\"view\":[\"admin\",\"user\"],\"edit\":[\"admin\",\"user\"]},\"multivalued\":false},{\"name\":\"firstName\",\"displayName\":\"First name\",\"validations\":{\"length\":{\"max\":255},\"person-name-prohibited-characters\":{}},\"required\":{\"roles\":[\"user\"]},\"permissions\":{\"view\":[\"admin\",\"user\"],\"edit\":[\"admin\",\"user\"]},\"multivalued\":false},{\"name\":\"lastName\",\"displayName\":\"Last name\",\"validations\":{\"length\":{\"max\":255},\"person-name-prohibited-characters\":{}},\"required\":{\"roles\":[\"user\"]},\"permissions\":{\"view\":[\"admin\",\"user\"],\"edit\":[\"admin\",\"user\"]},\"multivalued\":false},{\"name\":\"membershipId\",\"displayName\":\"Membership ID\",\"validations\":{\"pattern\":{\"pattern\":\"^GRH-LM-[0-9]{4}$\",\"error-message\":\"GRH-LM-0000\"}},\"permissions\":{\"view\":[\"admin\",\"user\"],\"edit\":[\"admin\"]},\"multivalued\":false}],\"groups\":[]}"
+          ]
+        }
+      }
+    ]
+  },
+  "authenticationFlows": [
+    {
+      "id": "6f0d7b8e-6a43-4f43-9c8e-1d5b0d6b3a01",
+      "alias": "gh-member-browser",
+      "description": "Landing-page sign-in: welcome-email activation link, then SSO cookie, then the password form",
+      "providerId": "basic-flow",
+      "topLevel": true,
+      "builtIn": false,
+      "authenticationExecutions": [
+        { "authenticator": "gh-member-activation", "authenticatorFlow": false, "requirement": "ALTERNATIVE", "priority": 5, "userSetupAllowed": false },
+        { "authenticator": "auth-cookie", "authenticatorFlow": false, "requirement": "ALTERNATIVE", "priority": 10, "userSetupAllowed": false },
+        { "flowAlias": "gh-member-browser forms", "authenticatorFlow": true, "requirement": "ALTERNATIVE", "priority": 30, "userSetupAllowed": false }
+      ]
+    },
+    {
+      "id": "6f0d7b8e-6a43-4f43-9c8e-1d5b0d6b3a02",
+      "alias": "gh-member-browser forms",
+      "description": "Username/email and password",
+      "providerId": "basic-flow",
+      "topLevel": false,
+      "builtIn": false,
+      "authenticationExecutions": [
+        { "authenticator": "auth-username-password-form", "authenticatorFlow": false, "requirement": "REQUIRED", "priority": 10, "userSetupAllowed": false }
+      ]
+    }
+  ],
+  "clients": [
+    {
+      "clientId": "guest-web",
+      "name": "Golden Hills landing page (browser)",
+      "enabled": true,
+      "publicClient": true,
+      "standardFlowEnabled": true,
+      "implicitFlowEnabled": false,
+      "directAccessGrantsEnabled": false,
+      "serviceAccountsEnabled": false,
+      "frontchannelLogout": true,
+      "fullScopeAllowed": false,
+      "redirectUris": [
+        "${LANDING_PUBLIC_URL}/login*", "${LANDING_PUBLIC_URL}/member/activate*", "${LANDING_PUBLIC_URL}/membership*",
+        "${LANDING_PUBLIC_URL}/profile*", "${LANDING_PUBLIC_URL}/plan-ahead*", "${LANDING_PUBLIC_URL}/silent-check-sso.html",
+        "http://localhost:3000/login*", "http://localhost:3000/member/activate*", "http://localhost:3000/membership*",
+        "http://localhost:3000/profile*", "http://localhost:3000/plan-ahead*", "http://localhost:3000/silent-check-sso.html"
+      ],
+      "webOrigins": ["${LANDING_PUBLIC_URL}", "http://localhost:3000"],
+      "attributes": {
+        "pkce.code.challenge.method": "S256",
+        "post.logout.redirect.uris": "${LANDING_PUBLIC_URL}/*##http://localhost:3000/*"
+      },
+      "authenticationFlowBindingOverrides": { "browser": "6f0d7b8e-6a43-4f43-9c8e-1d5b0d6b3a01" },
+      "defaultClientScopes": ["basic", "web-origins", "acr", "profile", "email"],
+      "optionalClientScopes": [],
+      "protocolMappers": [
+        {
+          "name": "audience guest-api",
+          "protocol": "openid-connect",
+          "protocolMapper": "oidc-audience-mapper",
+          "config": { "included.custom.audience": "guest-api", "access.token.claim": "true", "id.token.claim": "false", "introspection.token.claim": "true" }
+        }
+      ]
+    },
+    {
+      "clientId": "guest-service",
+      "name": "guest-service (creates member accounts, sends the welcome email)",
+      "enabled": true,
+      "publicClient": false,
+      "secret": "${KC_GUEST_SERVICE_CLIENT_SECRET}",
+      "standardFlowEnabled": false,
+      "implicitFlowEnabled": false,
+      "directAccessGrantsEnabled": false,
+      "serviceAccountsEnabled": true,
+      "fullScopeAllowed": false,
+      "defaultClientScopes": ["basic", "roles", "kc-admin-api"],
+      "optionalClientScopes": []
+    }
+  ],
+  "users": [
+    {
+      "username": "service-account-guest-service",
+      "enabled": true,
+      "serviceAccountClientId": "guest-service",
+      "clientRoles": { "realm-management": ["manage-users", "view-users", "query-users"] }
+    }
+  ],
+  "clientScopeMappings": {
+    "realm-management": [
+      { "client": "guest-service", "roles": ["manage-users", "view-users", "query-users"] }
+    ]
+  }
+}

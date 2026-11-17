@@ -1,0 +1,498 @@
+/* ==========================================================================
+   Home opening, pencil sketches and section grounds (unit 3.22)
+   ========================================================================== */
+
+/* --- Header over the opening -------------------------------------------- */
+.site-navbar-header.is-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+.site-navbar-header.is-overlay.is-clear {
+  background: transparent;
+  border-bottom-color: transparent;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+}
+.site-navbar-header.is-clear .site-navbar-link { color: var(--color-chalk); }
+@media (hover: hover) and (pointer: fine) { .site-navbar-header.is-clear .site-navbar-link:hover { background: rgb(255 250 243 / 0.14); color: var(--color-chalk); } }
+.site-navbar-header.is-clear .site-navbar-cta {
+  background: var(--color-chalk);
+  color: var(--color-forest) !important;
+  box-shadow: none;
+}
+.site-navbar-header.is-clear .opening-menu summary { color: var(--color-chalk); }
+.site-navbar-header.is-clear .opening-menu-lines i { background: var(--color-chalk); }
+
+.site-navbar-header.is-overlay .site-navbar-logo { position: relative; }
+.site-navbar-logo-light {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: auto;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+.site-navbar-logo-dark { transition: opacity 0.3s ease; }
+.site-navbar-header.is-clear .site-navbar-logo-light { opacity: 1; }
+.site-navbar-header.is-clear .site-navbar-logo-dark { opacity: 0; }
+
+/* --- The pinned opening -------------------------------------------------- */
+.hop {
+  position: relative;
+  height: 320svh;
+  background: var(--color-paper);
+}
+.hop-stage {
+  position: sticky;
+  top: 0;
+  height: 100svh;
+  overflow: hidden;
+}
+.hop-frame {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  overflow: hidden;
+  background: var(--color-forest);
+  will-change: clip-path;
+}
+.hop-slides { position: absolute; inset: 0; will-change: transform; }
+.hop-slide {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transition: opacity 0.7s var(--ease-out);
+}
+.hop-slide.is-active { opacity: 1; }
+
+/* Legibility for the bar above and the headline below: a tone shift inside
+   the forest neutral, darkest where text sits. */
+.hop-shade {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to bottom,
+    rgb(6 22 14 / 0.5) 0%,
+    rgb(6 22 14 / 0) 20%,
+    rgb(6 22 14 / 0) 40%,
+    rgb(6 22 14 / 0.62) 100%
+  );
+  pointer-events: none;
+}
+
+.hop-over {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  display: flex;
+  align-items: flex-end;
+  padding-bottom: clamp(20px, 4svh, 40px);
+  color: var(--color-chalk);
+}
+.hop-over.is-gone { visibility: hidden; }
+.hop-over-inner {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  justify-items: center;
+  text-align: center;
+}
+.hop-kicker {
+  font-size: 14px;
+  font-weight: 500;
+  color: rgb(255 250 243 / 0.88);
+}
+.hop-title {
+  margin-top: 12px;
+  max-width: 18ch;
+  font-family: var(--font-display);
+  font-size: clamp(32px, 4.2vw, 60px);
+  font-weight: var(--weight-section);
+  line-height: 1;
+  letter-spacing: -0.03em;
+  color: var(--color-chalk);
+  text-wrap: balance;
+}
+
+/* Booking bar */
+.hop-book {
+  margin-top: clamp(24px, 4svh, 40px);
+  width: min(880px, 100%);
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr)) auto;
+  align-items: stretch;
+  gap: 0;
+  padding: 8px;
+  border-radius: 16px;
+  background: var(--color-chalk);
+  color: var(--color-ink);
+  text-align: left;
+  box-shadow: 0 16px 40px rgb(0 0 0 / 0.18);
+}
+.hop-book label {
+  min-width: 0;
+  display: grid;
+  gap: 2px;
+  padding: 8px 16px;
+  border-right: 1px solid rgb(24 36 29 / 0.1);
+  cursor: pointer;
+}
+.hop-book label span { font-size: 12px; font-weight: 500; color: var(--color-brass-ink); }
+.hop-book input,
+.hop-book select {
+  width: 100%;
+  min-height: 28px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  font: inherit;
+  /* 16px: iOS Safari zooms the page into any field smaller than this. */
+  font-size: 16px;
+  font-weight: 500;
+  color: var(--color-ink);
+  font-variant-numeric: tabular-nums;
+}
+.hop-book input:focus-visible,
+.hop-book select:focus-visible { outline: 2px solid var(--color-brass); outline-offset: 2px; border-radius: 4px; }
+.hop-book button {
+  margin-left: 8px;
+  padding-inline: 24px;
+  min-height: 52px;
+  border: 0;
+  border-radius: 10px;
+  background: var(--color-forest);
+  color: var(--color-chalk);
+  font: inherit;
+  font-size: 15px;
+  font-weight: 500;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: background-color 0.18s ease, transform 0.12s var(--ease-out);
+}
+.hop-book button:active { transform: scale(0.97); }
+.hop-book button:focus-visible { outline: 2px solid var(--color-brass); outline-offset: 3px; }
+@media (hover: hover) and (pointer: fine) {
+  .hop-book button:hover { background: #0b2d1c; }
+}
+
+.hop-book-error {
+  grid-column: 1 / -1;
+  margin-top: 8px;
+  padding: 8px 14px;
+  border-radius: 8px;
+  background: #fdf2f2;
+  border: 1px solid #f8b4b4;
+  color: #9b1c1c;
+  font-size: 13px;
+  font-weight: 500;
+  text-align: center;
+}
+
+.hop-impression {
+  margin-top: 16px;
+  font-size: 12px;
+  color: rgb(255 250 243 / 0.8);
+}
+
+/* Caption under the portrait, once the frame has closed in. */
+.hop-caption {
+  position: absolute;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--color-ink);
+  pointer-events: none;
+}
+.hop-count { color: var(--color-brass-ink); font-variant-numeric: tabular-nums; }
+
+/* The sketch row that follows */
+/* The statement and sketch row, pulled up into the empty lower part of the
+   last pinned frame so they arrive just under the portrait. */
+.hop-intro {
+  position: relative;
+  margin-top: -18svh;
+  padding-block: 0 clamp(56px, 8vw, 104px);
+  scroll-margin-top: calc(var(--header-height, 84px) + 24px);
+}
+.hop-intro:focus { outline: none; }
+.hop-statement {
+  max-width: 640px;
+  margin: 0 auto;
+  display: grid;
+  justify-items: center;
+  gap: 16px;
+  text-align: center;
+}
+.hop-statement-kicker { font-size: 13px; font-weight: 500; color: var(--color-brass-ink); }
+.hop-statement h2 {
+  font-family: var(--font-display);
+  font-size: clamp(28px, 3.4vw, 44px);
+  font-weight: var(--weight-section);
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  color: var(--color-forest);
+  text-wrap: balance;
+}
+.hop-statement-lead { max-width: 48ch; font-size: 17px; line-height: 1.6; color: var(--color-ink); }
+.hop-statement-credit { font-size: 13px; color: var(--color-muted); }
+.hop-intro ul {
+  list-style: none;
+  margin: clamp(48px, 6vw, 72px) auto 0;
+  padding: 0;
+  max-width: 1080px;
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  gap: 24px;
+}
+.hop-intro li {
+  display: grid;
+  justify-items: center;
+  gap: 12px;
+  text-align: center;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1.35;
+  color: var(--color-ink);
+}
+.hop-intro .sketch { width: 100%; max-width: 150px; height: auto; }
+
+@media (max-width: 760px) {
+  .hop { height: 280svh; }
+  .hop-title { font-size: clamp(28px, 7.6vw, 36px); }
+  .hop-book { grid-template-columns: 1fr 1fr; gap: 4px; }
+  .hop-book label { border-right: 0; background: rgb(24 36 29 / 0.04); border-radius: 10px; }
+  .hop-book label:nth-of-type(3) { grid-column: 1 / -1; }
+  .hop-book button { grid-column: 1 / -1; margin: 4px 0 0; }
+  .hop-intro { margin-top: -14svh; }
+  .hop-intro ul { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px 12px; }
+  .hop-intro .sketch { max-width: 104px; }
+}
+
+/* Reduced motion: no pinned sequence, a still opening. */
+.hop[data-reduced] { height: 100svh; }
+.hop[data-reduced] .hop-stage { position: relative; }
+.hop[data-reduced] .hop-slide { transition: none; }
+
+/* Drawings either side of the portrait. They sit under the frame, so the
+   closing clip uncovers them; .is-drawn (set from scroll progress) draws the
+   strokes in, and removing it un-draws them on the way back up. */
+.hop-sides { position: absolute; inset: 0; z-index: 0; pointer-events: none; }
+.hop-side { position: absolute; top: 0; bottom: 0; width: min(34vw, 460px); will-change: transform; }
+.hop-side--left { left: 0; }
+.hop-side--right { right: 0; }
+.hop-side .sketch { position: absolute; height: auto; }
+.hop-side--left .hop-side-a { width: 74%; top: 16%; left: 14%; }
+.hop-side--left .hop-side-b { width: 52%; bottom: 14%; left: 34%; }
+.hop-side--right .hop-side-a { width: 40%; top: 11%; left: 22%; }
+.hop-side--right .hop-side-b { width: 70%; bottom: 12%; right: 12%; }
+.sketch-js .hop-side .sketch path {
+  transition: stroke-dashoffset 1.4s var(--ease-out);
+  transition-delay: calc(var(--i, 0) * 90ms);
+}
+.sketch-js .hop-sides:not(.is-drawn) .sketch path { transition-delay: 0s; transition-duration: 0.5s; }
+.hop-sides.is-drawn .sketch path { stroke-dashoffset: 0; }
+/* Phones and tablets (unit 3.32): the drawings stay, sized to the strip of
+   page either side of the portrait, one drawing per side. */
+@media (max-width: 900px) {
+  .hop-side { width: 19vw; }
+  .hop-side .hop-side-b { display: none; }
+  .hop-side--left .hop-side-a { width: 100%; left: 4%; top: 28%; }
+  .hop-side--right .hop-side-a { width: 70%; left: 10%; top: 24%; }
+}
+
+/* --- Pencil sketches ----------------------------------------------------- */
+.sketch { display: block; overflow: visible; }
+.sketch path {
+  fill: none;
+  stroke: var(--sketch-ink, #4b524a);
+  stroke-width: 1.3;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.sketch .sketch-ghost path { stroke-width: 0.8; opacity: 0.4; }
+
+/* Hidden only once the observer is running, so the drawings never go missing
+   without JavaScript or under reduced motion. */
+.sketch-js .sketch path {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  transition: stroke-dashoffset 1.8s var(--ease-out);
+  transition-delay: calc(var(--i, 0) * 110ms);
+}
+.sketch-js .sketch .sketch-ghost path { transition-delay: calc(var(--i, 0) * 110ms + 240ms); }
+.sketch-js .sketch.is-drawn path { stroke-dashoffset: 0; }
+
+@media (prefers-reduced-motion: reduce) {
+  .sketch-js .sketch path { stroke-dashoffset: 0; transition: none; }
+}
+
+/* --- Home sections: each its own ground and a drawing -------------------
+   The layout of every section is untouched. What changes:
+   - the ground alternates, full bleed, between paper, chalk, sage, sand and
+     one dark forest band (box-shadow + clip-path widen the background past
+     the .wrap without moving anything);
+   - a chapter number leads each section's note;
+   - one pencil drawing sits in the section's top corner. */
+#main-content { counter-reset: chapter; }
+#main-content > section.wrap:not(.hop-intro) { counter-increment: chapter; position: relative; }
+/* The number takes the place of the small arch mark (globals.css). */
+#main-content > section.wrap .section-note::before {
+  content: counter(chapter, decimal-leading-zero);
+  width: auto;
+  height: auto;
+  padding-right: 12px;
+  border: 0;
+  border-right: 1px solid color-mix(in srgb, currentColor 40%, transparent);
+  border-radius: 0;
+  color: var(--color-brass-ink);
+  font-variant-numeric: tabular-nums;
+}
+/* Brass lifted toward chalk: plain brass is 3.7:1 on forest at 13px. */
+#experiences .section-note::before { color: color-mix(in srgb, var(--color-brass) 62%, var(--color-chalk)) !important; }
+#experiences .section-status { color: rgb(255 250 243 / 0.78); }
+
+#main-content > section.wrap:not(.hop-intro) {
+  background: var(--ground, var(--color-paper));
+  box-shadow: 0 0 0 100vmax var(--ground, var(--color-paper));
+  clip-path: inset(0 -100vmax);
+}
+#stay, #gatherings, #offers { --ground: var(--color-chalk); }
+#amenities, #highlights { --ground: color-mix(in srgb, var(--color-garden) 55%, var(--color-chalk)); }
+#gallery { --ground: color-mix(in srgb, var(--color-limestone) 60%, var(--color-chalk)); }
+
+/* The one dark band: the evening experiences. */
+#experiences {
+  --ground: var(--color-forest);
+  --sketch-ink: rgb(255 250 243 / 0.75);
+  color: var(--color-chalk);
+}
+#experiences h2,
+#experiences .section-note,
+#experiences .home-row-head a,
+#experiences p { color: var(--color-chalk); }
+
+/* In the empty band above each heading row, clear of the links and images. */
+.sec-sketch {
+  position: absolute;
+  top: 12px;
+  right: 0;
+  width: clamp(96px, 9vw, 132px);
+  height: auto;
+  pointer-events: none;
+}
+
+@media (max-width: 760px) {
+  .sec-sketch { width: 80px; top: 8px; }
+}
+
+/* --- Sketches elsewhere ------------------------------------------------- */
+.sp-callout-sketch {
+  --sketch-ink: var(--color-chalk);
+  flex: none;
+  width: clamp(72px, 8vw, 104px);
+  height: auto;
+  opacity: 0.8;
+}
+.sp-callout:has(.sp-callout-sketch) { justify-content: flex-start; }
+.sp-callout:has(.sp-callout-sketch) .sp-callout-btn { margin-left: auto; }
+.footer-sketch {
+  width: 120px;
+  height: auto;
+  margin-top: 24px;
+  opacity: 0.85;
+}
+
+/* --- Amenities as a walk through the day (unit 3.26) --------------------- */
+.atrail { position: relative; margin-top: clamp(32px, 4vw, 56px); }
+.atrail-path {
+  position: absolute;
+  left: calc(-1 * var(--gutter));
+  right: calc(-1 * var(--gutter));
+  top: 36px;
+  width: calc(100% + 2 * var(--gutter));
+  height: 120px;
+  pointer-events: none;
+}
+.atrail-path path { stroke-width: 1.4; vector-effect: non-scaling-stroke; }
+.atrail-path .atrail-path-faint { opacity: 0.35; stroke-dasharray: 2 6; }
+.sketch-js .atrail-path .atrail-path-faint { stroke-dasharray: 1; }
+
+.atrail-stops {
+  position: relative;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  gap: 24px;
+}
+.atrail-stop { display: grid; justify-items: center; text-align: center; gap: 6px; }
+.atrail-stop:nth-child(even) { transform: translateY(40px); }
+.atrail-stop .sketch {
+  width: 100%;
+  max-width: 156px;
+  height: auto;
+  padding: 8px;
+  border-radius: 50%;
+  background: var(--ground, var(--color-paper));
+}
+.atrail-stop h3 {
+  margin-top: 4px;
+  font-family: var(--font-display);
+  font-size: 18px;
+  font-weight: var(--weight-section);
+  line-height: 1.2;
+  color: var(--color-forest);
+}
+.atrail-stop p { font-size: 14px; color: var(--color-ink); font-variant-numeric: tabular-nums; }
+.atrail-essentials {
+  margin-top: clamp(64px, 6vw, 88px);
+  padding-top: 16px;
+  border-top: 1px solid rgb(24 36 29 / 0.1);
+  font-size: 13px;
+  line-height: 1.6;
+  color: var(--color-muted);
+}
+
+/* The path draws first, then the stops one after another along it. */
+.sketch-js .atrail-path path { transition-duration: 2.2s; }
+.sketch-js .atrail-stop .sketch path {
+  transition-delay: calc(500ms + var(--stop, 0) * 160ms + var(--i, 0) * 80ms);
+}
+
+@media (max-width: 900px) {
+  .atrail-path { display: none; }
+  .atrail-stops { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 32px 12px; }
+  .atrail-stop:nth-child(even) { transform: none; }
+  .atrail-stop .sketch { max-width: 104px; }
+  .atrail-stop h3 { font-size: 15px; }
+  .atrail-stop p { font-size: 13px; }
+  .atrail-essentials { margin-top: 32px; }
+}
+/* Labels sit on a strip of the section's own ground, so the path passes
+   behind the words instead of through them. */
+.atrail-stop h3, .atrail-stop p { position: relative; padding-inline: 8px; background: var(--ground, var(--color-paper)); }
+
+/* --- Phones and tablets (unit 3.29) -------------------------------------- */
+.hop-book button, .hop-book select, .hop-book input { touch-action: manipulation; }
+.hop-book button { -webkit-user-select: none; user-select: none; }
+/* Tablet portrait: the bar keeps one row but the fields get room. */
+@media (min-width: 761px) and (max-width: 1024px) {
+  .hop-book { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 4px; }
+  .hop-book button { grid-column: 1 / -1; margin: 4px 0 0; }
+}
+/* Phones turned sideways (short viewports): one slim row, no kicker. */
+@media (max-height: 500px) and (orientation: landscape) {
+  .hop-kicker, .hop-impression { display: none; }
+  .hop-title { font-size: 28px; max-width: none; }
+  .hop-book { margin-top: 12px; grid-template-columns: repeat(3, minmax(0, 1fr)) auto; gap: 0; padding: 6px; }
+  .hop-book label { padding: 4px 12px; background: none; border-radius: 0; border-right: 1px solid rgb(24 36 29 / 0.1); }
+  .hop-book label:nth-of-type(3) { grid-column: auto; }
+  .hop-book button { grid-column: auto; margin: 0 0 0 6px; min-height: 44px; padding-inline: 16px; }
+}

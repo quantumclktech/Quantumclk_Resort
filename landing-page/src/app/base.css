@@ -1,0 +1,80 @@
+/* Hallmark · base stylesheet
+ * Floor rules: overflow-x, focus-visible, reduced motion
+ * v2.0.0 */
+
+html,
+body {
+  overflow-x: clip;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: inherit;
+}
+
+/* Instant focus visible, contrast >= 3:1 */
+:focus-visible {
+  outline: 2px solid var(--color-brass);
+  outline-offset: 3px;
+}
+
+:disabled,
+[aria-disabled="true"] {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+/* Typography Rules: General Sans for Headings/Subheadings, Inter for Body & UI */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-display);
+}
+
+body,
+p,
+span,
+li,
+a,
+button,
+input,
+textarea,
+select,
+label,
+table,
+th,
+td {
+  font-family: var(--font-sans);
+  letter-spacing: var(--tracking-body);
+}
+
+nav a,
+.opening-desktop a,
+.opening-mobile-nav a,
+.footer-list a {
+  letter-spacing: var(--tracking-nav);
+}
+
+/* Reduced motion guarantee */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Mobile baseline (unit 3.29): no grey flash over tapped controls (each has
+   its own :active state), and no font inflation when a phone turns sideways. */
+html {
+  -webkit-tap-highlight-color: transparent;
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+button, a, [role="button"], summary { touch-action: manipulation; }

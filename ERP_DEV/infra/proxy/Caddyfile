@@ -1,0 +1,39 @@
+# One public origin for every app, split by path (D-124; KEYCLOAK-SETUP §1.1).
+# ngrok (or any tunnel / TLS terminator) forwards https://<public host> -> http://localhost:8088 -> here.
+#
+#   /realms/*, /resources/*  -> Keycloak       (paths unchanged: issuer, cookies and email links stay valid)
+#   /api/*                   -> api-gateway    (same origin for both apps, so no CORS)
+#   /erp/*                   -> staff ERP      (Vite dev server, base "/erp/")
+#   everything else          -> landing page   (Next.js dev server)
+#
+# The ERP apps run on the host during development, so they are reached through host.docker.internal.
+# Upstreams can be overridden with the env vars below (see infra/docker-compose.yml).
+{
+	admin off
+	auto_https off
+	servers {
+		# The tunnel agent connects from the host (a private address). Trust its X-Forwarded-* headers so
+		# Keycloak and the apps see the original https scheme and public host.
+		trusted_proxies static private_ranges
+	}
+}
+
+:8088 {
+	@keycloak path /realms/* /resources/*
+	handle @keycloak {
+		reverse_proxy {$KEYCLOAK_UPSTREAM:keycloak:8081}
+	}
+
+	handle /api/* {
+		reverse_proxy {$GATEWAY_UPSTREAM:host.docker.internal:8082}
+	}
+
+	redir /erp /erp/ 308
+	handle /erp/* {
+		reverse_proxy {$ERP_WEB_UPSTREAM:host.docker.internal:5173}
+	}
+
+	handle {
+		reverse_proxy {$LANDING_UPSTREAM:host.docker.internal:3000}
+	}
+}

@@ -1,0 +1,14 @@
+# Secret scan settings (CI: gitleaks). Default rules, plus an allowlist for test-only fixture keys.
+# These two values are fake keys used only by access-service tests ("test-only-id-hash-key-32-bytes-long!" and
+# "0123456789abcdef..." in base64); real keys come from environment variables (MEMBERSHIP_ID_HASH_KEY, proof key).
+[extend]
+useDefault = true
+
+[[allowlists]]
+description = "access-service test fixture keys (not secrets)"
+regexTarget = "match"
+regexes = [
+  '''dGVzdC1vbmx5LWlkLWhhc2gta2V5LTMyLWJ5dGVzLWxvbmch''',
+  '''MDEyMzQ1Njc4OWFiY2RlZjAxMjM0NTY3ODlhYmNkZWY=''',
+  '''0123456789abcdef0123456789abcdef''',   # the same value, base64-decoded (gitleaks decodes before matching)
+]

@@ -1,0 +1,256 @@
+/* ==========================================================================
+   Gatherings — six spaces, smallest to largest (unit 3.24)
+   A dark opening strung with drawn lights, then the venues as stacked panels
+   that pin and slide over each other. Capacity is drawn as dots, one per ten
+   guests. Stacking on wide screens only; phones and reduced motion get the
+   same panels as a list.
+   ========================================================================== */
+
+.gpage { background: var(--color-paper); padding-bottom: clamp(64px, 8vw, 104px); }
+
+/* --- Opening ------------------------------------------------------------- */
+.gintro {
+  position: relative;
+  overflow: hidden;
+  background: var(--color-forest);
+  color: var(--color-chalk);
+  text-align: center;
+  padding-block: clamp(120px, 14vw, 184px) clamp(56px, 7vw, 96px);
+}
+.gintro-lights {
+  --sketch-ink: color-mix(in srgb, var(--color-brass) 70%, var(--color-chalk));
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: clamp(64px, 9vw, 120px);
+  pointer-events: none;
+}
+.gintro-inner { display: grid; justify-items: center; }
+.gintro-kicker { font-size: var(--type-label); font-weight: 500; color: color-mix(in srgb, var(--color-brass) 62%, var(--color-chalk)); }
+.gintro h1 {
+  margin-top: 16px;
+  max-width: 16ch;
+  font-family: var(--font-display);
+  font-size: clamp(40px, 6vw, 84px);
+  font-weight: var(--weight-section);
+  line-height: 1.02;
+  letter-spacing: -0.03em;
+  color: var(--color-chalk);
+  text-wrap: balance;
+}
+.gintro-line { margin-top: 20px; max-width: 44ch; font-size: var(--type-body); line-height: 1.6; color: rgb(255 250 243 / 0.84); }
+.gintro-facts {
+  margin: 40px 0 0;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 16px clamp(32px, 6vw, 88px);
+}
+.gintro-facts > div { display: flex; flex-direction: column-reverse; gap: 6px; }
+.gintro-facts dt { font-size: 13px; color: rgb(255 250 243 / 0.78); }
+.gintro-facts dd {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: clamp(32px, 3.6vw, 48px);
+  font-weight: var(--weight-section);
+  color: var(--color-chalk);
+  font-variant-numeric: tabular-nums;
+}
+.gintro-cue { margin-top: 40px; font-size: 14px; font-weight: 500; color: rgb(255 250 243 / 0.84); }
+
+.gintro-inner > * { animation: grise 0.8s var(--ease-out) both; }
+.gintro-inner > :nth-child(2) { animation-delay: 60ms; }
+.gintro-inner > :nth-child(3) { animation-delay: 120ms; }
+.gintro-inner > :nth-child(4) { animation-delay: 180ms; }
+.gintro-inner > :nth-child(5) { animation-delay: 240ms; }
+@keyframes grise { from { opacity: 0; transform: translateY(16px); } }
+@keyframes gfade { from { opacity: 0; } }
+
+/* --- The stack ----------------------------------------------------------- */
+.gstack {
+  padding-top: clamp(40px, 6vw, 80px);
+  padding-bottom: clamp(60px, 10vw, 120px);
+  margin-bottom: clamp(40px, 6vw, 80px);
+}
+.vstack { list-style: none; margin: 0; padding: 0; display: grid; gap: 24px; }
+.vstack.is-stacked { display: block; }
+.vstack.is-stacked .vslot {
+  position: sticky;
+  top: calc(var(--header-height, 84px) + 16px);
+  min-height: calc(100svh - var(--header-height, 84px) - 40px);
+  height: auto;
+  margin-bottom: 24svh;
+}
+.vstack.is-stacked .vslot:last-child {
+  margin-bottom: clamp(120px, 20vh, 220px);
+}
+
+.vpanel {
+  min-height: calc(100svh - var(--header-height, 84px) - 40px);
+  height: auto;
+  display: grid;
+  grid-template-columns: minmax(0, 1.55fr) minmax(0, 1fr);
+  gap: clamp(20px, 3vw, 40px);
+  padding: 16px;
+  border-radius: 24px;
+  background: var(--color-chalk);
+  border: 1px solid rgb(24 36 29 / 0.08);
+  box-shadow: 0 -12px 40px rgb(24 36 29 / 0.1);
+  transform-origin: center top;
+  will-change: transform;
+}
+.vpanel.is-grand { background: var(--color-forest); color: var(--color-chalk); }
+
+/* Photograph, uncovered from the bottom once the panel arrives. */
+.vpanel-shot {
+  position: relative;
+  min-height: 320px;
+  border-radius: 14px;
+  overflow: hidden;
+  background: var(--color-limestone);
+  clip-path: inset(100% 0 0 0 round 14px);
+  transition: clip-path 0.9s var(--ease-out);
+}
+.vpanel-shot img { object-fit: cover; transform: scale(1.08); transition: transform 1.2s var(--ease-out); }
+.vpanel.is-in .vpanel-shot { clip-path: inset(0 0 0 0 round 14px); }
+.vpanel.is-in .vpanel-shot img { transform: none; }
+.vpanel-drawing {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  background: #123d27;
+  --sketch-ink: rgb(255 250 243 / 0.82);
+}
+.vpanel-drawing .sketch { width: 64%; height: auto; }
+.vpanel-type {
+  position: absolute;
+  left: 16px;
+  bottom: 16px;
+  padding: 6px 12px;
+  border-radius: 999px;
+  background: rgb(16 64 40 / 0.82);
+  color: var(--color-chalk);
+  font-size: 13px;
+  font-weight: 500;
+}
+
+/* Text column */
+.vpanel-text {
+  display: flex;
+  flex-direction: column;
+  padding: clamp(8px, 1.5vw, 24px) clamp(4px, 1vw, 16px);
+  min-width: 0;
+}
+.vpanel-count { display: flex; gap: 8px; font-size: 13px; font-variant-numeric: tabular-nums; color: var(--color-muted); }
+.vpanel-num { color: var(--color-brass-ink); font-weight: 500; }
+.vpanel.is-grand .vpanel-count { color: rgb(255 250 243 / 0.78); }
+.vpanel.is-grand .vpanel-num { color: color-mix(in srgb, var(--color-brass) 62%, var(--color-chalk)); }
+.vpanel-cap { margin-top: 16px; display: flex; align-items: baseline; gap: 12px; }
+.vpanel-cap strong {
+  font-family: var(--font-display);
+  font-size: clamp(64px, 7vw, 112px);
+  font-weight: var(--weight-section);
+  line-height: 0.9;
+  letter-spacing: -0.04em;
+  color: var(--color-forest);
+  font-variant-numeric: tabular-nums;
+}
+.vpanel.is-grand .vpanel-cap strong { color: var(--color-chalk); }
+.vpanel-cap span { font-size: 16px; font-weight: 500; }
+
+/* One dot per ten guests. */
+.vmeter {
+  list-style: none;
+  margin: 20px 0 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(10, 10px);
+  gap: 6px;
+}
+.vmeter li {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--color-brass);
+  opacity: 0;
+  transform: scale(0.6);
+  transition: opacity 0.3s var(--ease-out), transform 0.3s var(--ease-out);
+}
+.vpanel.is-in .vmeter li { opacity: 1; transform: none; }
+
+.vpanel-name {
+  margin-top: auto;
+  padding-top: 24px;
+  font-family: var(--font-display);
+  font-size: clamp(24px, 2.2vw, 32px);
+  font-weight: var(--weight-section);
+  line-height: 1.12;
+  letter-spacing: -0.015em;
+  color: var(--color-forest);
+}
+.vpanel.is-grand .vpanel-name { color: var(--color-chalk); }
+.vpanel-for {
+  margin-top: 12px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px 8px;
+  font-size: 14px;
+}
+.vpanel-for svg { color: var(--color-brass-ink); }
+.vpanel-for svg:nth-of-type(2) { margin-left: 8px; }
+.vpanel.is-grand .vpanel-for svg { color: var(--color-brass); }
+.vpanel-more { margin-top: 16px; font-size: 14px; }
+.vpanel-more summary {
+  cursor: pointer;
+  width: fit-content;
+  font-weight: 500;
+  text-decoration: underline;
+  text-decoration-color: var(--color-brass);
+  text-underline-offset: 4px;
+}
+.vpanel-more summary:focus-visible { outline: 2px solid var(--color-brass); outline-offset: 4px; }
+.vpanel-more ul { margin: 10px 0 0; padding-left: 18px; display: grid; gap: 6px; line-height: 1.5; }
+/* In the stack the panel height is fixed; the list scrolls inside if opened. */
+.vstack.is-stacked .vpanel-more[open] ul { max-height: 22svh; overflow-y: auto; }
+
+@media (max-width: 900px) {
+  .vpanel { grid-template-columns: 1fr; }
+  .vpanel-shot { min-height: 0; aspect-ratio: 4 / 3; }
+  .vpanel-name { margin-top: 0; }
+  /* Stacked on a phone or tablet: the photo takes the top of the panel, the
+     facts the rest; long "what is included" lists scroll inside. */
+  .vstack.is-stacked .vslot {
+    min-height: calc(100svh - var(--header-height, 84px) - 24px);
+    height: auto;
+    top: calc(var(--header-height, 84px) + 8px);
+    margin-bottom: 16svh;
+  }
+  .vstack.is-stacked .vslot:last-child {
+    margin-bottom: clamp(90px, 16vh, 160px);
+  }
+  .vstack.is-stacked .vpanel {
+    min-height: calc(100svh - var(--header-height, 84px) - 24px);
+    height: auto;
+    grid-template-rows: minmax(0, 1fr) auto;
+    gap: 12px;
+    padding: 10px;
+  }
+  .vstack.is-stacked .vpanel-text { max-height: 52svh; }
+  .vstack.is-stacked .vpanel-shot { aspect-ratio: auto; height: 100%; }
+  .vstack.is-stacked .vpanel-text { overflow-y: auto; overscroll-behavior: contain; padding: 4px 6px 8px; }
+  .vstack.is-stacked .vpanel-cap { margin-top: 8px; }
+  .vstack.is-stacked .vpanel-cap strong { font-size: 56px; }
+  .vstack.is-stacked .vmeter { grid-template-columns: repeat(10, 8px); gap: 5px; margin-top: 12px; }
+  .vstack.is-stacked .vmeter li { width: 8px; height: 8px; }
+  .vstack.is-stacked .vpanel-name { padding-top: 12px; font-size: 22px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .gintro-inner > * { animation-name: gfade; }
+  .vpanel-shot, .vpanel.is-in .vpanel-shot { clip-path: none; transition: none; }
+  .vpanel-shot img { transform: none; transition: none; }
+  .vmeter li { transform: none; transition: opacity 0.2s ease; }
+}

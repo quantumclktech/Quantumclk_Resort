@@ -1,0 +1,43 @@
+# guest-service (D-119…D-122). Configuration names: docs/02-architecture/identity/KEYCLOAK-SETUP.md. Secrets come
+# from the environment only.
+server:
+  port: ${PORT:8092}
+
+spring:
+  application:
+    name: guest-service
+  datasource:
+    url: ${GUEST_DB_URL:jdbc:postgresql://localhost:5433/guest_db}
+    username: ${GUEST_DB_USER:guest_svc}
+    password: ${GUEST_DB_PASSWORD}
+  flyway:
+    enabled: true
+
+erp:
+  keycloak:
+    url: ${KEYCLOAK_URL:http://localhost:8081}   # public base: must match the tokens' `iss` exactly
+    # Where the Admin API and the activation extension are called; the internal address when `url` is public.
+    admin-url: ${KEYCLOAK_ADMIN_URL:${erp.keycloak.url}}
+    guest-realm: gh-guests
+    staff-issuer: ${erp.keycloak.url}/realms/gh-staff    # access-service's service token (/internal/**)
+    guest-issuer: ${erp.keycloak.url}/realms/gh-guests   # guests and members (/api/v1/portal/**)
+    client-id: guest-service
+    client-secret: ${KC_GUEST_SERVICE_CLIENT_SECRET}
+  landing:
+    # The welcome-email link is <public-url>/member/activate; it must be a guest-web web origin in gh-guests.
+    public-url: ${LANDING_PUBLIC_URL:http://localhost:3000}
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health
+  endpoint:
+    health:
+      probes:
+        enabled: true
+
+logging:
+  structured:
+    format:
+      console: ecs   # JSON logs; correlationId comes from the MDC (CorrelationIdFilter)

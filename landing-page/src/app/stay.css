@@ -1,0 +1,388 @@
+/* ==========================================================================
+   Stay (unit 3.27) — the booking page
+   A fanned deck of the six rooms, the resort drawn as three corners that
+   filter the rooms, room cards that scrub through their renders, and the
+   meal plans drawn as meals of the day. Shared by the room pages: the room
+   card, the meal-plan picture, and the collage's opening.
+   ========================================================================== */
+
+.spage { background: var(--color-paper); padding-bottom: clamp(64px, 8vw, 104px); }
+
+/* --- Opening: text and the deck ----------------------------------------- */
+.shero {
+  display: grid;
+  grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+  align-items: center;
+  gap: clamp(24px, 4vw, 64px);
+  padding-block: clamp(48px, 6vw, 88px) clamp(40px, 5vw, 72px);
+  position: relative;
+}
+.shero-kicker { font-size: var(--type-label); font-weight: 500; color: var(--color-brass-ink); }
+.shero h1 {
+  margin-top: 16px;
+  max-width: 12ch;
+  font-family: var(--font-display);
+  font-size: clamp(44px, 6vw, 88px);
+  font-weight: var(--weight-section);
+  line-height: 1;
+  letter-spacing: -0.03em;
+  color: var(--color-forest);
+}
+.shero-line { margin-top: 20px; max-width: 40ch; font-size: var(--type-body); line-height: 1.6; }
+.shero-facts { margin: 28px 0 0; display: flex; flex-wrap: wrap; gap: 12px 36px; }
+.shero-facts > div { display: flex; flex-direction: column-reverse; gap: 4px; }
+.shero-facts dt { font-size: 13px; color: var(--color-muted); }
+.shero-facts dd {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: clamp(24px, 2.4vw, 32px);
+  font-weight: var(--weight-section);
+  color: var(--color-forest);
+  font-variant-numeric: tabular-nums;
+}
+.shero-cta {
+  display: inline-flex;
+  align-items: center;
+  margin-top: 32px;
+  height: 52px;
+  padding-inline: 28px;
+  border-radius: 999px;
+  background: var(--color-forest);
+  color: var(--color-chalk);
+  font-weight: 500;
+  text-decoration: none;
+  transition: background-color 0.18s ease, transform 0.12s var(--ease-out);
+}
+.shero-cta:active { transform: scale(0.97); }
+.shero-cta:focus-visible { outline: 2px solid var(--color-brass); outline-offset: 3px; }
+@media (hover: hover) and (pointer: fine) { .shero-cta:hover { background: #0b2d1c; } }
+.shero-text > * { animation: srise 0.8s var(--ease-out) both; }
+.shero-text > :nth-child(2) { animation-delay: 60ms; }
+.shero-text > :nth-child(3) { animation-delay: 120ms; }
+.shero-text > :nth-child(4) { animation-delay: 180ms; }
+.shero-text > :nth-child(5) { animation-delay: 240ms; }
+@keyframes srise { from { opacity: 0; transform: translateY(16px); } }
+@keyframes sfade { from { opacity: 0; } }
+.shero-note { position: absolute; right: 0; bottom: 12px; font-size: 12px; color: var(--color-muted); }
+
+/* The deck: six cards fanned from a common pivot below the hand. */
+.sdeck {
+  position: relative;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  height: clamp(340px, 34vw, 480px);
+}
+.sdeck-card {
+  position: absolute;
+  left: 50%;
+  bottom: 24px;
+  width: clamp(170px, 16vw, 240px);
+  aspect-ratio: 3 / 4;
+  margin-left: calc(clamp(170px, 16vw, 240px) / -2);
+  transform-origin: 50% 120%;
+  transform: translateX(var(--x)) translateY(var(--y)) rotate(var(--r));
+  transition: transform 0.9s var(--ease-out), opacity 0.6s var(--ease-out);
+  transition-delay: var(--d);
+}
+@starting-style {
+  .sdeck-card { opacity: 0; transform: translateY(40px) rotate(0deg); }
+}
+.sdeck-card a {
+  position: relative;
+  display: block;
+  width: 100%;
+  height: 100%;
+  border-radius: 16px;
+  overflow: hidden;
+  background: var(--color-limestone);
+  border: 4px solid var(--color-chalk);
+  box-shadow: 0 18px 40px rgb(24 36 29 / 0.18);
+  color: var(--color-chalk);
+  text-decoration: none;
+}
+.sdeck-card a:focus-visible { outline: 2px solid var(--color-brass); outline-offset: 4px; }
+.sdeck-card img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.sdeck-label {
+  position: absolute;
+  inset: auto 0 0 0;
+  display: grid;
+  gap: 2px;
+  padding: 32px 12px 12px;
+  background: linear-gradient(to top, rgb(6 22 14 / 0.78), rgb(6 22 14 / 0));
+  font-size: 13px;
+}
+.sdeck-label strong { font-family: var(--font-display); font-size: 15px; font-weight: var(--weight-section); line-height: 1.2; }
+@media (hover: hover) and (pointer: fine) {
+  .sdeck-card:hover {
+    transform: translateX(var(--x)) translateY(calc(var(--y) - 20px)) rotate(var(--r));
+    transition-delay: 0s;
+    transition-duration: 0.3s;
+    z-index: 20 !important;
+  }
+}
+
+/* --- The resort as three corners ----------------------------------------- */
+.smap { padding-block: clamp(24px, 4vw, 48px); }
+.smap-head { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 8px 24px; }
+.smap-head h2, .srooms-head h2, .smeals-head h2 {
+  font-family: var(--font-display);
+  font-size: clamp(28px, 3vw, 40px);
+  font-weight: var(--weight-section);
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  color: var(--color-forest);
+}
+.smap-head p, .srooms-head p, .smeals-head p { font-size: 15px; color: var(--color-ink); }
+.smap-board {
+  position: relative;
+  margin-top: 24px;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 16px;
+  padding: clamp(16px, 2vw, 24px);
+  border-radius: 24px;
+  background: color-mix(in srgb, var(--color-garden) 50%, var(--color-chalk));
+}
+.smap-path { position: absolute; inset: 40% 0 auto 0; width: 100%; height: 80px; pointer-events: none; }
+.smap-path path { stroke-width: 1.4; vector-effect: non-scaling-stroke; stroke-dasharray: 3 7; }
+.sketch-js .smap-path path { stroke-dasharray: 1; }
+.smap-zone {
+  position: relative;
+  display: grid;
+  justify-items: center;
+  gap: 6px;
+  padding: 16px 12px 20px;
+  border: 1px solid transparent;
+  border-radius: 18px;
+  background: transparent;
+  color: var(--color-ink);
+  font: inherit;
+  cursor: pointer;
+  transition: background-color 0.2s ease, border-color 0.2s ease;
+}
+.smap-zone .sketch { width: 100%; max-width: 220px; height: auto; transition: transform 0.3s var(--ease-out); }
+.smap-label { font-family: var(--font-display); font-size: 18px; font-weight: var(--weight-section); color: var(--color-forest); }
+.smap-count { font-size: 13px; color: var(--color-muted); }
+.smap-zone.is-on { background: var(--color-chalk); border-color: var(--color-forest); --sketch-ink: var(--color-forest); }
+.smap-zone:focus-visible { outline: 2px solid var(--color-brass); outline-offset: 3px; }
+.sketch-js .smap-zone .sketch path { transition-delay: calc(400ms + var(--stop, 0) * 180ms + var(--i, 0) * 80ms); }
+@media (hover: hover) and (pointer: fine) {
+  .smap-zone:hover { background: rgb(255 250 243 / 0.7); }
+  .smap-zone:hover .sketch { transform: translateY(-4px); }
+}
+
+/* --- Rooms ---------------------------------------------------------------- */
+.srooms { padding-block: clamp(40px, 5vw, 72px) 0; scroll-margin-top: calc(var(--header-height, 84px) + 16px); }
+.srooms-head { display: flex; flex-wrap: wrap; align-items: baseline; gap: 8px 20px; }
+.srooms-clear {
+  margin-left: auto;
+  padding: 6px 14px;
+  border-radius: 999px;
+  border: 1px solid var(--color-forest);
+  background: transparent;
+  color: var(--color-forest);
+  font: inherit;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+}
+.srooms-grid {
+  margin-top: 24px;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 24px;
+}
+
+/* Room card */
+.rcard {
+  display: flex;
+  flex-direction: column;
+  border-radius: 20px;
+  overflow: hidden;
+  background: var(--color-chalk);
+  border: 1px solid rgb(24 36 29 / 0.08);
+  transition: transform 0.6s var(--ease-out), opacity 0.6s var(--ease-out), box-shadow 0.25s ease;
+  transition-delay: calc(var(--i, 0) * 60ms), calc(var(--i, 0) * 60ms), 0s;
+}
+@starting-style {
+  .rcard { opacity: 0; transform: translateY(24px); }
+}
+@media (hover: hover) and (pointer: fine) {
+  .rcard:hover { box-shadow: 0 18px 40px rgb(24 36 29 / 0.12); }
+}
+.rcard-photos {
+  position: relative;
+  aspect-ratio: 4 / 3;
+  background: var(--color-limestone);
+  touch-action: pan-y;
+  cursor: ew-resize;
+}
+.rcard-photos img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0;
+  transition: opacity 0.15s ease;
+}
+.rcard-photos img.is-shown { opacity: 1; }
+.rcard-zone {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  padding: 5px 12px;
+  border-radius: 999px;
+  background: rgb(255 250 243 / 0.92);
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--color-forest);
+}
+.rcard-dots { position: absolute; left: 0; right: 0; bottom: 12px; display: flex; justify-content: center; gap: 5px; }
+.rcard-dots i { width: 6px; height: 6px; border-radius: 50%; background: rgb(255 250 243 / 0.55); transition: background-color 0.15s ease; }
+.rcard-dots i.is-on { background: var(--color-chalk); }
+
+.rcard-body { display: flex; flex-direction: column; flex: 1; padding: 20px; }
+.rcard-name {
+  font-family: var(--font-display);
+  font-size: 22px;
+  font-weight: var(--weight-section);
+  line-height: 1.2;
+  color: var(--color-forest);
+}
+.rcard-guests { margin-top: 8px; display: inline-flex; align-items: center; gap: 6px; font-size: 14px; }
+.rcard-features { list-style: none; margin: 12px 0 0; padding: 0; display: grid; gap: 6px; font-size: 14px; }
+.rcard-features li, .rcard-guests { color: var(--color-ink); }
+.rcard-features li { display: flex; align-items: center; gap: 8px; }
+.rcard-features svg, .rcard-guests svg { color: var(--color-brass-ink); flex: none; }
+.rcard-foot {
+  margin-top: auto;
+  padding-top: 20px;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 12px;
+}
+.rcard-price { display: grid; font-size: 13px; color: var(--color-ink); }
+.rcard-price strong {
+  font-family: var(--font-display);
+  font-size: 26px;
+  font-weight: var(--weight-section);
+  line-height: 1.1;
+  color: var(--color-forest);
+  font-variant-numeric: tabular-nums;
+}
+.rcard-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  height: 44px;
+  padding-inline: 18px;
+  border-radius: 999px;
+  background: var(--color-forest);
+  color: var(--color-chalk);
+  font-size: 14px;
+  font-weight: 500;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: background-color 0.18s ease, transform 0.12s var(--ease-out);
+}
+.rcard-cta:active { transform: scale(0.97); }
+.rcard-cta:focus-visible { outline: 2px solid var(--color-brass); outline-offset: 3px; }
+.rcard-cta svg { transition: transform 0.2s var(--ease-out); }
+@media (hover: hover) and (pointer: fine) {
+  .rcard-cta:hover { background: #0b2d1c; }
+  .rcard-cta:hover svg { transform: translateX(3px); }
+}
+
+/* --- Meal plans ---------------------------------------------------------- */
+.smeals { position: relative; padding-block: clamp(56px, 7vw, 96px) 0; }
+.smeals-sketch { position: absolute; top: clamp(32px, 5vw, 64px); right: 0; width: clamp(88px, 9vw, 128px); height: auto; }
+.smeals-head { display: grid; gap: 6px; margin-bottom: 24px; padding-right: 140px; }
+.mplans { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 16px; }
+.mplans > li {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 20px;
+  border-radius: 16px;
+  background: var(--color-chalk);
+  border: 1px solid rgb(24 36 29 / 0.08);
+}
+.mplans-code { font-family: var(--font-display); font-size: 28px; font-weight: var(--weight-section); color: var(--color-forest); }
+.mplans-name { font-size: 14px; color: var(--color-ink); min-height: 2.8em; }
+.mplans-meals { margin-top: 8px; display: grid; gap: 8px; }
+.mplans-meal { display: flex; align-items: center; gap: 10px; font-size: 13px; color: var(--color-muted); }
+.mplans-meal i {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  border: 1.5px solid rgb(24 36 29 / 0.25);
+  flex: none;
+}
+.mplans-meal.is-in { color: var(--color-ink); }
+.mplans-meal.is-in i { background: var(--color-brass); border-color: var(--color-brass); }
+.mplans-meal.is-either { color: var(--color-ink); }
+.mplans-meal.is-either i { background: linear-gradient(90deg, var(--color-brass) 50%, transparent 50%); border-color: var(--color-brass); }
+
+/* --- Room page additions ------------------------------------------------- */
+/* The collage opens tile by tile on arrival; the layout itself is unchanged. */
+.room-grid-tile { animation: room-tile 0.8s var(--ease-out) both; }
+.room-grid-tile:nth-child(2) { animation-delay: 70ms; }
+.room-grid-tile:nth-child(3) { animation-delay: 140ms; }
+.room-grid-tile:nth-child(4) { animation-delay: 210ms; }
+.room-grid-tile:nth-child(5) { animation-delay: 280ms; }
+@keyframes room-tile { from { clip-path: inset(0 0 100% 0); } to { clip-path: inset(0 0 0 0); } }
+
+.room-about { position: relative; }
+.room-about-sketch { float: right; width: clamp(96px, 10vw, 140px); height: auto; margin: 0 0 8px 16px; }
+.room-meals .mplans { grid-template-columns: repeat(2, minmax(0, 1fr)); margin-top: 12px; }
+.room-more { padding-block: clamp(56px, 7vw, 96px) 0; }
+.room-more h2 {
+  font-family: var(--font-display);
+  font-size: clamp(26px, 2.6vw, 36px);
+  font-weight: var(--weight-section);
+  color: var(--color-forest);
+  margin-bottom: 20px;
+}
+.room-more .srooms-grid { margin-top: 0; }
+
+/* --- Small screens and reduced motion ------------------------------------ */
+@media (max-width: 1000px) {
+  .shero { grid-template-columns: 1fr; }
+  .sdeck { height: clamp(300px, 70vw, 420px); }
+  .srooms-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .mplans { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 640px) {
+  .sdeck-card { width: 150px; margin-left: -75px; }
+  .smap-board { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 4px; padding: 8px; }
+  .smap-path { display: none; }
+  .smap-label { font-size: 13px; text-align: center; }
+  .smap-zone { padding: 10px 4px 12px; }
+  .srooms-grid { grid-template-columns: 1fr; }
+  .smeals-head { padding-right: 96px; }
+  .room-meals .mplans { grid-template-columns: 1fr 1fr; }
+  .shero-note { position: static; margin-top: 8px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .shero-text > * { animation-name: sfade; }
+  .sdeck-card, .rcard { transition: opacity 0.3s ease; }
+  .room-grid-tile { animation: sfade 0.4s ease both; }
+  .smap-zone .sketch { transition: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+  @starting-style { .sdeck-card, .rcard { transform: none; } }
+}
+
+/* Room page: the meal plans as a compact row inside the narrower column. */
+.room-meals .mplans { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 8px; }
+.room-meals .mplans > li { padding: 14px; gap: 4px; }
+.room-meals .mplans-code { font-size: 20px; }
+.room-meals .mplans-name { font-size: 13px; min-height: 3.2em; }
+.room-meals .mplans-meal { font-size: 12px; gap: 8px; }
+.room-meals .mplans-meal i { width: 14px; height: 14px; }
+@media (max-width: 640px) { .room-meals .mplans { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+.smeals { padding-bottom: clamp(48px, 6vw, 80px); }

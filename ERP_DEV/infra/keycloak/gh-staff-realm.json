@@ -1,0 +1,333 @@
+{
+  "realm": "gh-staff",
+  "displayName": "Golden Hills Resort ERP",
+  "enabled": true,
+  "sslRequired": "external",
+  "registrationAllowed": false,
+  "loginWithEmailAllowed": true,
+  "duplicateEmailsAllowed": false,
+  "editUsernameAllowed": false,
+  "verifyEmail": true,
+  "resetPasswordAllowed": true,
+  "rememberMe": false,
+  "passwordPolicy": "length(12) and maxLength(128) and notUsername and notEmail and passwordHistory(3)",
+  "bruteForceProtected": true,
+  "permanentLockout": false,
+  "failureFactor": 5,
+  "waitIncrementSeconds": 60,
+  "maxFailureWaitSeconds": 900,
+  "maxDeltaTimeSeconds": 43200,
+  "quickLoginCheckMilliSeconds": 1000,
+  "minimumQuickLoginWaitSeconds": 60,
+  "accessTokenLifespan": 300,
+  "ssoSessionIdleTimeout": 1800,
+  "ssoSessionMaxLifespan": 36000,
+  "revokeRefreshToken": true,
+  "refreshTokenMaxReuse": 0,
+  "actionTokenGeneratedByAdminLifespan": 86400,
+  "actionTokenGeneratedByUserLifespan": 300,
+  "eventsEnabled": true,
+  "eventsExpiration": 7776000,
+  "enabledEventTypes": [
+    "LOGIN",
+    "LOGIN_ERROR",
+    "LOGOUT",
+    "LOGOUT_ERROR",
+    "CODE_TO_TOKEN_ERROR",
+    "REFRESH_TOKEN_ERROR",
+    "UPDATE_PASSWORD",
+    "VERIFY_EMAIL",
+    "EXECUTE_ACTIONS",
+    "RESET_PASSWORD",
+    "SEND_RESET_PASSWORD",
+    "USER_DISABLED_BY_TEMPORARY_LOCKOUT"
+  ],
+  "adminEventsEnabled": true,
+  "adminEventsDetailsEnabled": false,
+  "smtpServer": {
+    "host": "${SMTP_HOST}",
+    "port": "${SMTP_PORT}",
+    "from": "${SMTP_FROM}",
+    "fromDisplayName": "Golden Hills Resort ERP",
+    "replyTo": "${SMTP_REPLY_TO}",
+    "envelopeFrom": "",
+    "auth": "${SMTP_AUTH}",
+    "starttls": "${SMTP_STARTTLS}",
+    "ssl": "false",
+    "user": "${SMTP_USER}",
+    "password": "${SMTP_PASSWORD}"
+  },
+  "roles": {
+    "realm": [
+      {
+        "name": "ADMIN",
+        "description": "Super Admin (SOW/SRS): employee accounts, roles, audit",
+        "composite": true,
+        "composites": {
+          "client": {
+            "erp-api": [
+              "employees.read",
+              "employees.manage",
+              "roles.assign",
+              "leads.read_queue",
+              "leads.read_assigned",
+              "leads.read_team",
+              "leads.assign",
+              "leads.reassign",
+              "audit.read",
+              "memberships.register",
+              "memberships.read_own",
+              "memberships.read_all",
+              "memberships.verify"
+            ]
+          }
+        }
+      },
+      {
+        "name": "MANAGER",
+        "description": "Resort Manager (GM) with Sales Supervisor permissions",
+        "composite": true,
+        "composites": {
+          "client": {
+            "erp-api": [
+              "employees.read",
+              "leads.read_queue",
+              "leads.read_assigned",
+              "leads.read_team",
+              "leads.claim",
+              "leads.assign",
+              "leads.reassign",
+              "memberships.register",
+              "memberships.read_own",
+              "memberships.read_all",
+              "memberships.verify"
+            ]
+          }
+        }
+      },
+      {
+        "name": "SALES_EXECUTIVE",
+        "description": "Works leads (CR-001)",
+        "composite": true,
+        "composites": {
+          "client": {
+            "erp-api": [
+              "leads.read_queue",
+              "leads.read_assigned",
+              "leads.claim",
+              "memberships.register",
+              "memberships.read_own"
+            ]
+          }
+        }
+      }
+    ],
+    "client": {
+      "erp-api": [
+        {
+          "name": "employees.read",
+          "clientRole": true
+        },
+        {
+          "name": "employees.manage",
+          "clientRole": true
+        },
+        {
+          "name": "roles.assign",
+          "clientRole": true
+        },
+        {
+          "name": "leads.read_queue",
+          "clientRole": true
+        },
+        {
+          "name": "leads.read_assigned",
+          "clientRole": true
+        },
+        {
+          "name": "leads.read_team",
+          "clientRole": true
+        },
+        {
+          "name": "leads.claim",
+          "clientRole": true
+        },
+        {
+          "name": "leads.assign",
+          "clientRole": true
+        },
+        {
+          "name": "leads.reassign",
+          "clientRole": true
+        },
+        {
+          "name": "audit.read",
+          "clientRole": true
+        },
+        {
+          "name": "memberships.register",
+          "clientRole": true
+        },
+        {
+          "name": "memberships.read_own",
+          "clientRole": true
+        },
+        {
+          "name": "memberships.read_all",
+          "clientRole": true
+        },
+        {
+          "name": "memberships.verify",
+          "clientRole": true
+        },
+        {
+          "name": "guests.provision",
+          "description": "Service permission: access-service may create member accounts in gh-guests through guest-service (D-120)",
+          "clientRole": true
+        }
+      ]
+    }
+  },
+  "clients": [
+    {
+      "clientId": "erp-web",
+      "name": "Golden Hills staff ERP (browser)",
+      "enabled": true,
+      "publicClient": true,
+      "standardFlowEnabled": true,
+      "implicitFlowEnabled": false,
+      "directAccessGrantsEnabled": false,
+      "serviceAccountsEnabled": false,
+      "frontchannelLogout": true,
+      "fullScopeAllowed": false,
+      "redirectUris": [
+        "${ERP_WEB_ORIGIN}/*"
+      ],
+      "webOrigins": [
+        "${ERP_WEB_ORIGIN}"
+      ],
+      "attributes": {
+        "pkce.code.challenge.method": "S256",
+        "post.logout.redirect.uris": "${ERP_WEB_ORIGIN}/*"
+      },
+      "defaultClientScopes": [
+        "basic",
+        "web-origins",
+        "acr",
+        "profile",
+        "roles",
+        "email"
+      ],
+      "optionalClientScopes": [],
+      "protocolMappers": [
+        {
+          "name": "audience erp-api",
+          "protocol": "openid-connect",
+          "protocolMapper": "oidc-audience-mapper",
+          "config": {
+            "included.client.audience": "erp-api",
+            "access.token.claim": "true",
+            "id.token.claim": "false",
+            "introspection.token.claim": "true"
+          }
+        }
+      ]
+    },
+    {
+      "clientId": "erp-api",
+      "name": "ERP API (audience + permissions; nobody logs in with it)",
+      "enabled": true,
+      "publicClient": false,
+      "bearerOnly": false,
+      "standardFlowEnabled": false,
+      "implicitFlowEnabled": false,
+      "directAccessGrantsEnabled": false,
+      "serviceAccountsEnabled": false,
+      "fullScopeAllowed": false
+    },
+    {
+      "clientId": "access-service",
+      "name": "access-service (Keycloak Admin API caller)",
+      "enabled": true,
+      "publicClient": false,
+      "secret": "${KC_ACCESS_SERVICE_CLIENT_SECRET}",
+      "standardFlowEnabled": false,
+      "implicitFlowEnabled": false,
+      "directAccessGrantsEnabled": false,
+      "serviceAccountsEnabled": true,
+      "fullScopeAllowed": false,
+      "defaultClientScopes": [
+        "basic",
+        "roles",
+        "kc-admin-api"
+      ],
+      "optionalClientScopes": []
+    }
+  ],
+  "users": [
+    {
+      "username": "service-account-access-service",
+      "enabled": true,
+      "serviceAccountClientId": "access-service",
+      "clientRoles": {
+        "erp-api": [
+          "guests.provision"
+        ],
+        "realm-management": [
+          "manage-users",
+          "view-users",
+          "query-users"
+        ]
+      }
+    }
+  ],
+  "scopeMappings": [
+    {
+      "client": "erp-web",
+      "roles": [
+        "ADMIN",
+        "MANAGER",
+        "SALES_EXECUTIVE"
+      ]
+    }
+  ],
+  "clientScopeMappings": {
+    "erp-api": [
+      {
+        "client": "access-service",
+        "roles": [
+          "guests.provision"
+        ]
+      },
+      {
+        "client": "erp-web",
+        "roles": [
+          "employees.read",
+          "employees.manage",
+          "roles.assign",
+          "leads.read_queue",
+          "leads.read_assigned",
+          "leads.read_team",
+          "leads.claim",
+          "leads.assign",
+          "leads.reassign",
+          "audit.read",
+          "memberships.register",
+          "memberships.read_own",
+          "memberships.read_all",
+          "memberships.verify"
+        ]
+      }
+    ],
+    "realm-management": [
+      {
+        "client": "access-service",
+        "roles": [
+          "manage-users",
+          "view-users",
+          "query-users"
+        ]
+      }
+    ]
+  }
+}

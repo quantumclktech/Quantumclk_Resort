@@ -1,0 +1,1717 @@
+{
+  "schema_version": 1,
+  "generated_at": "2026-09-27T19:35:43.027418+00:00",
+  "design_direction": "Golden Hour Retreat",
+  "publication_status": "local preview only; no asset is approved for public publication",
+  "global_render_caption": "Artist's impression. Design subject to change.",
+  "source_pdfs": {
+    "3d Design - Bar Area.pdf": {
+      "sha256": "8e1d4f9d3bd7908feb93fb5ee472bd6f837acac83fcb788c0b08e5cc1480255d",
+      "bytes": 12995602
+    },
+    "3d Design - Reception & Veg Resaturant.pdf": {
+      "sha256": "479d69d844d9c11c322ce1835698394753daca60af3a7ef42dd2e99be0130918",
+      "bytes": 15726281
+    },
+    "DESIGN 3D FOR ROOMS & COTTAGES.pdf": {
+      "sha256": "ec26e23deb54007095768b04fb145b1aa2556c83a5d9b87348098e873681a55f",
+      "bytes": 22677694
+    },
+    "Design Concept 16-08Non Veg Restaurant.pdf": {
+      "sha256": "535ad499c25e7f0730c9f5b09d5600250482aa6c132658cb0cd2b31d2104e508",
+      "bytes": 6531761
+    },
+    "Design Concept Conference Hall.pdf": {
+      "sha256": "b1d79378d0a3985d7c571fcc45484871992971560c430279c43817c1d52ab006",
+      "bytes": 5103267
+    },
+    "Golden Hills Resort 2.pdf": {
+      "sha256": "a0f4a149ee76c58b7d4a3fe00b84c543f9f7bba1c374fa75257506ad2a826ed5",
+      "bytes": 2955684
+    },
+    "Golden_Hills_Catalogue_Logo_Palette (1).pdf": {
+      "sha256": "9332d083ef8395ec692152d6a3cdcfe392408afc30c1991f19e2ccc1cb6bbf58",
+      "bytes": 42946271
+    }
+  },
+  "assets": [
+    {
+      "id": "hero-pool-day-desktop-p37",
+      "type": "artist_impression_scene",
+      "source_pdf": "DESIGN 3D FOR ROOMS & COTTAGES.pdf",
+      "source_page": 37,
+      "source_xrefs": [
+        741
+      ],
+      "extraction_strategy": "embedded_image",
+      "original_preservation": "byte-for-byte embedded image stream",
+      "original": {
+        "path": "source-assets/resort/scene-masters/hero-pool-day-desktop-p37.jpg",
+        "width": 1586,
+        "height": 992,
+        "format": "JPEG",
+        "bytes": 292879,
+        "sha256": "5c428885996aba16487f9c120603cac15199368c458fd54f268c5230643b3b35"
+      },
+      "web": {
+        "path": "public/assets/resort/scenes/web/hero-pool-day-desktop-p37.jpg",
+        "width": 1586,
+        "height": 992,
+        "format": "JPEG",
+        "quality": "source-preserved",
+        "bytes": 292879,
+        "sha256": "5c428885996aba16487f9c120603cac15199368c458fd54f268c5230643b3b35",
+        "upscaled": false,
+        "optimization": "Native embedded JPEG retained byte-for-byte because re-encoding increased file size."
+      },
+      "intended_use": [
+        "desktop hero candidate"
+      ],
+      "approval_status": "unapproved_hero_candidate",
+      "required_caption": "Artist's impression. Design subject to change.",
+      "notes": "Primary daylight hero candidate. Do not imply the resort is built."
+    },
+    {
+      "id": "hero-pool-arch-mobile-p35",
+      "type": "artist_impression_scene",
+      "source_pdf": "DESIGN 3D FOR ROOMS & COTTAGES.pdf",
+      "source_page": 35,
+      "source_xrefs": [
+        722
+      ],
+      "extraction_strategy": "embedded_image",
+      "original_preservation": "byte-for-byte embedded image stream",
+      "original": {
+        "path": "source-assets/resort/scene-masters/hero-pool-arch-mobile-p35.jpg",
+        "width": 1586,
+        "height": 992,
+        "format": "JPEG",
+        "bytes": 260762,
+        "sha256": "12f3707b4e539fdbcabc5b22f05b6b6c8176345c138a5f37f9eadcaccaa300db"
+      },
+      "web": {
+        "path": "public/assets/resort/scenes/web/hero-pool-arch-mobile-p35.jpg",
+        "width": 1586,
+        "height": 992,
+        "format": "JPEG",
+        "quality": "source-preserved",
+        "bytes": 260762,
+        "sha256": "12f3707b4e539fdbcabc5b22f05b6b6c8176345c138a5f37f9eadcaccaa300db",
+        "upscaled": false,
+        "optimization": "Native embedded JPEG retained byte-for-byte because re-encoding increased file size."
+      },
+      "intended_use": [
+        "mobile hero candidate"
+      ],
+      "approval_status": "unapproved_hero_candidate",
+      "required_caption": "Artist's impression. Design subject to change.",
+      "notes": "Centre-weighted pool and arch candidate. A dedicated portrait original is still preferred."
+    },
+    {
+      "id": "cottage-entry-p32",
+      "type": "artist_impression_scene",
+      "source_pdf": "DESIGN 3D FOR ROOMS & COTTAGES.pdf",
+      "source_page": 32,
+      "source_xrefs": [
+        656
+      ],
+      "extraction_strategy": "embedded_image",
+      "original_preservation": "byte-for-byte embedded image stream",
+      "original": {
+        "path": "source-assets/resort/scene-masters/cottage-entry-p32.jpg",
+        "width": 1586,
+        "height": 992,
+        "format": "JPEG",
+        "bytes": 240925,
+        "sha256": "7959c8f2044cf246f6bc50ca0a015d1eec734c68565714a5a0585a04150cb812"
+      },
+      "web": {
+        "path": "public/assets/resort/scenes/web/cottage-entry-p32.jpg",
+        "width": 1586,
+        "height": 992,
+        "format": "JPEG",
+        "quality": "source-preserved",
+        "bytes": 240925,
+        "sha256": "7959c8f2044cf246f6bc50ca0a015d1eec734c68565714a5a0585a04150cb812",
+        "upscaled": false,
+        "optimization": "Native embedded JPEG retained byte-for-byte because re-encoding increased file size."
+      },
+      "intended_use": [
+        "cottage story",
+        "arrival detail"
+      ],
+      "approval_status": "unapproved_concept",
+      "required_caption": "Artist's impression. Design subject to change.",
+      "notes": "Pool-cottage entrance concept."
+    },
+    {
+      "id": "cottage-pool-overhead-p33",
+      "type": "artist_impression_scene",
+      "source_pdf": "DESIGN 3D FOR ROOMS & COTTAGES.pdf",
+      "source_page": 33,
+      "source_xrefs": [
+        665
+      ],
+      "extraction_strategy": "embedded_image",
+      "original_preservation": "byte-for-byte embedded image stream",
+      "original": {
+        "path": "source-assets/resort/scene-masters/cottage-pool-overhead-p33.jpg",
+        "width": 1586,
+        "height": 992,
+        "format": "JPEG",
+        "bytes": 273244,
+        "sha256": "087e682844b7748c1d66ad8b9ec9e058a695959298339a0998c03ff85fcba555"
+      },
+      "web": {
+        "path": "public/assets/resort/scenes/web/cottage-pool-overhead-p33.jpg",
+        "width": 1586,
+        "height": 992,
+        "format": "JPEG",
+        "quality": "source-preserved",
+        "bytes": 273244,
+        "sha256": "087e682844b7748c1d66ad8b9ec9e058a695959298339a0998c03ff85fcba555",
+        "upscaled": false,
+        "optimization": "Native embedded JPEG retained byte-for-byte because re-encoding increased file size."
+      },
+      "intended_use": [
+        "cottage story",
+        "spatial overview"
+      ],
+      "approval_status": "unapproved_concept",
+      "required_caption": "Artist's impression. Design subject to change.",
+      "notes": "Overhead pool-cottage concept."
+    },
+    {
+      "id": "cottage-pool-terrace-p34",
+      "type": "artist_impression_scene",
+      "source_pdf": "DESIGN 3D FOR ROOMS & COTTAGES.pdf",
+      "source_page": 34,
+      "source_xrefs": [
+        713
+      ],
+      "extraction_strategy": "embedded_image",
+      "original_preservation": "byte-for-byte embedded image stream",
+      "original": {
+        "path": "source-assets/resort/scene-masters/cottage-pool-terrace-p34.jpg",
+        "width": 1586,
+        "height": 992,
+        "format": "JPEG",
+        "bytes": 201834,
+        "sha256": "9fa0094948ac9e27e7f48097140e35934dc5bc79cd886b447c11281128277395"
+      },
+      "web": {
+        "path": "public/assets/resort/scenes/web/cottage-pool-terrace-p34.jpg",
+        "width": 1586,
+        "height": 992,
+        "format": "JPEG",
+        "quality": "source-preserved",
+        "bytes": 201834,
+        "sha256": "9fa0094948ac9e27e7f48097140e35934dc5bc79cd886b447c11281128277395",
+        "upscaled": false,
+        "optimization": "Native embedded JPEG retained byte-for-byte because re-encoding increased file size."
+      },
+      "intended_use": [
+        "cottage story",
+        "poolside terrace"
+      ],
+      "approval_status": "unapproved_concept",
+      "required_caption": "Artist's impression. Design subject to change.",
+      "notes": "Poolside seating and cottage exterior concept."
+    },
+    {
+      "id": "cottage-interior-bed-and-bath-p39",
+      "type": "artist_impression_scene",
+      "source_pdf": "DESIGN 3D FOR ROOMS & COTTAGES.pdf",
+      "source_page": 39,
+      "source_xrefs": [
+        783
+      ],
+      "extraction_strategy": "embedded_image",
+      "original_preservation": "byte-for-byte embedded image stream",
+      "original": {
+        "path": "source-assets/resort/scene-masters/cottage-interior-bed-and-bath-p39.jpg",
+        "width": 1500,
+        "height": 1049,
+        "format": "JPEG",
+        "bytes": 195311,
+        "sha256": "f442101b7d2ea2c17de9f0c715cebfaa680e9cb4979b8329c26ad71f8d6191fa"
+      },
+      "web": {
+        "path": "public/assets/resort/scenes/web/cottage-interior-bed-and-bath-p39.jpg",
+        "width": 1500,
+        "height": 1049,
+        "format": "JPEG",
+        "quality": "source-preserved",
+        "bytes": 195311,
+        "sha256": "f442101b7d2ea2c17de9f0c715cebfaa680e9cb4979b8329c26ad71f8d6191fa",
+        "upscaled": false,
+        "optimization": "Native embedded JPEG retained byte-for-byte because re-encoding increased file size."
+      },
+      "intended_use": [
+        "interior candidate",
+        "proposed stays"
+      ],
+      "approval_status": "unapproved_interior_alternative_selection_required",
+      "required_caption": "Artist's impression. Design subject to change.",
+      "notes": "Interior candidate only. Client must confirm the selected cottage-room scheme."
+    },
+    {
+      "id": "cottage-interior-front-bed-p40",
+      "type": "artist_impression_scene",
+      "source_pdf": "DESIGN 3D FOR ROOMS & COTTAGES.pdf",
+      "source_page": 40,
+      "source_xrefs": [
+        793
+      ],
+      "extraction_strategy": "embedded_image",
+      "original_preservation": "byte-for-byte embedded image stream",
+      "original": {
+        "path": "source-assets/resort/scene-masters/cottage-interior-front-bed-p40.jpg",
+        "width": 1496,
+        "height": 1051,
+        "format": "JPEG",
+        "bytes": 202539,
+        "sha256": "0bce0d01995acfd5cbe9641566037fd2845914c854d34e6474ca03b48af662e4"
+      },
+      "web": {
+        "path": "public/assets/resort/scenes/web/cottage-interior-front-bed-p40.jpg",
+        "width": 1496,
+        "height": 1051,
+        "format": "JPEG",
+        "quality": "source-preserved",
+        "bytes": 202539,
+        "sha256": "0bce0d01995acfd5cbe9641566037fd2845914c854d34e6474ca03b48af662e4",
+        "upscaled": false,
+        "optimization": "Native embedded JPEG retained byte-for-byte because re-encoding increased file size."
+      },
+      "intended_use": [
+        "interior candidate",
+        "proposed stays"
+      ],
+      "approval_status": "unapproved_interior_alternative_selection_required",
+      "required_caption": "Artist's impression. Design subject to change.",
+      "notes": "Interior candidate only. Client must confirm the selected cottage-room scheme."
+    },
+    {
+      "id": "cottage-interior-tv-wall-p41",
+      "type": "artist_impression_scene",
+      "source_pdf": "DESIGN 3D FOR ROOMS & COTTAGES.pdf",
+      "source_page": 41,
+      "source_xrefs": [
+        803
+      ],
+      "extraction_strategy": "embedded_image",
+      "original_preservation": "byte-for-byte embedded image stream",
+      "original": {
+        "path": "source-assets/resort/scene-masters/cottage-interior-tv-wall-p41.jpg",
+        "width": 1498,
+        "height": 1050,
+        "format": "JPEG",
+        "bytes": 167755,
+        "sha256": "d67e61db87cde4fa2dc6ac963a4eade5476eb8deae3d8c6e7ad00f7dcf8beb89"
+      },
+      "web": {
+        "path": "public/assets/resort/scenes/web/cottage-interior-tv-wall-p41.jpg",
+        "width": 1498,
+        "height": 1050,
+        "format": "JPEG",
+        "quality": "source-preserved",
+        "bytes": 167755,
+        "sha256": "d67e61db87cde4fa2dc6ac963a4eade5476eb8deae3d8c6e7ad00f7dcf8beb89",
+        "upscaled": false,
+        "optimization": "Native embedded JPEG retained byte-for-byte because re-encoding increased file size."
+      },
+      "intended_use": [
+        "interior candidate",
+        "proposed stays"
+      ],
+      "approval_status": "unapproved_interior_alternative_selection_required",
+      "required_caption": "Artist's impression. Design subject to change.",
+      "notes": "Interior candidate only. Client must confirm the selected cottage-room scheme."
+    },
+    {
+      "id": "arrival-reception-lounge-p11",
+      "type": "artist_impression_scene",
+      "source_pdf": "3d Design - Reception & Veg Resaturant.pdf",
+      "source_page": 11,
+      "source_xrefs": [
+        269,
+        270,
+        271
+      ],
+      "extraction_strategy": "vertical_strip_stitch",
+      "original_preservation": "lossless PNG reconstruction from native embedded strips",
+      "original": {
+        "path": "source-assets/resort/scene-masters/arrival-reception-lounge-p11.png",
+        "width": 3000,
+        "height": 2000,
+        "format": "PNG",
+        "bytes": 7848037,
+        "sha256": "df0230573b5f175555b872a312c0701983580b765efeee168e45c1c7c6ebdf4d"
+      },
+      "web": {
+        "path": "public/assets/resort/scenes/web/arrival-reception-lounge-p11.webp",
+        "width": 2400,
+        "height": 1600,
+        "format": "WEBP",
+        "quality": 84,
+        "bytes": 798108,
+        "sha256": "8cfbfe01691d13b97e6a9087600e90069d118d254abffde739e0d397ccf1e12b",
+        "upscaled": false,
+        "optimization": "WebP derivative capped at 2400px width."
+      },
+      "intended_use": [
+        "arrival",
+        "reception"
+      ],
+      "approval_status": "unapproved_concept",
+      "required_caption": "Artist's impression. Design subject to change.",
+      "notes": "Reconstructed losslessly from three embedded horizontal strips. No conflicting signage is visible."
+    },
+    {
+      "id": "dining-veg-central-aisle-p12",
+      "type": "artist_impression_scene",
+      "source_pdf": "3d Design - Reception & Veg Resaturant.pdf",
+      "source_page": 12,
+      "source_xrefs": [
+        317,
+        318
+      ],
+      "extraction_strategy": "vertical_strip_stitch",
+      "original_preservation": "lossless PNG reconstruction from native embedded strips",
+      "original": {
+        "path": "source-assets/resort/scene-masters/dining-veg-central-aisle-p12.png",
+        "width": 2560,
+        "height": 1450,
+        "format": "PNG",
+        "bytes": 2754670,
+        "sha256": "5a712d101361a9610fefbac2abca00e60bb93d0bb6deacae094125bc9f4e8677"
+      },
+      "web": {
+        "path": "public/assets/resort/scenes/web/dining-veg-central-aisle-p12.webp",
+        "width": 2400,
+        "height": 1359,
+        "format": "WEBP",
+        "quality": 84,
+        "bytes": 299566,
+        "sha256": "3fd8100abf9547d7cdb6c7c3aaf1765b2ebd07c69206466e231a32a851f43152",
+        "upscaled": false,
+        "optimization": "WebP derivative capped at 2400px width."
+      },
+      "intended_use": [
+        "vegetarian dining candidate"
+      ],
+      "approval_status": "unapproved_dining_candidate_selection_required",
+      "required_caption": "Artist's impression. Design subject to change.",
+      "notes": "Reconstructed losslessly from two embedded horizontal strips. Client approval required before publication."
+    },
+    {
+      "id": "dining-veg-seating-p13",
+      "type": "artist_impression_scene",
+      "source_pdf": "3d Design - Reception & Veg Resaturant.pdf",
+      "source_page": 13,
+      "source_xrefs": [
+        327,
+        328
+      ],
+      "extraction_strategy": "vertical_strip_stitch",
+      "original_preservation": "lossless PNG reconstruction from native embedded strips",
+      "original": {
+        "path": "source-assets/resort/scene-masters/dining-veg-seating-p13.png",
+        "width": 2560,
+        "height": 1450,
+        "format": "PNG",
+        "bytes": 3148263,
+        "sha256": "2916850c657531e3b3cf7f824a316df16f2fd42d0463b815026dc3dcc2bdd932"
+      },
+      "web": {
+        "path": "public/assets/resort/scenes/web/dining-veg-seating-p13.webp",
+        "width": 2400,
+        "height": 1359,
+        "format": "WEBP",
+        "quality": 84,
+        "bytes": 341384,
+        "sha256": "8d3100c19d27ac405537daf283e1dc9b8184e3165eede232314eaefb4509bdfd",
+        "upscaled": false,
+        "optimization": "WebP derivative capped at 2400px width."
+      },
+      "intended_use": [
+        "vegetarian dining candidate"
+      ],
+      "approval_status": "unapproved_dining_candidate_selection_required",
+      "required_caption": "Artist's impression. Design subject to change.",
+      "notes": "Reconstructed losslessly from two embedded horizontal strips. Client approval required before publication."
+    },
+    {
+      "id": "dining-non-veg-aisle-p07",
+      "type": "artist_impression_scene",
+      "source_pdf": "Design Concept 16-08Non Veg Restaurant.pdf",
+      "source_page": 7,
+      "source_xrefs": [
+        136,
+        137
+      ],
+      "extraction_strategy": "vertical_strip_stitch",
+      "original_preservation": "lossless PNG reconstruction from native embedded strips",
+      "original": {
+        "path": "source-assets/resort/scene-masters/dining-non-veg-aisle-p07.png",
+        "width": 2560,
+        "height": 1650,
+        "format": "PNG",
+        "bytes": 3335758,
+        "sha256": "2f0b7e7e696cc70ee7eca8b8dddec73bd48a093452c3511b39ef83dccba256c8"
+      },
+      "web": {
+        "path": "public/assets/resort/scenes/web/dining-non-veg-aisle-p07.webp",
+        "width": 2400,
+        "height": 1547,
+        "format": "WEBP",
+        "quality": 84,
+        "bytes": 383906,
+        "sha256": "66ef55f19cdd182e1e88ad40c91b17664f26055c3cb302b587ea1ab15c288084",
+        "upscaled": false,
+        "optimization": "WebP derivative capped at 2400px width."
+      },
+      "intended_use": [
+        "non-vegetarian dining candidate"
+      ],
+      "approval_status": "unapproved_dining_candidate_selection_required",
+      "required_caption": "Artist's impression. Design subject to change.",
+      "notes": "Reconstructed losslessly from two embedded horizontal strips. Client approval required before publication."
+    },
+    {
+      "id": "evening-bar-counter-p03",
+      "type": "artist_impression_scene",
+      "source_pdf": "3d Design - Bar Area.pdf",
+      "source_page": 3,
+      "source_xrefs": [
+        79,
+        80,
+        81,
+        82,
+        83,
+        84
+      ],
+      "extraction_strategy": "vertical_strip_stitch",
+      "original_preservation": "lossless PNG reconstruction from native embedded strips",
+      "original": {
+        "path": "source-assets/resort/scene-masters/evening-bar-counter-p03.png",
+        "width": 4000,
+        "height": 2700,
+        "format": "PNG",
+        "bytes": 9984284,
+        "sha256": "870df09c26cb62227d56be1eec5c9d68ee77d8a77f544ec48c62402f7a008cb3"
+      },
+      "web": {
+        "path": "public/assets/resort/scenes/web/evening-bar-counter-p03.webp",
+        "width": 2400,
+        "height": 1620,
+        "format": "WEBP",
+        "quality": 84,
+        "bytes": 610788,
+        "sha256": "f16832a851a8efc7323211782ab2efcdecc83b9f8e6428019bb0a026fd551ed0",
+        "upscaled": false,
+        "optimization": "WebP derivative capped at 2400px width."
+      },
+      "intended_use": [
+        "evening",
+        "bar candidate"
+      ],
+      "approval_status": "unapproved_bar_candidate",
+      "required_caption": "Artist's impression. Design subject to change.",
+      "notes": "Reconstructed losslessly from six embedded horizontal strips. Client approval required before publication."
+    },
+    {
+      "id": "evening-bar-wide-p09",
+      "type": "artist_impression_scene",
+      "source_pdf": "3d Design - Bar Area.pdf",
+      "source_page": 9,
+      "source_xrefs": [
+        163
+      ],
+      "extraction_strategy": "embedded_image",
+      "original_preservation": "byte-for-byte embedded image stream",
+      "original": {
+        "path": "source-assets/resort/scene-masters/evening-bar-wide-p09.jpg",
+        "width": 1527,
+        "height": 1030,
+        "format": "JPEG",
+        "bytes": 215485,
+        "sha256": "7340a0eda12ce9c71b0732984d3ea87c9da58d29519647f9594a7ee7bd45e536"
+      },
+      "web": {
+        "path": "public/assets/resort/scenes/web/evening-bar-wide-p09.jpg",
+        "width": 1527,
+        "height": 1030,
+        "format": "JPEG",
+        "quality": "source-preserved",
+        "bytes": 215485,
+        "sha256": "7340a0eda12ce9c71b0732984d3ea87c9da58d29519647f9594a7ee7bd45e536",
+        "upscaled": false,
+        "optimization": "Native embedded JPEG retained byte-for-byte because re-encoding increased file size."
+      },
+      "intended_use": [
+        "evening",
+        "bar candidate"
+      ],
+      "approval_status": "unapproved_bar_candidate",
+      "required_caption": "Artist's impression. Design subject to change.",
+      "notes": "Wide bar-area concept. Client approval required before publication."
+    },
+    {
+      "id": "gatherings-banquet-p03",
+      "type": "artist_impression_scene",
+      "source_pdf": "Design Concept Conference Hall.pdf",
+      "source_page": 3,
+      "source_xrefs": [
+        136,
+        137,
+        138,
+        139
+      ],
+      "extraction_strategy": "vertical_strip_stitch",
+      "original_preservation": "lossless PNG reconstruction from native embedded strips",
+      "original": {
+        "path": "source-assets/resort/scene-masters/gatherings-banquet-p03.png",
+        "width": 2560,
+        "height": 1450,
+        "format": "PNG",
+        "bytes": 3456423,
+        "sha256": "28a48f27d640b6179dbb5ad38565d1c2ebbdbdd3390cfc5be89b72eafe0e3f43"
+      },
+      "web": {
+        "path": "public/assets/resort/scenes/web/gatherings-banquet-p03.webp",
+        "width": 2400,
+        "height": 1359,
+        "format": "WEBP",
+        "quality": 84,
+        "bytes": 373622,
+        "sha256": "624a5e463107f0d8c782f716c45e82b14a0b8b99f3b02f553c6110616c05e74c",
+        "upscaled": false,
+        "optimization": "WebP derivative capped at 2400px width."
+      },
+      "intended_use": [
+        "gatherings",
+        "banquet configuration"
+      ],
+      "approval_status": "unapproved_gathering_candidate",
+      "required_caption": "Artist's impression. Design subject to change.",
+      "notes": "Reconstructed losslessly from four embedded horizontal strips. Do not infer capacity from the render."
+    },
+    {
+      "id": "gatherings-theatre-p05",
+      "type": "artist_impression_scene",
+      "source_pdf": "Design Concept Conference Hall.pdf",
+      "source_page": 5,
+      "source_xrefs": [
+        166,
+        167,
+        168,
+        169
+      ],
+      "extraction_strategy": "vertical_strip_stitch",
+      "original_preservation": "lossless PNG reconstruction from native embedded strips",
+      "original": {
+        "path": "source-assets/resort/scene-masters/gatherings-theatre-p05.png",
+        "width": 2560,
+        "height": 1450,
+        "format": "PNG",
+        "bytes": 3629087,
+        "sha256": "874559b68908459c1fbab5ccac7bd854f7596109f2cb47044bc29bfa1c7a2e7b"
+      },
+      "web": {
+        "path": "public/assets/resort/scenes/web/gatherings-theatre-p05.webp",
+        "width": 2400,
+        "height": 1359,
+        "format": "WEBP",
+        "quality": 84,
+        "bytes": 413604,
+        "sha256": "42715c786e75414193a9c6fec03b8c41f9c3b44ab0e84b3516fc87817a2ee899",
+        "upscaled": false,
+        "optimization": "WebP derivative capped at 2400px width."
+      },
+      "intended_use": [
+        "gatherings",
+        "theatre configuration"
+      ],
+      "approval_status": "unapproved_gathering_candidate",
+      "required_caption": "Artist's impression. Design subject to change.",
+      "notes": "Reconstructed losslessly from four embedded horizontal strips. Do not infer capacity from the render."
+    },
+    {
+      "id": "dusk-pool-candidate-p38",
+      "type": "artist_impression_scene",
+      "source_pdf": "DESIGN 3D FOR ROOMS & COTTAGES.pdf",
+      "source_page": 38,
+      "source_xrefs": [
+        750
+      ],
+      "extraction_strategy": "embedded_image",
+      "original_preservation": "byte-for-byte embedded image stream",
+      "original": {
+        "path": "source-assets/resort/scene-masters/dusk-pool-candidate-p38.jpg",
+        "width": 1586,
+        "height": 992,
+        "format": "JPEG",
+        "bytes": 289135,
+        "sha256": "219385faf7382900b6e2b944d3610b81d0c423a82d84ff7245ed99afca621204"
+      },
+      "web": {
+        "path": "public/assets/resort/scenes/web/dusk-pool-candidate-p38.jpg",
+        "width": 1586,
+        "height": 992,
+        "format": "JPEG",
+        "quality": "source-preserved",
+        "bytes": 289135,
+        "sha256": "219385faf7382900b6e2b944d3610b81d0c423a82d84ff7245ed99afca621204",
+        "upscaled": false,
+        "optimization": "Native embedded JPEG retained byte-for-byte because re-encoding increased file size."
+      },
+      "intended_use": [
+        "dusk candidate",
+        "closing section candidate"
+      ],
+      "approval_status": "unapproved_dusk_candidate_scheme_match_not_confirmed",
+      "required_caption": "Artist's impression. Design subject to change.",
+      "notes": "Do not assume this dusk scene matches page 37's final approved scheme."
+    },
+    {
+      "id": "hotel-room-queen-bed-p06",
+      "type": "artist_impression_scene",
+      "source_pdf": "DESIGN 3D FOR ROOMS & COTTAGES.pdf",
+      "source_page": 6,
+      "source_xrefs": [
+        112,
+        113,
+        114
+      ],
+      "extraction_strategy": "embedded_image_and_stitched",
+      "original_preservation": "high-quality rendered scene",
+      "original": {
+        "path": "public/assets/resort/scenes/web/hotel-room-queen-bed-p06.jpg",
+        "width": 2560,
+        "height": 1800,
+        "format": "JPEG",
+        "bytes": 723086
+      },
+      "web": {
+        "path": "public/assets/resort/scenes/web/hotel-room-queen-bed-p06.jpg",
+        "width": 2560,
+        "height": 1800,
+        "format": "JPEG",
+        "quality": "source-preserved",
+        "bytes": 723086
+      },
+      "intended_use": [
+        "hotel room queen bed"
+      ],
+      "approval_status": "unapproved_stay_candidate",
+      "required_caption": "Artist's impression. Design subject to change.",
+      "notes": "Hotel Room master queen bed render from architectural presentation page 6"
+    },
+    {
+      "id": "hotel-room-queen-elev-p07",
+      "type": "artist_impression_scene",
+      "source_pdf": "DESIGN 3D FOR ROOMS & COTTAGES.pdf",
+      "source_page": 7,
+      "source_xrefs": [
+        133,
+        134,
+        135
+      ],
+      "extraction_strategy": "embedded_image_and_stitched",
+      "original_preservation": "high-quality rendered scene",
+      "original": {
+        "path": "public/assets/resort/scenes/web/hotel-room-queen-elev-p07.jpg",
+        "width": 2560,
+        "height": 1800,
+        "format": "JPEG",
+        "bytes": 625303
+      },
+      "web": {
+        "path": "public/assets/resort/scenes/web/hotel-room-queen-elev-p07.jpg",
+        "width": 2560,
+        "height": 1800,
+        "format": "JPEG",
+        "quality": "source-preserved",
+        "bytes": 625303
+      },
+      "intended_use": [
+        "hotel room queen elevation"
+      ],
+      "approval_status": "unapproved_stay_candidate",
+      "required_caption": "Artist's impression. Design subject to change.",
+      "notes": "Hotel Room front elevation and side console render from architectural presentation page 7"
+    },
+    {
+      "id": "hotel-room-washroom-p16",
+      "type": "artist_impression_scene",
+      "source_pdf": "DESIGN 3D FOR ROOMS & COTTAGES.pdf",
+      "source_page": 16,
+      "source_xrefs": [
+        328
+      ],
+      "extraction_strategy": "embedded_image_and_stitched",
+      "original_preservation": "high-quality rendered scene",
+      "original": {
+        "path": "public/assets/resort/scenes/web/hotel-room-washroom-p16.jpg",
+        "width": 886,
+        "height": 1081,
+        "format": "JPEG",
+        "bytes": 100198
+      },
+      "web": {
+        "path": "public/assets/resort/scenes/web/hotel-room-washroom-p16.jpg",
+        "width": 886,
+        "height": 1081,
+        "format": "JPEG",
+        "quality": "source-preserved",
+        "bytes": 100198
+      },
+      "intended_use": [
+        "hotel room washroom vanity"
+      ],
+      "approval_status": "unapproved_stay_candidate",
+      "required_caption": "Artist's impression. Design subject to change.",
+      "notes": "Hotel Room luxury ensuite washroom and vanity counter from architectural presentation page 16"
+    },
+    {
+      "id": "hotel-room-twin-beds-p10",
+      "type": "artist_impression_scene",
+      "source_pdf": "DESIGN 3D FOR ROOMS & COTTAGES.pdf",
+      "source_page": 10,
+      "source_xrefs": [
+        166,
+        167,
+        168
+      ],
+      "extraction_strategy": "embedded_image_and_stitched",
+      "original_preservation": "high-quality rendered scene",
+      "original": {
+        "path": "public/assets/resort/scenes/web/hotel-room-twin-beds-p10.jpg",
+        "width": 2560,
+        "height": 1800,
+        "format": "JPEG",
+        "bytes": 808866
+      },
+      "web": {
+        "path": "public/assets/resort/scenes/web/hotel-room-twin-beds-p10.jpg",
+        "width": 2560,
+        "height": 1800,
+        "format": "JPEG",
+        "quality": "source-preserved",
+        "bytes": 808866
+      },
+      "intended_use": [
+        "hotel room twin beds"
+      ],
+      "approval_status": "unapproved_stay_candidate",
+      "required_caption": "Artist's impression. Design subject to change.",
+      "notes": "Hotel Room twin beds layout with divider headboard from architectural presentation page 10"
+    },
+    {
+      "id": "hotel-room-twin-study-p11",
+      "type": "artist_impression_scene",
+      "source_pdf": "DESIGN 3D FOR ROOMS & COTTAGES.pdf",
+      "source_page": 11,
+      "source_xrefs": [
+        177,
+        178,
+        179
+      ],
+      "extraction_strategy": "embedded_image_and_stitched",
+      "original_preservation": "high-quality rendered scene",
+      "original": {
+        "path": "public/assets/resort/scenes/web/hotel-room-twin-study-p11.jpg",
+        "width": 2560,
+        "height": 1800,
+        "format": "JPEG",
+        "bytes": 738293
+      },
+      "web": {
+        "path": "public/assets/resort/scenes/web/hotel-room-twin-study-p11.jpg",
+        "width": 2560,
+        "height": 1800,
+        "format": "JPEG",
+        "quality": "source-preserved",
+        "bytes": 738293
+      },
+      "intended_use": [
+        "hotel room twin study and media wall"
+      ],
+      "approval_status": "unapproved_stay_candidate",
+      "required_caption": "Artist's impression. Design subject to change.",
+      "notes": "Hotel Room twin executive study desk and media wall from architectural presentation page 11"
+    },
+    {
+      "id": "hotel-room-washroom-p17",
+      "type": "artist_impression_scene",
+      "source_pdf": "DESIGN 3D FOR ROOMS & COTTAGES.pdf",
+      "source_page": 17,
+      "source_xrefs": [
+        368
+      ],
+      "extraction_strategy": "embedded_image_and_stitched",
+      "original_preservation": "high-quality rendered scene",
+      "original": {
+        "path": "public/assets/resort/scenes/web/hotel-room-washroom-p17.jpg",
+        "width": 1103,
+        "height": 737,
+        "format": "JPEG",
+        "bytes": 101222
+      },
+      "web": {
+        "path": "public/assets/resort/scenes/web/hotel-room-washroom-p17.jpg",
+        "width": 1103,
+        "height": 737,
+        "format": "JPEG",
+        "quality": "source-preserved",
+        "bytes": 101222
+      },
+      "intended_use": [
+        "hotel deluxe room washroom shower"
+      ],
+      "approval_status": "unapproved_stay_candidate",
+      "required_caption": "Artist's impression. Design subject to change.",
+      "notes": "Hotel Deluxe Room ensuite washroom and shower stall from architectural presentation page 17"
+    },
+    {
+      "id": "suite-bedroom-master-p18",
+      "type": "artist_impression_scene",
+      "source_pdf": "DESIGN 3D FOR ROOMS & COTTAGES.pdf",
+      "source_page": 18,
+      "source_xrefs": [
+        395,
+        396,
+        397
+      ],
+      "extraction_strategy": "embedded_image_and_stitched",
+      "original_preservation": "high-quality rendered scene",
+      "original": {
+        "path": "public/assets/resort/scenes/web/suite-bedroom-master-p18.jpg",
+        "width": 2560,
+        "height": 1800,
+        "format": "JPEG",
+        "bytes": 857763
+      },
+      "web": {
+        "path": "public/assets/resort/scenes/web/suite-bedroom-master-p18.jpg",
+        "width": 2560,
+        "height": 1800,
+        "format": "JPEG",
+        "quality": "source-preserved",
+        "bytes": 857763
+      },
+      "intended_use": [
+        "suite master bedroom"
+      ],
+      "approval_status": "unapproved_stay_candidate",
+      "required_caption": "Artist's impression. Design subject to change.",
+      "notes": "Master Suite king bedroom view from architectural presentation page 18"
+    },
+    {
+      "id": "suite-lounge-dining-p24",
+      "type": "artist_impression_scene",
+      "source_pdf": "DESIGN 3D FOR ROOMS & COTTAGES.pdf",
+      "source_page": 24,
+      "source_xrefs": [
+        506,
+        507,
+        508
+      ],
+      "extraction_strategy": "embedded_image_and_stitched",
+      "original_preservation": "high-quality rendered scene",
+      "original": {
+        "path": "public/assets/resort/scenes/web/suite-lounge-dining-p24.jpg",
+        "width": 2560,
+        "height": 1800,
+        "format": "JPEG",
+        "bytes": 944479
+      },
+      "web": {
+        "path": "public/assets/resort/scenes/web/suite-lounge-dining-p24.jpg",
+        "width": 2560,
+        "height": 1800,
+        "format": "JPEG",
+        "quality": "source-preserved",
+        "bytes": 944479
+      },
+      "intended_use": [
+        "suite private lounge and dining"
+      ],
+      "approval_status": "unapproved_stay_candidate",
+      "required_caption": "Artist's impression. Design subject to change.",
+      "notes": "Master Suite private living lounge and dining space from architectural presentation page 24"
+    },
+    {
+      "id": "suite-terrace-seating-p43",
+      "type": "artist_impression_scene",
+      "source_pdf": "DESIGN 3D FOR ROOMS & COTTAGES.pdf",
+      "source_page": 43,
+      "source_xrefs": [
+        825
+      ],
+      "extraction_strategy": "embedded_image_and_stitched",
+      "original_preservation": "high-quality rendered scene",
+      "original": {
+        "path": "public/assets/resort/scenes/web/suite-terrace-seating-p43.jpg",
+        "width": 1199,
+        "height": 1799,
+        "format": "JPEG",
+        "bytes": 301127
+      },
+      "web": {
+        "path": "public/assets/resort/scenes/web/suite-terrace-seating-p43.jpg",
+        "width": 1199,
+        "height": 1799,
+        "format": "JPEG",
+        "quality": "source-preserved",
+        "bytes": 301127
+      },
+      "intended_use": [
+        "suite private terrace seating"
+      ],
+      "approval_status": "unapproved_stay_candidate",
+      "required_caption": "Artist's impression. Design subject to change.",
+      "notes": "Terrace Area private balcony lounge seating from architectural presentation page 43"
+    },
+    {
+      "id": "cottage-terrace-seating-p44",
+      "type": "artist_impression_scene",
+      "source_pdf": "DESIGN 3D FOR ROOMS & COTTAGES.pdf",
+      "source_page": 44,
+      "source_xrefs": [
+        836
+      ],
+      "extraction_strategy": "embedded_image_and_stitched",
+      "original_preservation": "high-quality rendered scene",
+      "original": {
+        "path": "public/assets/resort/scenes/web/cottage-terrace-seating-p44.jpg",
+        "width": 1080,
+        "height": 1572,
+        "format": "JPEG",
+        "bytes": 259978
+      },
+      "web": {
+        "path": "public/assets/resort/scenes/web/cottage-terrace-seating-p44.jpg",
+        "width": 1080,
+        "height": 1572,
+        "format": "JPEG",
+        "quality": "source-preserved",
+        "bytes": 259978
+      },
+      "intended_use": [
+        "cottage veranda terrace seating"
+      ],
+      "approval_status": "unapproved_stay_candidate",
+      "required_caption": "Artist's impression. Design subject to change.",
+      "notes": "Terrace Area covered timber cottage terrace seating from architectural presentation page 44"
+    },
+    {
+      "id": "room-queen-bed-p06",
+      "type": "artist_impression_scene",
+      "source_pdf": "DESIGN 3D FOR ROOMS & COTTAGES.pdf",
+      "source_page": 0,
+      "source_xrefs": [],
+      "extraction_strategy": "embedded_image_and_stitched",
+      "original_preservation": "high-quality rendered scene",
+      "original": {
+        "path": "public/assets/resort/scenes/web/room-queen-bed-p06.jpg",
+        "width": 2560,
+        "height": 1800,
+        "format": "JPEG",
+        "bytes": 723086
+      },
+      "web": {
+        "path": "public/assets/resort/scenes/web/room-queen-bed-p06.jpg",
+        "width": 2560,
+        "height": 1800,
+        "format": "JPEG",
+        "quality": "source-preserved",
+        "bytes": 723086
+      },
+      "intended_use": [
+        "Queen Bedroom Master Perspective"
+      ],
+      "approval_status": "unapproved_stay_candidate",
+      "required_caption": "Artist's impression. Design subject to change.",
+      "notes": "Queen Bedroom Master Perspective"
+    },
+    {
+      "id": "room-queen-elevation-p07",
+      "type": "artist_impression_scene",
+      "source_pdf": "DESIGN 3D FOR ROOMS & COTTAGES.pdf",
+      "source_page": 0,
+      "source_xrefs": [],
+      "extraction_strategy": "embedded_image_and_stitched",
+      "original_preservation": "high-quality rendered scene",
+      "original": {
+        "path": "public/assets/resort/scenes/web/room-queen-elevation-p07.jpg",
+        "width": 2560,
+        "height": 1800,
+        "format": "JPEG",
+        "bytes": 625303
+      },
+      "web": {
+        "path": "public/assets/resort/scenes/web/room-queen-elevation-p07.jpg",
+        "width": 2560,
+        "height": 1800,
+        "format": "JPEG",
+        "quality": "source-preserved",
+        "bytes": 625303
+      },
+      "intended_use": [
+        "Queen Room Elevation & Vanity"
+      ],
+      "approval_status": "unapproved_stay_candidate",
+      "required_caption": "Artist's impression. Design subject to change.",
+      "notes": "Queen Room Elevation & Vanity"
+    },
+    {
+      "id": "room-queen-angle-p08",
+      "type": "artist_impression_scene",
+      "source_pdf": "DESIGN 3D FOR ROOMS & COTTAGES.pdf",
+      "source_page": 0,
+      "source_xrefs": [],
+      "extraction_strategy": "embedded_image_and_stitched",
+      "original_preservation": "high-quality rendered scene",
+      "original": {
+        "path": "public/assets/resort/scenes/web/room-queen-angle-p08.jpg",
+        "width": 2560,
+        "height": 1800,
+        "format": "JPEG",
+        "bytes": 598485
+      },
+      "web": {
+        "path": "public/assets/resort/scenes/web/room-queen-angle-p08.jpg",
+        "width": 2560,
+        "height": 1800,
+        "format": "JPEG",
+        "quality": "source-preserved",
+        "bytes": 598485
+      },
+      "intended_use": [
+        "Queen Bedroom Corner Angle"
+      ],
+      "approval_status": "unapproved_stay_candidate",
+      "required_caption": "Artist's impression. Design subject to change.",
+      "notes": "Queen Bedroom Corner Angle"
+    },
+    {
+      "id": "room-queen-console-p09",
+      "type": "artist_impression_scene",
+      "source_pdf": "DESIGN 3D FOR ROOMS & COTTAGES.pdf",
+      "source_page": 0,
+      "source_xrefs": [],
+      "extraction_strategy": "embedded_image_and_stitched",
+      "original_preservation": "high-quality rendered scene",
+      "original": {
+        "path": "public/assets/resort/scenes/web/room-queen-console-p09.jpg",
+        "width": 2560,
+        "height": 1800,
+        "format": "JPEG",
+        "bytes": 798678
+      },
+      "web": {
+        "path": "public/assets/resort/scenes/web/room-queen-console-p09.jpg",
+        "width": 2560,
+        "height": 1800,
+        "format": "JPEG",
+        "quality": "source-preserved",
+        "bytes": 798678
+      },
+      "intended_use": [
+        "Queen Room Media Console"
+      ],
+      "approval_status": "unapproved_stay_candidate",
+      "required_caption": "Artist's impression. Design subject to change.",
+      "notes": "Queen Room Media Console"
+    },
+    {
+      "id": "room-twin-beds-p10",
+      "type": "artist_impression_scene",
+      "source_pdf": "DESIGN 3D FOR ROOMS & COTTAGES.pdf",
+      "source_page": 0,
+      "source_xrefs": [],
+      "extraction_strategy": "embedded_image_and_stitched",
+      "original_preservation": "high-quality rendered scene",
+      "original": {
+        "path": "public/assets/resort/scenes/web/room-twin-beds-p10.jpg",
+        "width": 2560,
+        "height": 1800,
+        "format": "JPEG",
+        "bytes": 808866
+      },
+      "web": {
+        "path": "public/assets/resort/scenes/web/room-twin-beds-p10.jpg",
+        "width": 2560,
+        "height": 1800,
+        "format": "JPEG",
+        "quality": "source-preserved",
+        "bytes": 808866
+      },
+      "intended_use": [
+        "Twin Beds Layout"
+      ],
+      "approval_status": "unapproved_stay_candidate",
+      "required_caption": "Artist's impression. Design subject to change.",
+      "notes": "Twin Beds Layout"
+    },
+    {
+      "id": "room-twin-study-p11",
+      "type": "artist_impression_scene",
+      "source_pdf": "DESIGN 3D FOR ROOMS & COTTAGES.pdf",
+      "source_page": 0,
+      "source_xrefs": [],
+      "extraction_strategy": "embedded_image_and_stitched",
+      "original_preservation": "high-quality rendered scene",
+      "original": {
+        "path": "public/assets/resort/scenes/web/room-twin-study-p11.jpg",
+        "width": 2560,
+        "height": 1800,
+        "format": "JPEG",
+        "bytes": 738293
+      },
+      "web": {
+        "path": "public/assets/resort/scenes/web/room-twin-study-p11.jpg",
+        "width": 2560,
+        "height": 1800,
+        "format": "JPEG",
+        "quality": "source-preserved",
+        "bytes": 738293
+      },
+      "intended_use": [
+        "Twin Executive Study & Media Wall"
+      ],
+      "approval_status": "unapproved_stay_candidate",
+      "required_caption": "Artist's impression. Design subject to change.",
+      "notes": "Twin Executive Study & Media Wall"
+    },
+    {
+      "id": "room-twin-view-p12",
+      "type": "artist_impression_scene",
+      "source_pdf": "DESIGN 3D FOR ROOMS & COTTAGES.pdf",
+      "source_page": 0,
+      "source_xrefs": [],
+      "extraction_strategy": "embedded_image_and_stitched",
+      "original_preservation": "high-quality rendered scene",
+      "original": {
+        "path": "public/assets/resort/scenes/web/room-twin-view-p12.jpg",
+        "width": 2560,
+        "height": 1800,
+        "format": "JPEG",
+        "bytes": 513062
+      },
+      "web": {
+        "path": "public/assets/resort/scenes/web/room-twin-view-p12.jpg",
+        "width": 2560,
+        "height": 1800,
+        "format": "JPEG",
+        "quality": "source-preserved",
+        "bytes": 513062
+      },
+      "intended_use": [
+        "Twin Bedroom Room Perspective"
+      ],
+      "approval_status": "unapproved_stay_candidate",
+      "required_caption": "Artist's impression. Design subject to change.",
+      "notes": "Twin Bedroom Room Perspective"
+    },
+    {
+      "id": "room-twin-wardrobe-p13",
+      "type": "artist_impression_scene",
+      "source_pdf": "DESIGN 3D FOR ROOMS & COTTAGES.pdf",
+      "source_page": 0,
+      "source_xrefs": [],
+      "extraction_strategy": "embedded_image_and_stitched",
+      "original_preservation": "high-quality rendered scene",
+      "original": {
+        "path": "public/assets/resort/scenes/web/room-twin-wardrobe-p13.jpg",
+        "width": 2560,
+        "height": 1800,
+        "format": "JPEG",
+        "bytes": 546296
+      },
+      "web": {
+        "path": "public/assets/resort/scenes/web/room-twin-wardrobe-p13.jpg",
+        "width": 2560,
+        "height": 1800,
+        "format": "JPEG",
+        "quality": "source-preserved",
+        "bytes": 546296
+      },
+      "intended_use": [
+        "Twin Bedroom Wardrobe & Entrance"
+      ],
+      "approval_status": "unapproved_stay_candidate",
+      "required_caption": "Artist's impression. Design subject to change.",
+      "notes": "Twin Bedroom Wardrobe & Entrance"
+    },
+    {
+      "id": "washroom-vanity-p16",
+      "type": "artist_impression_scene",
+      "source_pdf": "DESIGN 3D FOR ROOMS & COTTAGES.pdf",
+      "source_page": 0,
+      "source_xrefs": [],
+      "extraction_strategy": "embedded_image_and_stitched",
+      "original_preservation": "high-quality rendered scene",
+      "original": {
+        "path": "public/assets/resort/scenes/web/washroom-vanity-p16.jpg",
+        "width": 886,
+        "height": 1081,
+        "format": "JPEG",
+        "bytes": 100198
+      },
+      "web": {
+        "path": "public/assets/resort/scenes/web/washroom-vanity-p16.jpg",
+        "width": 886,
+        "height": 1081,
+        "format": "JPEG",
+        "quality": "source-preserved",
+        "bytes": 100198
+      },
+      "intended_use": [
+        "Deluxe Ensuite Washroom Vanity"
+      ],
+      "approval_status": "unapproved_stay_candidate",
+      "required_caption": "Artist's impression. Design subject to change.",
+      "notes": "Deluxe Ensuite Washroom Vanity"
+    },
+    {
+      "id": "washroom-shower-p16",
+      "type": "artist_impression_scene",
+      "source_pdf": "DESIGN 3D FOR ROOMS & COTTAGES.pdf",
+      "source_page": 0,
+      "source_xrefs": [],
+      "extraction_strategy": "embedded_image_and_stitched",
+      "original_preservation": "high-quality rendered scene",
+      "original": {
+        "path": "public/assets/resort/scenes/web/washroom-shower-p16.jpg",
+        "width": 735,
+        "height": 1081,
+        "format": "JPEG",
+        "bytes": 65054
+      },
+      "web": {
+        "path": "public/assets/resort/scenes/web/washroom-shower-p16.jpg",
+        "width": 735,
+        "height": 1081,
+        "format": "JPEG",
+        "quality": "source-preserved",
+        "bytes": 65054
+      },
+      "intended_use": [
+        "Ensuite Glass Rain Shower"
+      ],
+      "approval_status": "unapproved_stay_candidate",
+      "required_caption": "Artist's impression. Design subject to change.",
+      "notes": "Ensuite Glass Rain Shower"
+    },
+    {
+      "id": "washroom-twin-shower-p17",
+      "type": "artist_impression_scene",
+      "source_pdf": "DESIGN 3D FOR ROOMS & COTTAGES.pdf",
+      "source_page": 0,
+      "source_xrefs": [],
+      "extraction_strategy": "embedded_image_and_stitched",
+      "original_preservation": "high-quality rendered scene",
+      "original": {
+        "path": "public/assets/resort/scenes/web/washroom-twin-shower-p17.jpg",
+        "width": 1103,
+        "height": 737,
+        "format": "JPEG",
+        "bytes": 101222
+      },
+      "web": {
+        "path": "public/assets/resort/scenes/web/washroom-twin-shower-p17.jpg",
+        "width": 1103,
+        "height": 737,
+        "format": "JPEG",
+        "quality": "source-preserved",
+        "bytes": 101222
+      },
+      "intended_use": [
+        "Twin Ensuite Shower Stall"
+      ],
+      "approval_status": "unapproved_stay_candidate",
+      "required_caption": "Artist's impression. Design subject to change.",
+      "notes": "Twin Ensuite Shower Stall"
+    },
+    {
+      "id": "washroom-twin-vanity-p17",
+      "type": "artist_impression_scene",
+      "source_pdf": "DESIGN 3D FOR ROOMS & COTTAGES.pdf",
+      "source_page": 0,
+      "source_xrefs": [],
+      "extraction_strategy": "embedded_image_and_stitched",
+      "original_preservation": "high-quality rendered scene",
+      "original": {
+        "path": "public/assets/resort/scenes/web/washroom-twin-vanity-p17.jpg",
+        "width": 1103,
+        "height": 718,
+        "format": "JPEG",
+        "bytes": 75189
+      },
+      "web": {
+        "path": "public/assets/resort/scenes/web/washroom-twin-vanity-p17.jpg",
+        "width": 1103,
+        "height": 718,
+        "format": "JPEG",
+        "quality": "source-preserved",
+        "bytes": 75189
+      },
+      "intended_use": [
+        "Twin Ensuite Vanity Counter"
+      ],
+      "approval_status": "unapproved_stay_candidate",
+      "required_caption": "Artist's impression. Design subject to change.",
+      "notes": "Twin Ensuite Vanity Counter"
+    },
+    {
+      "id": "washroom-suite-deluxe-p29",
+      "type": "artist_impression_scene",
+      "source_pdf": "DESIGN 3D FOR ROOMS & COTTAGES.pdf",
+      "source_page": 0,
+      "source_xrefs": [],
+      "extraction_strategy": "embedded_image_and_stitched",
+      "original_preservation": "high-quality rendered scene",
+      "original": {
+        "path": "public/assets/resort/scenes/web/washroom-suite-deluxe-p29.jpg",
+        "width": 1532,
+        "height": 1330,
+        "format": "JPEG",
+        "bytes": 179006
+      },
+      "web": {
+        "path": "public/assets/resort/scenes/web/washroom-suite-deluxe-p29.jpg",
+        "width": 1532,
+        "height": 1330,
+        "format": "JPEG",
+        "quality": "source-preserved",
+        "bytes": 179006
+      },
+      "intended_use": [
+        "Master Suite Luxury Washroom"
+      ],
+      "approval_status": "unapproved_stay_candidate",
+      "required_caption": "Artist's impression. Design subject to change.",
+      "notes": "Master Suite Luxury Washroom"
+    },
+    {
+      "id": "washroom-luxury-p42",
+      "type": "artist_impression_scene",
+      "source_pdf": "DESIGN 3D FOR ROOMS & COTTAGES.pdf",
+      "source_page": 0,
+      "source_xrefs": [],
+      "extraction_strategy": "embedded_image_and_stitched",
+      "original_preservation": "high-quality rendered scene",
+      "original": {
+        "path": "public/assets/resort/scenes/web/washroom-luxury-p42.jpg",
+        "width": 1200,
+        "height": 1494,
+        "format": "JPEG",
+        "bytes": 368658
+      },
+      "web": {
+        "path": "public/assets/resort/scenes/web/washroom-luxury-p42.jpg",
+        "width": 1200,
+        "height": 1494,
+        "format": "JPEG",
+        "quality": "source-preserved",
+        "bytes": 368658
+      },
+      "intended_use": [
+        "Cottage Designer Ensuite Washroom"
+      ],
+      "approval_status": "unapproved_stay_candidate",
+      "required_caption": "Artist's impression. Design subject to change.",
+      "notes": "Cottage Designer Ensuite Washroom"
+    },
+    {
+      "id": "suite-master-bed-p18",
+      "type": "artist_impression_scene",
+      "source_pdf": "DESIGN 3D FOR ROOMS & COTTAGES.pdf",
+      "source_page": 0,
+      "source_xrefs": [],
+      "extraction_strategy": "embedded_image_and_stitched",
+      "original_preservation": "high-quality rendered scene",
+      "original": {
+        "path": "public/assets/resort/scenes/web/suite-master-bed-p18.jpg",
+        "width": 2560,
+        "height": 1800,
+        "format": "JPEG",
+        "bytes": 857763
+      },
+      "web": {
+        "path": "public/assets/resort/scenes/web/suite-master-bed-p18.jpg",
+        "width": 2560,
+        "height": 1800,
+        "format": "JPEG",
+        "quality": "source-preserved",
+        "bytes": 857763
+      },
+      "intended_use": [
+        "Suite Master King Bedroom"
+      ],
+      "approval_status": "unapproved_stay_candidate",
+      "required_caption": "Artist's impression. Design subject to change.",
+      "notes": "Suite Master King Bedroom"
+    },
+    {
+      "id": "suite-master-angle-p19",
+      "type": "artist_impression_scene",
+      "source_pdf": "DESIGN 3D FOR ROOMS & COTTAGES.pdf",
+      "source_page": 0,
+      "source_xrefs": [],
+      "extraction_strategy": "embedded_image_and_stitched",
+      "original_preservation": "high-quality rendered scene",
+      "original": {
+        "path": "public/assets/resort/scenes/web/suite-master-angle-p19.jpg",
+        "width": 2560,
+        "height": 1800,
+        "format": "JPEG",
+        "bytes": 908735
+      },
+      "web": {
+        "path": "public/assets/resort/scenes/web/suite-master-angle-p19.jpg",
+        "width": 2560,
+        "height": 1800,
+        "format": "JPEG",
+        "quality": "source-preserved",
+        "bytes": 908735
+      },
+      "intended_use": [
+        "Suite Bedroom Corner Perspective"
+      ],
+      "approval_status": "unapproved_stay_candidate",
+      "required_caption": "Artist's impression. Design subject to change.",
+      "notes": "Suite Bedroom Corner Perspective"
+    },
+    {
+      "id": "suite-master-panoramic-p21",
+      "type": "artist_impression_scene",
+      "source_pdf": "DESIGN 3D FOR ROOMS & COTTAGES.pdf",
+      "source_page": 0,
+      "source_xrefs": [],
+      "extraction_strategy": "embedded_image_and_stitched",
+      "original_preservation": "high-quality rendered scene",
+      "original": {
+        "path": "public/assets/resort/scenes/web/suite-master-panoramic-p21.jpg",
+        "width": 2560,
+        "height": 1800,
+        "format": "JPEG",
+        "bytes": 884852
+      },
+      "web": {
+        "path": "public/assets/resort/scenes/web/suite-master-panoramic-p21.jpg",
+        "width": 2560,
+        "height": 1800,
+        "format": "JPEG",
+        "quality": "source-preserved",
+        "bytes": 884852
+      },
+      "intended_use": [
+        "Suite Bedroom Garden Glazing"
+      ],
+      "approval_status": "unapproved_stay_candidate",
+      "required_caption": "Artist's impression. Design subject to change.",
+      "notes": "Suite Bedroom Garden Glazing"
+    },
+    {
+      "id": "suite-lounge-living-p24",
+      "type": "artist_impression_scene",
+      "source_pdf": "DESIGN 3D FOR ROOMS & COTTAGES.pdf",
+      "source_page": 0,
+      "source_xrefs": [],
+      "extraction_strategy": "embedded_image_and_stitched",
+      "original_preservation": "high-quality rendered scene",
+      "original": {
+        "path": "public/assets/resort/scenes/web/suite-lounge-living-p24.jpg",
+        "width": 2560,
+        "height": 1800,
+        "format": "JPEG",
+        "bytes": 944479
+      },
+      "web": {
+        "path": "public/assets/resort/scenes/web/suite-lounge-living-p24.jpg",
+        "width": 2560,
+        "height": 1800,
+        "format": "JPEG",
+        "quality": "source-preserved",
+        "bytes": 944479
+      },
+      "intended_use": [
+        "Suite Private Living Lounge"
+      ],
+      "approval_status": "unapproved_stay_candidate",
+      "required_caption": "Artist's impression. Design subject to change.",
+      "notes": "Suite Private Living Lounge"
+    },
+    {
+      "id": "suite-dining-table-p26",
+      "type": "artist_impression_scene",
+      "source_pdf": "DESIGN 3D FOR ROOMS & COTTAGES.pdf",
+      "source_page": 0,
+      "source_xrefs": [],
+      "extraction_strategy": "embedded_image_and_stitched",
+      "original_preservation": "high-quality rendered scene",
+      "original": {
+        "path": "public/assets/resort/scenes/web/suite-dining-table-p26.jpg",
+        "width": 2560,
+        "height": 1800,
+        "format": "JPEG",
+        "bytes": 1105720
+      },
+      "web": {
+        "path": "public/assets/resort/scenes/web/suite-dining-table-p26.jpg",
+        "width": 2560,
+        "height": 1800,
+        "format": "JPEG",
+        "quality": "source-preserved",
+        "bytes": 1105720
+      },
+      "intended_use": [
+        "Suite Private Dining Space"
+      ],
+      "approval_status": "unapproved_stay_candidate",
+      "required_caption": "Artist's impression. Design subject to change.",
+      "notes": "Suite Private Dining Space"
+    },
+    {
+      "id": "cottage-std-bed-p40",
+      "type": "artist_impression_scene",
+      "source_pdf": "DESIGN 3D FOR ROOMS & COTTAGES.pdf",
+      "source_page": 0,
+      "source_xrefs": [],
+      "extraction_strategy": "embedded_image_and_stitched",
+      "original_preservation": "high-quality rendered scene",
+      "original": {
+        "path": "public/assets/resort/scenes/web/cottage-std-bed-p40.jpg",
+        "width": 1496,
+        "height": 1051,
+        "format": "JPEG",
+        "bytes": 261428
+      },
+      "web": {
+        "path": "public/assets/resort/scenes/web/cottage-std-bed-p40.jpg",
+        "width": 1496,
+        "height": 1051,
+        "format": "JPEG",
+        "quality": "source-preserved",
+        "bytes": 261428
+      },
+      "intended_use": [
+        "Timber Cottage Bedroom"
+      ],
+      "approval_status": "unapproved_stay_candidate",
+      "required_caption": "Artist's impression. Design subject to change.",
+      "notes": "Timber Cottage Bedroom"
+    },
+    {
+      "id": "cottage-std-console-p41",
+      "type": "artist_impression_scene",
+      "source_pdf": "DESIGN 3D FOR ROOMS & COTTAGES.pdf",
+      "source_page": 0,
+      "source_xrefs": [],
+      "extraction_strategy": "embedded_image_and_stitched",
+      "original_preservation": "high-quality rendered scene",
+      "original": {
+        "path": "public/assets/resort/scenes/web/cottage-std-console-p41.jpg",
+        "width": 1498,
+        "height": 1050,
+        "format": "JPEG",
+        "bytes": 215530
+      },
+      "web": {
+        "path": "public/assets/resort/scenes/web/cottage-std-console-p41.jpg",
+        "width": 1498,
+        "height": 1050,
+        "format": "JPEG",
+        "quality": "source-preserved",
+        "bytes": 215530
+      },
+      "intended_use": [
+        "Timber Cottage Console & Wardrobe"
+      ],
+      "approval_status": "unapproved_stay_candidate",
+      "required_caption": "Artist's impression. Design subject to change.",
+      "notes": "Timber Cottage Console & Wardrobe"
+    },
+    {
+      "id": "cottage-dorm-bath-p39",
+      "type": "artist_impression_scene",
+      "source_pdf": "DESIGN 3D FOR ROOMS & COTTAGES.pdf",
+      "source_page": 0,
+      "source_xrefs": [],
+      "extraction_strategy": "embedded_image_and_stitched",
+      "original_preservation": "high-quality rendered scene",
+      "original": {
+        "path": "public/assets/resort/scenes/web/cottage-dorm-bath-p39.jpg",
+        "width": 1500,
+        "height": 1049,
+        "format": "JPEG",
+        "bytes": 254894
+      },
+      "web": {
+        "path": "public/assets/resort/scenes/web/cottage-dorm-bath-p39.jpg",
+        "width": 1500,
+        "height": 1049,
+        "format": "JPEG",
+        "quality": "source-preserved",
+        "bytes": 254894
+      },
+      "intended_use": [
+        "Cottage Bedroom & Bath Flow"
+      ],
+      "approval_status": "unapproved_stay_candidate",
+      "required_caption": "Artist's impression. Design subject to change.",
+      "notes": "Cottage Bedroom & Bath Flow"
+    }
+  ],
+  "logo": {
+    "id": "provisional-catalogue-page-11-color-logo",
+    "type": "provisional_catalogue_logo_raster",
+    "source_pdf": "Golden_Hills_Catalogue_Logo_Palette (1).pdf",
+    "source_page": 11,
+    "source_xrefs": [
+      38
+    ],
+    "extraction_strategy": "embedded_page_image_crop_with matte decontamination and alpha recovery; no tracing or vectorization",
+    "path": "public/assets/resort/logo/provisional-catalogue-page-11-color-logo.png",
+    "width": 2360,
+    "height": 1120,
+    "format": "PNG",
+    "bytes": 201571,
+    "sha256": "c9e0ac602e659dc290ef8aeb9dc7cf8fe809e43cc8ab57bff0e467dcaebdd552",
+    "has_transparency": true,
+    "variants": {
+      "light_surface": {
+        "path": "public/assets/resort/logo/provisional-catalogue-page-11-light-logo.png",
+        "width": 2360,
+        "height": 1120,
+        "format": "PNG",
+        "bytes": 116923,
+        "sha256": "42b2d69f520ffde5f5857c0d2de22cf8b444d92c7441fe23552961e2eed3b05d",
+        "derivation": "Aligned recolor of the recovered dark and green pixels to catalogue cream; supplied gold pixels retained."
+      }
+    },
+    "approval_status": "provisional_not_approved_brand_master",
+    "notes": "Colored logo extracted directly from catalogue page 11 and cleaned to transparency without redraw or vectorization. The aligned light-surface variant is a documented recolor, not a supplied master. Raster edge artifacts remain possible. Use only as provisional derivatives pending the client's approved SVG or AI master."
+  },
+  "excluded": [
+    {
+      "source_pdf": "DESIGN 3D FOR ROOMS & COTTAGES.pdf",
+      "source_page": 36,
+      "reason": "Visible watermark-like mark; explicitly excluded."
+    },
+    {
+      "source_pdf": "3d Design - Reception & Veg Resaturant.pdf",
+      "source_page": 8,
+      "reason": "Conflicting plural Golden Hills Resorts signage; explicitly excluded."
+    },
+    {
+      "scope": "all supplied PDFs",
+      "reason": "Mood-board images and third-party reference photography were excluded."
+    }
+  ]
+}

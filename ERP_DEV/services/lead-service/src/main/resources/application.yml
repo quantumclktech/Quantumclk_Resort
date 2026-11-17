@@ -1,0 +1,39 @@
+server:
+  port: ${PORT:8093}
+
+spring:
+  application:
+    name: lead-service
+  datasource:
+    url: ${LEAD_DB_URL:jdbc:postgresql://localhost:5433/lead_db}
+    username: ${LEAD_DB_USER:lead_svc}
+    password: ${LEAD_DB_PASSWORD}
+  jpa:
+    open-in-view: false
+    hibernate:
+      ddl-auto: validate
+  flyway:
+    enabled: true
+    # Production: schema only. Local dev adds classpath:db/dev-seed for sample leads (D-142).
+    locations: ${LEAD_FLYWAY_LOCATIONS:classpath:db/migration}
+
+erp:
+  keycloak:
+    url: ${KEYCLOAK_URL:http://localhost:8081}
+    realm: ${KEYCLOAK_REALM:gh-staff}
+    issuer: ${erp.keycloak.url}/realms/${erp.keycloak.realm}
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health
+  endpoint:
+    health:
+      probes:
+        enabled: true
+
+logging:
+  structured:
+    format:
+      console: ecs

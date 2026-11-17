@@ -1,0 +1,62 @@
+# Environment and secrets
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+secrets/
+credentials/
+
+# OS / Editor
+.vscode/
+.idea/
+*.swp
+.DS_Store
+Thumbs.db
+
+# Build outputs & dependencies
+node_modules/
+dist/
+build/
+target/
+.next/
+*.tsbuildinfo
+.vitest-cache/
+.gstack/
+
+# Local logs & runtimes
+*.log
+/logs/
+!ERP_DEV/docs/logs/
+*.db
+*.sqlite
+
+# Client raw documents & uploads
+*.docx
+*.pdf
+!docs/01-requirements/source-extracts/*.md
+uploads/
+media/
+backups/
+*.csv
+*.xlsx
+
+# Agent tooling installed locally (skills, prompts, editor hooks) — not product code
+.agents/
+.claude/
+.opencode/*
+!.opencode/skills/
+.opencode/skills/*
+!.opencode/skills/erp-prp/
+
+# Stray npm lockfile at the service root; the web app's real one is ERP_DEV/web/package-lock.json
+/ERP_DEV/package-lock.json
+
+# Local work artefacts
+*.patch
+preview-work.patch
+
+# Symlinked node_modules (the trailing-slash rule above misses symlinks)
+node_modules
+# LibreOffice lock files
+.~lock.*#
