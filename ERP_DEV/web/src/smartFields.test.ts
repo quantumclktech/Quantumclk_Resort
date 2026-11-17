@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 import {
-  aadhaarProblem, calculateAge, cleanMobile, formatAadhaar, isValidMobile, isValidPincode, licenceProblem, maskAadhaar,
+  aadhaarProblem, calculateAge, cleanMobile, dobProblem, formatAadhaar, isValidMobile, isValidPincode, licenceProblem, maskAadhaar,
   maskLicence, maxDobFor18, parseFeeChips, rupees, toTitleCase, validateVerhoeff, verhoeffCheckDigit,
 } from "./smartFields";
 
@@ -28,6 +28,16 @@ describe("smart fields", () => {
     expect(licenceProblem("ka01 2019 0001234")).toBeNull();
     expect(licenceProblem("12345")).not.toBeNull();
     expect(maskLicence("KA01 20190001234")).toBe("XXXXXXXXXXX1234");
+  });
+
+  it("date of birth problems: future, impossible, too old, under 18", () => {
+    const t = "2026-11-17";
+    expect(dobProblem("2008-11-11", t)).toBeNull();
+    expect(dobProblem("", t)).toBeNull();
+    expect(dobProblem("2027-01-01", t)).toMatch(/future/);
+    expect(dobProblem("2001-02-31", t)).toMatch(/exist/);
+    expect(dobProblem("0200-05-05", t)).toMatch(/1900/);
+    expect(dobProblem("2008-11-18", t)).toMatch(/18/);
   });
 
   it("age and the 18+ date limit", () => {

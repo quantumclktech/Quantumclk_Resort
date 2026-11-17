@@ -7,7 +7,7 @@ import { ApiError, type Me } from "./api";
 import { config } from "./config";
 import { Camera, ImageIcon, X, ZoomIn } from "lucide-react";
 import {
-  INDIAN_STATES, aadhaarProblem, calculateAge, cleanMobile, formatAadhaar, isValidMobile, isValidPincode, licenceProblem,
+  INDIAN_STATES, MIN_DOB, aadhaarProblem, calculateAge, cleanMobile, dobProblem, formatAadhaar, isValidMobile, isValidPincode, licenceProblem,
   localToday, lookupPincode, maskAadhaar, maskLicence, maxDobFor18, parseFeeChips, rupees, toTitleCase,
 } from "./smartFields";
 
@@ -154,12 +154,13 @@ function RegisterMember({ me, request, onRegistered }: { me: Me; request: Reques
 
   // Smart fields (D-131…D-134): checked as the executive types; the server checks everything again.
   const age = calculateAge(form.dob);
+  const dobErr = dobProblem(form.dob);
   const mobileOk = isValidMobile(form.mobile);
   const idProblem = form.idType === "AADHAAR" ? aadhaarProblem(form.idNumber) : licenceProblem(form.idNumber);
   const idComplete = form.idType === "AADHAAR" ? form.idNumber.replace(/\D/g, "").length === 12 : form.idNumber.trim().length >= 13;
   const pincodeOk = isValidPincode(form.pincode);
   const [pinNote, setPinNote] = useState<string | null>(null);
-  const blocked = !age?.isEligible || !mobileOk || idProblem !== null || !pincodeOk;
+  const blocked = !form.dob || dobErr !== null || !mobileOk || idProblem !== null || !pincodeOk;
 
   async function pincodeTyped(raw: string) {
     const pin = raw.replace(/\D/g, "").slice(0, 6);
@@ -256,13 +257,14 @@ function RegisterMember({ me, request, onRegistered }: { me: Me; request: Reques
           </div>
           <div className="form-row three-col">
             <label>Date of birth
-              <input type="date" aria-label="Date of birth" required max={maxDobFor18()} value={form.dob} aria-invalid={!!fields.dob || (age !== null && !age.isEligible)}
+              <input type="date" aria-label="Date of birth" required min={MIN_DOB} max={maxDobFor18()} value={form.dob} aria-invalid={!!fields.dob || dobErr !== null}
                      onChange={(e) => set("dob")(e.target.value)} />
-              {age && (
+              {age && form.dob >= MIN_DOB && (
                 <span className={`smart-pill ${age.isEligible ? "ok" : "bad"}`} role="status">
                   {age.isEligible ? `Age: ${age.age} years · Eligible ✓` : `Age: ${age.age} years · Must be 18+ ✗`}
                 </span>
               )}
+              {dobErr && !(age && form.dob >= MIN_DOB) && <small role="alert">{dobErr}</small>}
               {fields.dob && <small role="alert">{fields.dob}</small>}
             </label>
             <label>Mobile
@@ -341,7 +343,11 @@ function RegisterMember({ me, request, onRegistered }: { me: Me; request: Reques
               {fields.state && <small role="alert">{fields.state}</small>}
             </label>
             <label>Country
-              <input type="text" value="India" readOnly aria-readonly="true" />
+              {/* India only for now (D-133): the server rejects other countries. Add options here when that changes. */}
+              <select required value={form.country} onChange={(e) => set("country")(e.target.value)} aria-invalid={!!fields.country}>
+                <option value="India">India</option>
+              </select>
+              {fields.country && <small role="alert">{fields.country}</small>}
             </label>
           </div>
         </fieldset>
