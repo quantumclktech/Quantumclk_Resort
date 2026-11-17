@@ -221,7 +221,6 @@ export function SalesPerformance({ request, selected }: { request: Request; sele
       <div className="perf-toolbar">
         <div>
           <h2>Sales Performance</h2>
-          <p>Leads each Sales Executive attended and converted, and the Gold Memberships they brought in. Counted by the date the lead came in or the member registered.</p>
         </div>
         <div className="perf-periods" role="group" aria-label="Period">
           {PERIODS.map((p) => (

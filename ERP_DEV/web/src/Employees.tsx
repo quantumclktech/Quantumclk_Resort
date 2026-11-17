@@ -43,9 +43,6 @@ export function Employees({ request, canManage, showPerformance = false }: { req
       <header className="page-head">
         <p className="page-kicker">People</p>
         <h1>Employees</h1>
-        <p>{tab === "performance"
-          ? "How each Sales Executive is doing with leads and memberships."
-          : "Staff accounts and invitations."}</p>
       </header>
 
       {showPerformance && (
@@ -274,7 +271,6 @@ function AddEmployee({ request, onCreated }: { request: Request; onCreated: () =
             <UserPlus size={18} aria-hidden="true" />
             Add employee
           </h2>
-          <p>New accounts are Sales Executives. Keycloak sends an account activation invite.</p>
         </div>
       </div>
 
@@ -363,7 +359,6 @@ export function AuditLog({ request }: { request: Request }) {
       <header className="page-head">
         <p className="page-kicker">Security</p>
         <h1>Audit log</h1>
-        <p>Every access and role change, recorded as it happened and never edited.</p>
       </header>
 
       {error && <p role="alert">{error}</p>}
