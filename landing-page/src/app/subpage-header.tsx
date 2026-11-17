@@ -153,7 +153,7 @@ export default function SubpageHeader({ overlay = false }: { overlay?: boolean }
         {/* Right: Primary Call to Action & Mobile Menu */}
         <div className="site-navbar-actions">
           <ProfileLink />
-          <Link href="/plan-ahead#bookings" className="site-navbar-cta">
+          <Link href="/stay" className="site-navbar-cta">
             Plan your stay
           </Link>
 
@@ -191,7 +191,7 @@ export default function SubpageHeader({ overlay = false }: { overlay?: boolean }
                     Your profile
                     <ArrowRight />
                   </Link>
-                  <Link href="/plan-ahead#bookings" onClick={close}>
+                  <Link href="/stay" onClick={close}>
                     Plan your stay
                     <ArrowRight />
                   </Link>

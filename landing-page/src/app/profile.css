@@ -550,3 +550,6 @@
 .mx-exec { display: flex; gap: 12px; align-items: center; margin: 0 0 10px; }
 .mx-exec small { display: block; color: var(--color-muted); font-size: 12px; }
 .mx-avatar { width: 40px; height: 40px; border-radius: 50%; display: grid; place-items: center; background: var(--color-forest); color: var(--color-chalk); font-weight: 700; }
+
+/* Signed out, /profile shows the Plan your stay sign-in screen, which brings its own spacing. */
+.prof-page:has(> .plan-portal-stage) { padding-block: 0; }
