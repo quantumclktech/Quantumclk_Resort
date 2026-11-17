@@ -142,6 +142,17 @@ export default function PlanStayPortal() {
 
   }, []);
 
+  // "Plan your stay" links (header, footer, hero dates, stay page) arrive with #bookings: open the
+  // reservation form, not the sign-in tab. Also when the link is followed while already on this page.
+  useEffect(() => {
+    const openFromHash = () => {
+      if (window.location.hash === "#bookings") setPortalMode("reserve");
+    };
+    openFromHash();
+    window.addEventListener("hashchange", openFromHash);
+    return () => window.removeEventListener("hashchange", openFromHash);
+  }, []);
+
   const handleCheckinDateChange = (val: string) => {
     setErrorMsg("");
     setCheckinDate(val);

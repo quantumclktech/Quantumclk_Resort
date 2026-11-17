@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { retryMembership, signOut, useSession } from "./guest-session";
-import ProfileSignIn from "./profile-sign-in";
+import PlanStayPortal from "./plan-ahead/plan-stay-portal";
 import BookletUsage from "./booklet-usage";
 import MemberExtras from "./member-extras";
 import { Sketch } from "./pencil";
@@ -18,19 +18,8 @@ const fmt = (iso: string) =>
 
 export default function ProfileView() {
   const session = useSession();
-  if (!session) {
-    return (
-      <section className="prof-out wrap" aria-labelledby="prof-title">
-        <div className="prof-out-text">
-          <p className="prof-kicker">Members’ sign in</p>
-          <h1 id="prof-title">Your card, your stays, your booklet</h1>
-          <p>Sign in with your email to see your Gold card and what is left in your booklet.</p>
-          <Sketch name="cottage" className="prof-out-sketch" />
-        </div>
-        <ProfileSignIn />
-      </section>
-    );
-  }
+  // Signed out (the header's "Sign in"): the same sign-in screen as Plan your stay.
+  if (!session) return <PlanStayPortal />;
 
   const first = session.user.name.split(" ")[0];
   const membership = session.membership;

@@ -209,8 +209,8 @@ export default function HomeOpening({ slides, features, intro }: {
   );
 }
 
-/* Sends the dates to the booking form on /plan-ahead, which pre-fills from
- * these parameters. Enforces valid dates (check-in >= today, checkout > check-in). */
+/* Opens the Stay page (rooms and cottages) with the chosen dates in the URL; the booking form on /plan-ahead pre-fills from
+ * the same parameters. Enforces valid dates (check-in >= today, checkout > check-in). */
 function BookingBar() {
   const [today, setToday] = useState("");
   const [checkin, setCheckin] = useState("");
@@ -273,7 +273,7 @@ function BookingBar() {
   };
 
   return (
-    <form className="hop-book" action="/plan-ahead#bookings" method="get" onSubmit={handleSubmit}>
+    <form className="hop-book" action="/stay" method="get" onSubmit={handleSubmit}>
       <label>
         <span>Check-in</span>
         <input

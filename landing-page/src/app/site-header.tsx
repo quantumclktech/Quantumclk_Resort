@@ -34,7 +34,7 @@ const mobileLinks = [
 ];
 
 const menuActions = [
-  { href: "/plan-ahead#bookings", label: "Plan your stay" },
+  { href: "/stay", label: "Plan your stay" },
   { href: "#location", label: "Find us" },
 ];
 
@@ -116,7 +116,7 @@ export default function SiteHeader({
 
           {/* Right: Primary Call to Action Button & Mobile Menu */}
           <div className="site-navbar-actions">
-            <Link className="site-navbar-cta" href="/plan-ahead#bookings">
+            <Link className="site-navbar-cta" href="/stay">
               Plan your stay
             </Link>
 

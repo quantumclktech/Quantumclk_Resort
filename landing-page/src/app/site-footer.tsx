@@ -22,7 +22,7 @@ const exploreLinks = [
 ];
 
 const planLinks = [
-  { href: "/plan-ahead#bookings", label: "Plan your stay" },
+  { href: "/stay", label: "Plan your stay" },
   { href: "/membership", label: "Privilege Club intake" },
   { href: "/plan-ahead#enquiries", label: "Group enquiries" },
 ];

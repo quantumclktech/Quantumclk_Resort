@@ -458,3 +458,24 @@ History before 2026-11-15 is in `archive/hotel-draft:ERP_DEV/docs/logs/DEVLOG.md
 - Removed the explanatory paragraph under each heading, which staff using the console every day don't need: Sales Performance ("Leads each Sales Executive attended…"), Employees (both tabs), the Add employee card, Audit log, Gold Membership, and the New Gold Member form.
 - Kept: field hints, validation messages, payment-method hints, status notes (for example "You enrolled this member, so another Admin or Manager must verify the payment").
 - UI text only; no API, logic or backend change. Typecheck clean, vitest 61/61.
+
+## 2026-11-17 — Landing: "Plan your stay" opens the reservation form
+
+- Every "Plan your stay" link (header button and menu, footer, hero dates form, Stay page callout) points to `/plan-ahead#bookings`, but the page ignored the hash and always opened on the Sign In tab.
+- `plan-ahead/plan-stay-portal.tsx`: `#bookings` now opens the Reserve Stay tab, both on arrival and on a hash change while already on the page. Plain `/plan-ahead` (for example the "Have an account? Sign in" link) still opens Sign In. Signed-in members still see their folio.
+- Checked at 390 and 1440 for the header, hero form (dates carried over), Stay page link, plain URL and hash change. Typecheck clean; no new lint findings (the existing set-state-in-effect error at line ~136 was already there).
+
+## 2026-11-17 — Landing: "Plan your stay" goes to the Stay page
+
+- The user wants "Plan your stay" to open the Stay (accommodations) page, not the booking/sign-in portal. Changed to `/stay`: header button and menu item (`site-header.tsx`), subpage header button and menu item (`subpage-header.tsx`), footer link (`site-footer.tsx`).
+- Left on `/plan-ahead#bookings` on purpose: the home date form (it carries dates into the booking form) and the Stay page's "Check availability". The earlier `#bookings` → Reserve Stay change stays, so those open the form, not Sign In.
+- Checked at 390 and 1440 from /, /dining and /plan-ahead: header button lands on /stay; the menu and footer links point to /stay, and the footer click lands there. Typecheck clean.
+- Follow-up (same day): the home page "Check availability" button (hero date form, `home-opening.tsx`) now also opens `/stay`; the dates ride along in the URL. The Stay page's own "Check availability" callout still goes to the booking form (linking /stay to itself would do nothing). Checked at 390 and 1440; typecheck clean.
+
+## 2026-11-17 — Landing: "Sign in" uses the Plan your stay sign-in screen
+
+- `profile-view.tsx`: signed out, /profile (the header's "Sign in", and "Your profile" in the phone menu) now renders `PlanStayPortal`, the same screen as Plan your stay (Sign In / Register / Reserve Stay tabs, photo slideshow). It replaces the earlier email-only `ProfileSignIn` card. Signed-in members still get their profile. Sign-in itself is unchanged: both screens call the same `signIn()` (Keycloak), which returns to /membership?welcome=1.
+- `profile.css`: `.prof-page:has(> .plan-portal-stage) { padding-block: 0 }`, so the screen keeps its own spacing.
+- `login/page.tsx`: /login renders the same screen with the site header and footer (it used `LoginPortal`, which is now unused but left in place).
+- Checked at 390 and 1440: /profile and /login show "Sign In to Your Stay" with the email field and no horizontal scroll; signed in (faked Keycloak), /profile still shows the member profile. Typecheck and eslint clean.
+- Known: on desktop the active tab's label is invisible (the pill-collapse bug, fixed on phones only); it now shows on the Sign In tab.
