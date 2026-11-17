@@ -1,10 +1,452 @@
-/* Golden Hills colours on Keycloak's sign-in pages (same palette as the staff ERP and the landing page). */
-:root {
-  --pf-v5-global--primary-color--100: #85642d;
-  --pf-v5-global--primary-color--200: #6f5223;
-  --pf-v5-global--link--Color: #85642d;
-  --pf-v5-global--link--Color--hover: #6f5223;
+/* Golden Hills sign-in pages (realms gh-guests and gh-staff).
+ *
+ * Styling only: Keycloak's own templates (keycloak.v2) render every page, form, field name and link
+ * unchanged; this file only restyles them to match the landing page and the staff ERP (tokens.css,
+ * plan-ahead.css: the Plan your stay sign-in). Phones get one calm card; from 980px the resort photo
+ * sits beside the form, as on Plan your stay. */
+
+@font-face {
+  font-family: "General Sans";
+  src: url("../fonts/general-sans-500.woff2") format("woff2");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
 }
-body, .pf-v5-c-login { background: #f8f6f0; }
-.pf-v5-c-login__main { border-top: 4px solid #c9a45c; border-radius: 12px; }
-#kc-header-wrapper { color: #16201a; font-family: Georgia, "Times New Roman", serif; letter-spacing: 0.04em; }
+@font-face {
+  font-family: "General Sans";
+  src: url("../fonts/general-sans-600.woff2") format("woff2");
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Inter Variable";
+  src: url("../fonts/inter-latin-wght.woff2") format("woff2-variations");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+:root {
+  /* The landing page's tokens (landing-page/src/app/tokens.css) */
+  --gh-forest: #104028;
+  --gh-forest-deep: #0b301e;
+  --gh-paper: #f7f2ec;
+  --gh-chalk: #fffaf3;
+  --gh-limestone: #e8e1d7;
+  --gh-ink: #18241d;
+  --gh-muted: #596a5e;
+  --gh-line: #c3c9bd;
+  --gh-brass: #b88828;
+  --gh-brass-ink: #7a5712;
+  --gh-danger: #a4332b;
+  --gh-ok: #2f6b45;
+  --gh-ease-out: cubic-bezier(.22, 1, .36, 1);
+  --gh-font-sans: "Inter Variable", "Inter", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --gh-font-display: "General Sans", -apple-system, "Segoe UI", Roboto, sans-serif;
+
+  /* PatternFly, pointed at the same palette */
+  --pf-v5-global--FontFamily--text: var(--gh-font-sans);
+  --pf-v5-global--FontFamily--heading: var(--gh-font-display);
+  --pf-v5-global--primary-color--100: var(--gh-forest);
+  --pf-v5-global--primary-color--200: var(--gh-forest-deep);
+  --pf-v5-global--link--Color: var(--gh-brass-ink);
+  --pf-v5-global--link--Color--hover: var(--gh-forest);
+  --pf-v5-global--Color--100: var(--gh-ink);
+  --pf-v5-global--Color--200: var(--gh-muted);
+  --pf-v5-global--BackgroundColor--100: var(--gh-chalk);
+  --pf-v5-global--danger-color--100: var(--gh-danger);
+  --pf-v5-global--success-color--100: var(--gh-ok);
+  --keycloak-card-top-color: transparent;
+}
+
+/* --- Page ------------------------------------------------------------------ */
+html, body, body#keycloak-bg, .login-pf body {
+  background: var(--gh-paper) !important;
+  color: var(--gh-ink);
+  font-family: var(--gh-font-sans);
+  -webkit-tap-highlight-color: transparent;
+  -webkit-text-size-adjust: 100%;
+}
+
+.pf-v5-c-login {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  min-height: 100svh;
+  padding: 32px 16px 40px;
+  background: none !important;
+}
+
+.pf-v5-c-login__container {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) !important;
+  grid-template-areas: "header" "main" !important;
+  row-gap: 24px;
+  width: 100%;
+  max-width: 440px;
+  padding: 0;
+  margin: 0 auto;
+}
+
+/* --- Brand: the resort logo (the realm name stays in the page for screen readers) --- */
+.pf-v5-c-login__header {
+  grid-area: header;
+  padding: 0;
+  margin: 0;
+  text-align: center;
+}
+
+#kc-header-wrapper {
+  display: block;
+  height: auto;
+  min-height: 0;
+  padding: 64px 0 0;
+  margin: 0 auto;
+  background: url("../img/logo.png") top center / auto 60px no-repeat;
+  color: transparent !important;
+  font-size: 0;
+  line-height: 0;
+  letter-spacing: 0;
+  text-transform: none;
+}
+
+/* --- The card ------------------------------------------------------------- */
+.pf-v5-c-login__main {
+  grid-area: main;
+  margin: 0;
+  background: var(--gh-chalk);
+  border: 1px solid var(--gh-line);
+  border-top: 1px solid var(--gh-line);
+  border-radius: 16px;
+  box-shadow: 0 24px 56px -12px rgba(16, 64, 40, 0.12);
+  overflow: hidden;
+}
+
+.pf-v5-c-login__main-header {
+  display: block;
+  padding: 28px 24px 0;
+  border-top: 0 !important;
+}
+
+#kc-page-title,
+.pf-v5-c-login__main-header .pf-v5-c-title {
+  margin: 0;
+  font-family: var(--gh-font-display);
+  font-size: clamp(24px, 6.4vw, 30px);
+  font-weight: 600;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+  color: var(--gh-ink);
+  overflow-wrap: anywhere;
+}
+
+.pf-v5-c-login__main-body {
+  padding: 20px 24px 24px;
+}
+
+.pf-v5-c-login__main-footer {
+  padding: 0 24px 24px;
+}
+/* Keycloak always renders an empty footer after the card body: no blank band at the bottom. */
+.pf-v5-c-login__main-footer:not(:has(*)) { display: none; }
+.pf-v5-c-login__main-body .pf-v5-c-login__main-footer { padding: 20px 0 0; }
+
+.pf-v5-c-login__main-footer-band {
+  margin: 0 !important;
+  padding: 16px 0 0 !important;
+  width: 100%;
+  border-top: 1px solid var(--gh-limestone);
+  text-align: center;
+  font-size: 14px;
+  color: var(--gh-muted);
+}
+.pf-v5-c-login__main-footer-band:first-child { margin-block-start: 0; }
+
+/* --- Text ------------------------------------------------------------------- */
+.pf-v5-c-login__main,
+.pf-v5-c-form,
+.pf-v5-c-login__main-body p {
+  font-family: var(--gh-font-sans);
+  font-size: 14px;
+  line-height: 1.55;
+  color: var(--gh-ink);
+}
+
+.pf-v5-u-color-200,
+.pf-v5-c-helper-text__item-text,
+#kc-info,
+.instruction {
+  color: var(--gh-muted);
+}
+
+a,
+.pf-v5-c-button.pf-m-link,
+.pf-v5-c-button.pf-m-inline {
+  color: var(--gh-brass-ink);
+  font-weight: 500;
+  text-decoration: underline;
+  text-decoration-color: color-mix(in srgb, var(--gh-brass) 55%, transparent);
+  text-underline-offset: 3px;
+  transition: color 0.2s ease;
+}
+
+a:focus-visible,
+.pf-v5-c-button:focus-visible,
+.pf-v5-c-check__input:focus-visible {
+  outline: 2px solid var(--gh-brass);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+/* --- Fields (the Plan your stay inputs) ----------------------------------- */
+.pf-v5-c-form { gap: 18px; }
+.pf-v5-c-form__group { gap: 0; }
+
+.pf-v5-c-form__label,
+.pf-v5-c-form__label-text {
+  font-family: var(--gh-font-sans);
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--gh-ink);
+}
+.pf-v5-c-form__label-required { color: var(--gh-danger); }
+
+.pf-v5-c-form-control {
+  --pf-v5-c-form-control--BorderRadius: 8px;
+  --pf-v5-c-form-control--BackgroundColor: var(--gh-paper);
+  --pf-v5-c-form-control--before--BorderColor: var(--gh-line);
+  --pf-v5-c-form-control--after--BorderColor: transparent;
+  --pf-v5-c-form-control--hover--after--BorderColor: transparent;
+  --pf-v5-c-form-control--focus--after--BorderColor: transparent;
+  --pf-v5-c-form-control--focus--after--BorderBottomWidth: 0;
+  background: var(--gh-paper);
+  border-radius: 8px;
+  min-height: 48px;
+  transition: box-shadow 0.2s var(--gh-ease-out), background-color 0.2s var(--gh-ease-out);
+}
+
+.pf-v5-c-form-control::before {
+  border: 1px solid var(--gh-line) !important;
+  border-radius: 8px;
+  transition: border-color 0.2s var(--gh-ease-out);
+}
+.pf-v5-c-form-control::after { border: 0 !important; }
+
+.pf-v5-c-form-control:focus-within {
+  background: #ffffff;
+  box-shadow: 0 0 0 3px rgba(16, 64, 40, 0.12);
+}
+.pf-v5-c-form-control:focus-within::before { border-color: var(--gh-forest) !important; }
+
+.pf-v5-c-form-control > input,
+.pf-v5-c-form-control > select,
+.pf-v5-c-form-control > textarea {
+  min-height: 46px;
+  padding: 12px 14px;
+  font-family: var(--gh-font-sans);
+  font-size: 16px; /* 16px: phones do not zoom the page on focus */
+  color: var(--gh-ink);
+  background: transparent;
+  border-radius: 8px;
+  outline: none;
+}
+.pf-v5-c-form-control > input::placeholder { color: var(--gh-muted); opacity: 0.8; }
+
+.pf-v5-c-form-control.pf-m-error::before,
+.pf-v5-c-form-control:has(input[aria-invalid="true"])::before { border-color: var(--gh-danger) !important; }
+.pf-v5-c-form-control.pf-m-error:focus-within { box-shadow: 0 0 0 3px rgba(164, 51, 43, 0.14); }
+.pf-v5-c-helper-text__item.pf-m-error,
+.pf-v5-c-helper-text__item.pf-m-error .pf-v5-c-helper-text__item-text,
+[id^="input-error"] { color: var(--gh-danger); font-size: 13px; }
+
+/* Password with the show/hide button joined on the right */
+.pf-v5-c-input-group { align-items: stretch; }
+.pf-v5-c-input-group > .pf-v5-c-input-group__item.pf-m-fill .pf-v5-c-form-control,
+.pf-v5-c-input-group > .pf-v5-c-input-group__item.pf-m-fill .pf-v5-c-form-control::before {
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+}
+.pf-v5-c-input-group .pf-v5-c-button.pf-m-control {
+  min-width: 48px;
+  height: 100%;
+  min-height: 48px;
+  color: var(--gh-muted);
+  background: var(--gh-paper);
+  border-radius: 0 8px 8px 0;
+}
+.pf-v5-c-input-group .pf-v5-c-button.pf-m-control::after {
+  border: 1px solid var(--gh-line) !important;
+  border-left: 0 !important;
+  border-radius: 0 8px 8px 0;
+}
+
+/* Remember me + forgot password row */
+.pf-v5-c-form__helper-text { margin-top: 10px; }
+.pf-v5-c-helper-text { align-items: center; gap: 8px 16px; flex-wrap: wrap; }
+.pf-v5-c-check { align-items: center; gap: 0 8px; }
+.pf-v5-c-check__input {
+  width: 18px;
+  height: 18px;
+  margin: 0;
+  accent-color: var(--gh-forest);
+}
+.pf-v5-c-check__label { font-size: 14px; color: var(--gh-ink); }
+
+/* --- Buttons (the Plan your stay pill) ------------------------------------ */
+.pf-v5-c-form__actions {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin: 0 !important;
+  padding-top: 6px;
+}
+.pf-v5-c-form__actions > * {
+  width: 100%;
+  margin: 0 !important;
+}
+
+.pf-v5-c-button.pf-m-primary,
+.pf-v5-c-button.pf-m-secondary,
+.pf-v5-c-button.pf-m-tertiary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 48px;
+  padding: 12px 24px;
+  font-family: var(--gh-font-sans);
+  font-size: 15px;
+  font-weight: 600;
+  line-height: 1.2;
+  border-radius: 999px;
+  touch-action: manipulation;
+  user-select: none;
+  -webkit-user-select: none;
+  transition: background-color 0.2s var(--gh-ease-out), color 0.2s var(--gh-ease-out),
+    box-shadow 0.2s var(--gh-ease-out), transform 0.16s var(--gh-ease-out);
+}
+
+.pf-v5-c-button.pf-m-primary {
+  --pf-v5-c-button--m-primary--BackgroundColor: var(--gh-forest);
+  --pf-v5-c-button--m-primary--hover--BackgroundColor: var(--gh-forest-deep);
+  --pf-v5-c-button--m-primary--focus--BackgroundColor: var(--gh-forest-deep);
+  --pf-v5-c-button--m-primary--active--BackgroundColor: var(--gh-forest-deep);
+  background: var(--gh-forest);
+  color: var(--gh-chalk);
+  box-shadow: 0 4px 14px rgba(16, 64, 40, 0.2);
+}
+.pf-v5-c-button.pf-m-primary::after { border: 0; border-radius: 999px; }
+
+.pf-v5-c-button.pf-m-secondary,
+.pf-v5-c-button.pf-m-tertiary {
+  --pf-v5-c-button--m-secondary--Color: var(--gh-forest);
+  --pf-v5-c-button--m-secondary--hover--Color: var(--gh-forest);
+  --pf-v5-c-button--m-secondary--BackgroundColor: transparent;
+  --pf-v5-c-button--m-secondary--hover--BackgroundColor: var(--gh-limestone);
+  background: transparent;
+  color: var(--gh-forest);
+  text-decoration: none;
+}
+.pf-v5-c-button.pf-m-secondary::after,
+.pf-v5-c-button.pf-m-tertiary::after {
+  border: 1px solid var(--gh-line) !important;
+  border-radius: 999px;
+}
+
+.pf-v5-c-button.pf-m-primary:active,
+.pf-v5-c-button.pf-m-secondary:active,
+.pf-v5-c-button.pf-m-tertiary:active { transform: scale(0.98); }
+
+.pf-v5-c-button:disabled,
+.pf-v5-c-button.pf-m-disabled { opacity: 0.6; box-shadow: none; }
+
+@media (hover: hover) and (pointer: fine) {
+  .pf-v5-c-button.pf-m-primary:hover {
+    background: var(--gh-forest-deep);
+    box-shadow: 0 6px 18px rgba(16, 64, 40, 0.26);
+  }
+  .pf-v5-c-button.pf-m-secondary:hover,
+  .pf-v5-c-button.pf-m-tertiary:hover { background: var(--gh-limestone); }
+  a:hover,
+  .pf-v5-c-button.pf-m-link:hover { color: var(--gh-forest); }
+  .pf-v5-c-input-group .pf-v5-c-button.pf-m-control:hover { color: var(--gh-forest); }
+}
+
+/* --- Messages (wrong password, email sent, link expired …) ----------------- */
+.pf-v5-c-alert {
+  --pf-v5-c-alert--BoxShadow: none;
+  margin-bottom: 18px;
+  padding: 12px 14px;
+  border: 1px solid var(--gh-line);
+  border-radius: 8px;
+  background: var(--gh-paper);
+  font-size: 14px;
+}
+.pf-v5-c-alert::before { display: none; }
+.pf-v5-c-alert.pf-m-danger,
+.pf-v5-c-alert.pf-m-error { border-color: color-mix(in srgb, var(--gh-danger) 40%, transparent); background: #fbf1ee; }
+.pf-v5-c-alert.pf-m-success { border-color: color-mix(in srgb, var(--gh-ok) 40%, transparent); background: #eef4ee; }
+.pf-v5-c-alert.pf-m-warning { border-color: color-mix(in srgb, var(--gh-brass) 50%, transparent); background: #fbf5e8; }
+.pf-v5-c-alert__title { font-weight: 500; color: var(--gh-ink); }
+
+/* Lists of choices (other ways to sign in, recovery codes, sessions) */
+.pf-v5-c-login__main-footer-links,
+#kc-social-providers ul { gap: 8px; }
+hr { border-color: var(--gh-limestone); }
+
+/* --- Phones ----------------------------------------------------------------- */
+@media (max-width: 420px) {
+  .pf-v5-c-login { justify-content: flex-start; padding-top: 28px; }
+  .pf-v5-c-login__main-header { padding: 24px 20px 0; }
+  .pf-v5-c-login__main-body { padding: 18px 20px 20px; }
+  .pf-v5-c-login__main-footer { padding: 0 20px 20px; }
+}
+
+/* --- Wider screens: the resort photo beside the form ---------------------- */
+@media (min-width: 980px) {
+  body#keycloak-bg::before {
+    content: "";
+    position: fixed;
+    inset: 0 auto 0 0;
+    width: 46vw;
+    background:
+      linear-gradient(to top, rgba(16, 64, 40, 0.55), rgba(16, 64, 40, 0) 45%),
+      url("../img/scene.jpg") center / cover no-repeat;
+  }
+  body#keycloak-bg::after {
+    content: "Artist\2019s impression";
+    position: fixed;
+    left: 32px;
+    bottom: 28px;
+    font-family: var(--gh-font-sans);
+    font-size: 12px;
+    letter-spacing: 0.02em;
+    color: rgba(255, 250, 243, 0.82);
+  }
+  .pf-v5-c-login {
+    padding: 48px 48px 48px calc(46vw + 48px);
+  }
+  .pf-v5-c-login__main-header { padding: 36px 36px 0; }
+  .pf-v5-c-login__main-body { padding: 24px 36px 32px; }
+  .pf-v5-c-login__main-footer { padding: 0 36px 28px; }
+}
+
+/* --- Motion: the card settles in once per page (occasional; purpose: no jarring
+   pop-in). transform + opacity only, the codebase's ease-out. ------------- */
+@keyframes gh-rise {
+  from { opacity: 0; transform: translateY(8px); }
+}
+@keyframes gh-fade {
+  from { opacity: 0; }
+}
+.pf-v5-c-login__header { animation: gh-fade 240ms var(--gh-ease-out) both; }
+.pf-v5-c-login__main { animation: gh-rise 280ms var(--gh-ease-out) 40ms both; }
+
+@media (prefers-reduced-motion: reduce) {
+  .pf-v5-c-login__main { animation-name: gh-fade; }
+  .pf-v5-c-button.pf-m-primary:active,
+  .pf-v5-c-button.pf-m-secondary:active,
+  .pf-v5-c-button.pf-m-tertiary:active { transform: none; }
+}

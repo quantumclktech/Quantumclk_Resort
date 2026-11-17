@@ -10,6 +10,7 @@
   "verifyEmail": true,
   "resetPasswordAllowed": true,
   "rememberMe": false,
+  "loginTheme": "golden-hills-staff",
   "passwordPolicy": "length(12) and maxLength(128) and notUsername and notEmail and passwordHistory(3)",
   "bruteForceProtected": true,
   "permanentLockout": false,

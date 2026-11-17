@@ -1,0 +1,13 @@
+/* Staff sign-in: the same design as members, labelled for the staff console (as the ERP's sidebar is). */
+#kc-header-wrapper::after {
+  content: "Staff console";
+  display: block;
+  margin-top: 10px;
+  font-family: var(--gh-font-sans);
+  font-size: 11px;
+  font-weight: 600;
+  line-height: 1.4;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--gh-brass-ink);
+}
