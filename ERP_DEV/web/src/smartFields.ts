@@ -21,6 +21,25 @@ export function calculateAge(dob: string, today = localToday()): { age: number; 
   return { age, isEligible: age >= 18 };
 }
 
+/** Earliest date of birth the form accepts (stops typos like year 0200 or 1026). */
+export const MIN_DOB = "1900-01-01";
+
+/**
+ * Null when the date of birth is fine, else what is wrong. Catches what the age pill alone missed: a half-typed or
+ * impossible date (31 Feb), a date in the future, a year before 1900, and under-18s.
+ */
+export function dobProblem(dob: string, today = localToday()): string | null {
+  if (!dob) return null;
+  if (!/^\d{4}-\d{2}-\d{2}$/.test(dob)) return "Enter a complete date of birth.";
+  const [y, m, d] = parts(dob);
+  const real = new Date(Date.UTC(y, m - 1, d));
+  if (real.getUTCFullYear() !== y || real.getUTCMonth() !== m - 1 || real.getUTCDate() !== d) return "That date doesn't exist.";
+  if (dob > today) return "Date of birth can't be in the future.";
+  if (dob < MIN_DOB) return "Check the year — date of birth must be 1900 or later.";
+  const age = calculateAge(dob, today);
+  return age && !age.isEligible ? "Customer must be at least 18 years old." : null;
+}
+
 /** The latest date of birth that is 18 today: the date input's `max`. 29 Feb → 28 Feb (same as the server). */
 export function maxDobFor18(today = localToday()): string {
   const [ty, tm, td] = parts(today);

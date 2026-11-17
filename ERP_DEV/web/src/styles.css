@@ -161,7 +161,7 @@ button:disabled { opacity: 0.55; cursor: default; }
 }
 
 /* Forms. 16px inputs so phones never zoom in. */
-label { display: grid; gap: 6px; font-size: 13px; font-weight: 500; color: var(--ink-2); }
+label { display: grid; align-content: start; gap: 6px; font-size: 13px; font-weight: 500; color: var(--ink-2); }
 input:not([type=radio]):not([type=checkbox]), select, textarea {
   font: inherit;
   font-size: 16px;
@@ -945,8 +945,9 @@ td.is-empty { color: var(--muted); }
 .smart-pill.bad { background: var(--danger-bg); color: var(--danger-text); border: 1px solid var(--danger-border); }
 .smart-note { display: block; margin-top: 0.3rem; font-size: 0.82rem; font-weight: 500; color: var(--muted); }
 .prefixed { position: relative; display: flex; align-items: center; }
-.prefixed .prefix { position: absolute; left: 0.75rem; font-weight: 600; color: var(--muted); pointer-events: none; }
-.prefixed input { padding-left: 3rem; padding-right: 2.2rem; width: 100%; }
+.prefixed .prefix { position: absolute; left: 14px; font-size: 16px; font-weight: 600; color: var(--muted); pointer-events: none; z-index: 1; }
+/* Must out-rank the global `input:not([type=radio]):not([type=checkbox])` padding, or the +91 overlaps the digits. */
+.prefixed input:not([type=radio]):not([type=checkbox]) { padding-left: 52px; padding-right: 36px; width: 100%; }
 .smart-tick { position: absolute; right: 0.75rem; font-weight: 700; color: var(--success-dot); }
 .fee-chips { display: flex; flex-wrap: wrap; gap: 0.5rem; margin: 0.75rem 0 0.25rem; }
 .fee-chip { min-height: 40px; padding: 0.4rem 0.9rem; border-radius: var(--radius-full); border: 1px solid var(--primary-border); background: var(--surface); color: var(--ink); font-weight: 600; }
