@@ -53,9 +53,19 @@ Start it: `docker compose --env-file ERP_DEV/.env -f ERP_DEV/infra/docker-compos
 - Without the proxy the ERP still runs on its own at `http://localhost:5173/erp/`: Vite keeps its `/realms`, `/resources` and `/api` proxies.
 - `web/vite.config.ts` holds `base`, the dev proxy and `allowedHosts` (Vite answers `403 Blocked request` for an unknown `Host`).
 - `KC_PUBLIC_URL` / `KEYCLOAK_URL` = the public origin; `KEYCLOAK_ADMIN_URL` stays `http://localhost:8081` so provisioning does not depend on the tunnel.
-- `web/.env`: `VITE_API_URL` and `VITE_KEYCLOAK_URL` = the public origin.
+- `web/.env`: leave `VITE_API_URL` and `VITE_KEYCLOAK_URL` **empty**. The app then uses the origin it was opened on (D-143). Never put a tunnel/server hostname there: `VITE_*` is baked into the build, so a copied file sends every request to the old host. `VITE_ALLOWED_HOSTS` adds dev-server hostnames besides `*.ngrok-free.dev`.
 - The `erp-web` client needs `https://<host>/*` in redirect URIs, web origins and post-logout URIs.
 - The ngrok free plan puts one **interstitial page** in front of the first browser visit per domain per 7 days ("Visit Site" sets a cookie, then reloads the same URL, so invite links keep their query string). Programmatic calls are unaffected.
+
+### 1.2 Moving to a new host (VPS, new domain)
+
+Copying `.env` files from another machine copies its hostnames. On 2026-11-18 the VPS's "Create employee" went to the laptop's ngrok URL because of this (D-143). On the new host:
+
+1. `ERP_DEV/.env`: `ERP_WEB_ORIGIN`, `KEYCLOAK_URL`, `KC_PUBLIC_URL`, `LANDING_PUBLIC_URL`, `CORS_ALLOWED_ORIGINS` = `https://<new host>`; `ERP_WEB_URL` = `https://<new host>/erp/`; `SMTP_*` = the real mail server.
+2. `ERP_DEV/web/.env`: `VITE_API_URL` and `VITE_KEYCLOAK_URL` empty (or delete the file). `landing-page/.env.local`: `NEXT_PUBLIC_KEYCLOAK_URL` and `NEXT_PUBLIC_LEAD_API_URL` empty (both default to the same origin).
+3. Keycloak imports a realm **only on its first start**. If it first started with old values, fix them in the admin console: gh-staff → Clients → `erp-web` and gh-guests → the landing client: redirect URIs `https://<new host>/*` (gh-guests: the paths listed in `gh-guests-realm.json`), web origins `https://<new host>`, post-logout redirect URIs `https://<new host>/*`.
+4. Restart Keycloak and every service so they read the new `.env`; rebuild/restart the web and the landing page (`VITE_*` and `NEXT_PUBLIC_*` are fixed at build/start).
+5. Check: in the browser's DevTools → Network, no request goes to the old host; then run the curl checks below against the new host.
 
 Check the public side end to end:
 

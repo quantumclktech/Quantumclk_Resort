@@ -479,3 +479,11 @@ History before 2026-11-15 is in `archive/hotel-draft:ERP_DEV/docs/logs/DEVLOG.md
 - `login/page.tsx`: /login renders the same screen with the site header and footer (it used `LoginPortal`, which is now unused but left in place).
 - Checked at 390 and 1440: /profile and /login show "Sign In to Your Stay" with the email field and no horizontal scroll; signed in (faked Keycloak), /profile still shows the member profile. Typecheck and eslint clean.
 - Known: on desktop the active tab's label is invisible (the pill-collapse bug, fixed on phones only); it now shows on the Sign In tab.
+
+## 2026-11-18T07:58:33+05:30 — Fix: VPS "Create employee" went to ngrok (branch fix/web-same-origin)
+- Report (Ashish): on the VPS, creating an employee as Sales Admin goes to the ngrok server. The VPS was set up with git clone plus the laptop's .env files. It happens right after clicking Create.
+- Cause: the copied `web/.env` sets `VITE_API_URL`/`VITE_KEYCLOAK_URL` to the ngrok URL; `api.ts` puts it in front of every API call and `auth.ts` uses it for Keycloak, so the VPS page talked to the laptop's stack. The copied `ERP_DEV/.env` also has ngrok in ERP_WEB_ORIGIN, KEYCLOAK_URL, KC_PUBLIC_URL, CORS_ALLOWED_ORIGINS, ERP_WEB_URL, LANDING_PUBLIC_URL, and the VPS Keycloak imported its realms with those values.
+- Fix (D-143): `web/src/config.ts` `baseUrl()`: empty = `window.location.origin`; `web/.env.example` values empty with a warning; `web/vite.config.ts` `VITE_ALLOWED_HOSTS`. Landing page already defaulted to the same origin (no code change). Docs: KEYCLOAK-SETUP §1.1 + new §1.2 (new-host checklist).
+- Verified: `npx vitest run` 64/64 (new config.test.ts), `tsc --noEmit` clean, `vite build` OK. Not checked on the VPS by Claude (no access); Ashish to run the §1.2 steps there.
+- The laptop's own `web/.env` (ngrok values) was not touched.
+- Not committed (waiting for approval).
