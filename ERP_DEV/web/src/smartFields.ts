@@ -196,8 +196,3 @@ export async function lookupPincode(pincode: string): Promise<{ city: string; st
 
 /** 25000 → "₹25,000" (Indian grouping). */
 export const rupees = (n: number) => "₹" + n.toLocaleString("en-IN");
-
-/** "25000, 30000,50000" → [25000, 30000, 50000]; anything that isn't a positive whole number is dropped. */
-export function parseFeeChips(raw: string | undefined): number[] {
-  return (raw ?? "").split(",").map((s) => s.trim()).filter((s) => /^[1-9]\d{0,9}$/.test(s)).map(Number);
-}

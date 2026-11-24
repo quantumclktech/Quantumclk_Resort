@@ -8,7 +8,7 @@ import { config } from "./config";
 import { Camera, ImageIcon, X, ZoomIn } from "lucide-react";
 import {
   INDIAN_STATES, aadhaarProblem, calculateAge, cleanMobile, formatAadhaar, isValidMobile, isValidPincode, licenceProblem,
-  localToday, lookupPincode, maskAadhaar, maskLicence, maxDobFor18, parseFeeChips, rupees, toTitleCase,
+  localToday, lookupPincode, maskAadhaar, maskLicence, maxDobFor18, rupees, toTitleCase,
 } from "./smartFields";
 
 export interface Member {
@@ -48,12 +48,13 @@ export const ACCOUNT_STATUS: Record<string, string> = {
 };
 // CASH kept so older records still display correctly.
 const PAYMENT_LABEL: Record<string, string> = { CASH: "Cash", CARD: "Pine Labs", SCAN_QR: "UPI" };
+// Fixed offer price incl. GST: shown on the form and sent as the payment amount.
+const MEMBERSHIP_FEE = 23600;
 const EMPTY = {
-  firstName: "", lastName: "", dob: "", mobile: "", email: "", address: "", paymentType: "CARD", amount: "", transactionId: "",
+  firstName: "", lastName: "", dob: "", mobile: "", email: "", address: "", paymentType: "CARD", amount: String(MEMBERSHIP_FEE), transactionId: "",
   idType: "AADHAAR", idNumber: "", pincode: "", city: "", state: "Karnataka", country: "India",
 };
 const ID_LABEL: Record<string, string> = { AADHAAR: "Aadhaar", DRIVING_LICENCE: "Driving licence" };
-const FEE_CHIPS = parseFeeChips(config.goldFeeChips);
 
 /** "12 MG Road, Belagavi, Karnataka – 590006, India"; older members only have the one address line. */
 export const fullAddress = (m: Member) =>
@@ -354,7 +355,7 @@ function RegisterMember({ me, request, onRegistered }: { me: Me; request: Reques
               <strong>Loyalty Membership</strong>
               <small>Valid 12 months from verification · 180 resort privileges (55 vouchers + 125 coupons)</small>
               <p className="mem-gold-price">
-                <s>{rupees(149999)}</s> <strong>{rupees(23600)}</strong> <span>incl. GST</span>
+                <s>{rupees(149999)}</s> <strong>{rupees(MEMBERSHIP_FEE)}</strong> <span>incl. GST</span>
               </p>
             </div>
           </div>
@@ -382,16 +383,7 @@ function RegisterMember({ me, request, onRegistered }: { me: Me; request: Reques
             </div>
           )}
 
-          {FEE_CHIPS.length > 0 && (
-            <div className="fee-chips" role="group" aria-label="Quick amounts">
-              {FEE_CHIPS.map((n) => (
-                <button key={n} type="button" className={`fee-chip${form.amount === String(n) ? " selected" : ""}`}
-                        onClick={() => set("amount")(String(n))}>{rupees(n)}</button>
-              ))}
-            </div>
-          )}
-          <div className={`form-row ${form.paymentType === "CASH" ? "" : "two-col"}`}>
-            {input("amount", "Amount received (₹)", "text", { inputMode: "decimal", placeholder: "e.g. 25000" })}
+          <div className="form-row">
             {form.paymentType === "CARD" && input("transactionId", "Pine Labs transaction ID", "text", { autoComplete: "off" })}
             {form.paymentType === "SCAN_QR" && (
               <label>UPI reference (UTR), optional

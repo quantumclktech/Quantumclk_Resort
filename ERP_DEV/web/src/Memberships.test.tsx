@@ -4,8 +4,7 @@ import { Memberships, type Member } from "./Memberships";
 import { ApiError, type Me } from "./api";
 import { localToday, setPincodeTableForTests, verhoeffCheckDigit } from "./smartFields";
 
-// Quick amount chips are configured for this file (the real default is none until the client confirms the fee, Q-030).
-vi.mock("./config", () => ({ config: { goldFeeChips: "25000,30000,50000", upiQrUrl: "" } }));
+vi.mock("./config", () => ({ config: { upiQrUrl: "" } }));
 
 afterEach(cleanup);
 
@@ -60,7 +59,6 @@ function fillCustomer() {
   fill("First name", "rohan"); fill("Last name", "SHARMA"); fill("Date of birth", "1990-05-17");
   fill(/Mobile/, "+91 98765 43210"); fill("Email", " Rohan@Example.test "); fill("Aadhaar number", AADHAAR);
   fill("Street address", "12 MG Road, Tilakwadi"); fill("Pincode", "590006"); fill("City", "Belagavi");
-  fill("Amount received (₹)", "25000");
 }
 
 describe("Memberships — Sales Executive", () => {
@@ -108,7 +106,9 @@ describe("Memberships — Sales Executive", () => {
     expect(body).toBeInstanceOf(FormData);
     expect(body.get("paymentType")).toBe("CARD");
     expect(body.get("transactionId")).toBe("PL123456");
-    expect(body.get("amount")).toBe("25000");
+    expect(screen.queryByLabelText(/Amount received/)).toBeNull();
+    expect(screen.getByText("₹23,600")).toBeTruthy();
+    expect(body.get("amount")).toBe("23600");   // fixed fee, sent without an input
     expect(body.get("email")).toBe("rohan@example.test");
     expect(body.get("mobile")).toBe("+919876543210");
     expect(body.get("idType")).toBe("AADHAAR");
@@ -184,16 +184,6 @@ describe("Memberships — Sales Executive", () => {
     fill("First name", "anoop kumar");
     fireEvent.blur(screen.getByLabelText("First name"));
     expect((screen.getByLabelText("First name") as HTMLInputElement).value).toBe("Anoop Kumar");
-  });
-
-  it("quick amount chips fill the amount", async () => {
-    render(<Memberships me={seMe} request={fakeRequest({
-      "/api/v1/sales/memberships/next-number": () => ({ membershipId: "GRH-LM-0101", provisional: true }),
-      "/api/v1/sales/memberships": () => page([]),
-    })} />);
-    await screen.findByText("GRH-LM-0101");
-    fireEvent.click(screen.getByRole("button", { name: "₹30,000" }));
-    expect((screen.getByLabelText("Amount received (₹)") as HTMLInputElement).value).toBe("30000");
   });
 
   it("asks for a transaction ID only for Pine Labs", async () => {
