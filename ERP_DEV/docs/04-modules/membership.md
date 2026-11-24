@@ -22,8 +22,7 @@ Decisions: D-116…D-125 (DECISIONS.md). Open questions: Q-030…Q-037. API: [ap
 | One live membership per email and per mobile; rejected ones don't count | The same person can't hold two Loyalty memberships, but a failed payment can be redone | REQ-MEM-005 |
 | Screenshots: JPEG/PNG/WebP ≤ 5 MB, checked by their first bytes, stored AES-256-GCM encrypted under a random name, SHA-256 kept and re-checked | Payment screenshots are personal/payment data (engineering rules §11). A renamed script must not pass as an image | REQ-MEM-003 |
 | Money is `NUMERIC(12,2)` rupees and travels as a string `"25000.00"` | No floating point for money (rules §1) | — |
-| The fee is entered by the executive; nothing checks it against a price | The client has not given the Loyalty fee yet | Q-030 |
-| Quick amount chips only from `VITE_GOLD_FEE_CHIPS` (none by default) | No guessed prices | Q-030; D-133 |
+| The form sends a fixed fee of ₹23,600 incl. GST (`MEMBERSHIP_FEE`); the server does not check it against a price | Client offer price | Q-030 |
 | ID proof: Aadhaar or driving licence. Aadhaar = 12 digits, first 2–9, Verhoeff check digit | What the client asked for; the checksum catches typos before saving | Discovery Call [22:56]; D-131 |
 | Only the masked ID (XXXX-XXXX-0123) and a **keyed** hash are stored; one live membership per ID | Aadhaar must not be kept in full; an unkeyed hash of ~10^12 numbers could be reversed. The hash still lets the DB refuse duplicates | D-131 |
 | 18 or older on the registration date (IST); checked in the form, the API and the DB | Members sign a contract; the DB rule uses the registration date, so it never shifts | D-132 |
@@ -84,7 +83,6 @@ Not changed (increment 2): the reservation-request form still shows an "Offline 
 | `MEMBERSHIP_PROOF_DIR` | Folder for the encrypted files; back it up together with the database | `./data/membership-proofs` (git-ignored) |
 | `MEMBERSHIP_VALIDITY` | Validity from verification (ISO period) | `P12M` |
 | `MEMBERSHIP_ID_HASH_KEY` | HMAC key for the ID-proof hash, base64 of ≥ 32 random bytes. Required to register; don't change it later | none |
-| web `VITE_GOLD_FEE_CHIPS` | Quick amounts on the form, e.g. `25000,30000,50000` | empty (no chips) |
 | gateway `MAX_UPLOAD_SIZE` | Body limit on `POST /api/v1/sales/memberships` only | `6MB` |
 
 Keycloak (`gh-staff`, client `erp-api`): roles `memberships.register`, `memberships.read_own`, `memberships.read_all`, `memberships.verify`, mapped into the realm roles and into the `erp-web` token scope. A realm created before 2026-11-16 needs them added once; see [KEYCLOAK-SETUP §5.4](../02-architecture/identity/KEYCLOAK-SETUP.md).

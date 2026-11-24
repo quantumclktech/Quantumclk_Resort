@@ -1,7 +1,7 @@
 import { describe, expect, it } from "vitest";
 import {
   aadhaarProblem, calculateAge, cleanMobile, dobProblem, formatAadhaar, isValidMobile, isValidPincode, licenceProblem, maskAadhaar,
-  maskLicence, maxDobFor18, parseFeeChips, rupees, toTitleCase, validateVerhoeff, verhoeffCheckDigit,
+  maskLicence, maxDobFor18, rupees, toTitleCase, validateVerhoeff, verhoeffCheckDigit,
 } from "./smartFields";
 
 describe("smart fields", () => {
@@ -65,7 +65,5 @@ describe("smart fields", () => {
     expect(isValidPincode("590001")).toBe(true);
     expect(isValidPincode("012345")).toBe(false);
     expect(rupees(25000)).toBe("₹25,000");
-    expect(parseFeeChips("25000, 30000,abc,,0")).toEqual([25000, 30000]);
-    expect(parseFeeChips(undefined)).toEqual([]);   // not configured: no chips (Q-030)
   });
 });
