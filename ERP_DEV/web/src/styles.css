@@ -794,6 +794,10 @@ td.is-empty { color: var(--muted); }
 }
 .mem-gold strong { display: block; color: var(--ink); }
 .mem-gold small { font-size: 13px; color: var(--ink-2); }
+.mem-gold-price { margin: 6px 0 0; display: flex; align-items: baseline; gap: 8px; flex-wrap: wrap; }
+.mem-gold-price s { color: var(--ink-2); font-size: 14px; }
+.mem-gold-price strong { font-size: 18px; }
+.mem-gold-price span { font-size: 12px; color: var(--ink-2); }
 
 .mem-pills { display: grid; gap: 10px; }
 .mem-pill {
