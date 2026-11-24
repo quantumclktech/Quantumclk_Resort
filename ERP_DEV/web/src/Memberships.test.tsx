@@ -77,22 +77,37 @@ describe("Memberships — Sales Executive", () => {
     expect(screen.queryByRole("tab", { name: /Verification queue/ })).toBeNull();
   });
 
-  it("registers a cash member as multipart with an idempotency key and shows the assigned ID", async () => {
+  it("offers only Pine Labs and UPI as payment methods", async () => {
+    render(<Memberships me={seMe} request={fakeRequest({
+      "/api/v1/sales/memberships/next-number": () => ({ membershipId: "GRH-LM-0101", provisional: true }),
+      "/api/v1/sales/memberships": () => page([]),
+    })} />);
+    await screen.findByText("GRH-LM-0101");
+    const group = screen.getByRole("radiogroup", { name: "Payment method" });
+    expect(within(group).getAllByRole("radio").map((r) => (r as HTMLInputElement).value)).toEqual(["CARD", "SCAN_QR"]);
+    expect(within(group).getByText("Pine Labs")).toBeTruthy();
+    expect(within(group).getByText("UPI")).toBeTruthy();
+    expect(within(group).queryByText("Cash")).toBeNull();
+  });
+
+  it("registers a Pine Labs member as multipart with an idempotency key and shows the assigned ID", async () => {
     let sent: RequestInit | undefined;
     render(<Memberships me={seMe} request={fakeRequest({
       "/api/v1/sales/memberships/next-number": () => ({ membershipId: "GRH-LM-0101", provisional: true }),
       "/api/v1/sales/memberships": (init) => {
-        if (init?.method === "POST") { sent = init; return { ...pending, membershipId: "GRH-LM-0102", payment: { ...pending.payment, type: "CASH", proof: null } }; }
+        if (init?.method === "POST") { sent = init; return { ...pending, membershipId: "GRH-LM-0102", payment: { ...pending.payment, type: "CARD", proof: null } }; }
         return page([]);
       },
     })} />);
     await screen.findByText("GRH-LM-0101");
     fillCustomer();
+    fill("Pine Labs transaction ID", "PL123456");
     fireEvent.click(screen.getByRole("button", { name: "Register member" }));
     expect(await screen.findByText(/GRH-LM-0102 is registered/)).toBeTruthy();
     const body = sent!.body as FormData;
     expect(body).toBeInstanceOf(FormData);
-    expect(body.get("paymentType")).toBe("CASH");
+    expect(body.get("paymentType")).toBe("CARD");
+    expect(body.get("transactionId")).toBe("PL123456");
     expect(body.get("amount")).toBe("25000");
     expect(body.get("email")).toBe("rohan@example.test");
     expect(body.get("mobile")).toBe("+919876543210");
@@ -181,15 +196,17 @@ describe("Memberships — Sales Executive", () => {
     expect((screen.getByLabelText("Amount received (₹)") as HTMLInputElement).value).toBe("30000");
   });
 
-  it("asks for a transaction ID only for card", async () => {
+  it("asks for a transaction ID only for Pine Labs", async () => {
     render(<Memberships me={seMe} request={fakeRequest({
       "/api/v1/sales/memberships/next-number": () => ({ membershipId: "GRH-LM-0101", provisional: true }),
       "/api/v1/sales/memberships": () => page([]),
     })} />);
     await screen.findByText("GRH-LM-0101");
-    expect(screen.queryByLabelText(/Transaction ID/)).toBeNull();
-    fireEvent.click(screen.getByRole("radio", { name: /Card/ }));
-    expect(screen.getByLabelText("Transaction ID")).toBeTruthy();
+    expect(screen.getByLabelText("Pine Labs transaction ID")).toBeTruthy();
+    fireEvent.click(screen.getByRole("radio", { name: /UPI/ }));
+    expect(screen.queryByLabelText(/transaction ID/i)).toBeNull();
+    fireEvent.click(screen.getByRole("radio", { name: /Pine Labs/ }));
+    expect(screen.getByLabelText("Pine Labs transaction ID")).toBeTruthy();
   });
 
   it("Scan QR offers gallery and camera, previews the screenshot and can remove it", async () => {
@@ -198,7 +215,7 @@ describe("Memberships — Sales Executive", () => {
       "/api/v1/sales/memberships": () => page([]),
     })} />);
     await screen.findByText("GRH-LM-0101");
-    fireEvent.click(screen.getByRole("radio", { name: /Scan QR/ }));
+    fireEvent.click(screen.getByRole("radio", { name: /UPI/ }));
     const camera = screen.getByLabelText("Open camera") as HTMLInputElement;
     expect(camera.getAttribute("capture")).toBe("environment");
     expect(camera.accept).toBe("image/*");
@@ -220,7 +237,7 @@ describe("Memberships — Sales Executive", () => {
     render(<Memberships me={seMe} request={request} />);
     await screen.findByText("GRH-LM-0101");
     fillCustomer();
-    fireEvent.click(screen.getByRole("radio", { name: /Scan QR/ }));
+    fireEvent.click(screen.getByRole("radio", { name: /UPI/ }));
     fireEvent.click(screen.getByRole("button", { name: "Register member" }));
     expect(await screen.findByText("Add the payment screenshot (gallery or camera).")).toBeTruthy();
     expect((request as unknown as { mock: { calls: unknown[][] } }).mock.calls.some(([, i]) => (i as RequestInit | undefined)?.method === "POST")).toBe(false);
