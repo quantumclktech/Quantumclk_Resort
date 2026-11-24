@@ -353,6 +353,9 @@ function RegisterMember({ me, request, onRegistered }: { me: Me; request: Reques
             <div>
               <strong>Gold Membership</strong>
               <small>Valid 12 months from verification · 180 resort privileges (55 vouchers + 125 coupons)</small>
+              <p className="mem-gold-price">
+                <s>{rupees(149999)}</s> <strong>{rupees(23600)}</strong> <span>incl. GST</span>
+              </p>
             </div>
           </div>
         </fieldset>
