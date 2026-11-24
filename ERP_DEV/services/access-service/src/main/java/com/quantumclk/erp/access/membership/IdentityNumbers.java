@@ -13,7 +13,7 @@ import java.util.Locale;
 import java.util.regex.Pattern;
 
 /**
- * ID proof numbers of Gold Members (D-131): Aadhaar or driving licence (client, Discovery Call 2026-10-28 [22:56]),
+ * ID proof numbers of Loyalty Members (D-131): Aadhaar or driving licence (client, Discovery Call 2026-10-28 [22:56]),
  * and the PAN of employees (D-139).
  *
  * <p>Checks and normalises a number, and turns it into the only two things we store: a masked form for people and a
@@ -116,7 +116,7 @@ public class IdentityNumbers {
     /** Hex HMAC-SHA256 of "type:number" under the configured key. */
     public String hash(String type, String normalised) {
         if (key == null) {
-            throw new IllegalStateException("erp.membership.id-hash-key (MEMBERSHIP_ID_HASH_KEY) is not set; Gold Member registration and employee PAN need it");
+            throw new IllegalStateException("erp.membership.id-hash-key (MEMBERSHIP_ID_HASH_KEY) is not set; Loyalty Member registration and employee PAN need it");
         }
         try {
             Mac mac = Mac.getInstance("HmacSHA256");

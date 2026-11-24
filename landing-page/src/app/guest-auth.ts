@@ -2,7 +2,7 @@
 
 import Keycloak from "keycloak-js";
 
-/* Guest and member sign-in on the website (Gold Membership, D-119…D-123;
+/* Guest and member sign-in on the website (Loyalty Membership, D-119…D-123;
  * ERP_DEV/docs/02-architecture/identity/MEMBER-LOGIN.md).
  *
  * - Keycloak realm gh-guests, public client guest-web, Authorization Code +

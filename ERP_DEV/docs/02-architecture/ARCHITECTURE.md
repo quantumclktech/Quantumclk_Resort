@@ -56,7 +56,7 @@ flowchart LR
 |---|---|---|---|
 | `api-gateway` | Routing, JWT validation, rate limits (Redis), request-size limits, correlation IDs, CORS. **No business logic, no DB** | 1 | 8082 |
 | `access-service` | Employee profiles, Keycloak account provisioning and sync, `/me`, account audit. Blueprint "Access Control" service. Long-term ownership of employee records versus the future HR & Workforce service: Q-028 | 1 | 8091 |
-| `guest-service` | Guest and member accounts in Keycloak `gh-guests`, welcome email via the extension `gh-member-activation`, guest profile (Blueprint §6 Guest & CRM) | Gold Membership increment (D-119…D-122; supersedes D-114). See [MEMBER-LOGIN.md](identity/MEMBER-LOGIN.md) | 8092 |
+| `guest-service` | Guest and member accounts in Keycloak `gh-guests`, welcome email via the extension `gh-member-activation`, guest profile (Blueprint §6 Guest & CRM) | Loyalty Membership increment (D-119…D-122; supersedes D-114). See [MEMBER-LOGIN.md](identity/MEMBER-LOGIN.md) | 8092 |
 | `lead-service` | Inquiries/leads, public reference, activity history, atomic claim, transactional outbox | 2 | 8093 |
 | `notification-service` | Email adapter, delivery attempts, retries, dead-letter queue | Later increment (with SLA) | 8094 |
 | CMS | Public content | Not scaffolded. The landing page is static today; Blueprint Q-015 (CMS in Phase 1?) is open | — |
@@ -99,7 +99,7 @@ ERP_Resort/
 │   ├── services/
 │   │   ├── api-gateway/               README now; code in increment 1
 │   │   ├── access-service/            README now; code in increment 1
-│   │   ├── guest-service/             member accounts + welcome email (Gold Membership)
+│   │   ├── guest-service/             member accounts + welcome email (Loyalty Membership)
 │   │   └── lead-service/              README now; code in increment 2
 │   ├── web/                           staff ERP (React) — README now; code in increment 1
 │   ├── infra/                         README now; docker-compose + Keycloak realm in increment 1

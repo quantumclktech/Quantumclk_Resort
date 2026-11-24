@@ -420,7 +420,7 @@ function ExecutiveLeads({ request, row, position, teamSize, qs, periodLabel, fro
         ) : !memberList ? (
           <p className="perf-empty">Loading memberships…</p>
         ) : memberList.length === 0 ? (
-          <p className="perf-empty">{row.name} has not registered any Gold Members in this period.</p>
+          <p className="perf-empty">{row.name} has not registered any Loyalty Members in this period.</p>
         ) : (
           <div className="table-container">
             <table className="cards-on-phone" aria-label={`Memberships brought in by ${row.name}`}>

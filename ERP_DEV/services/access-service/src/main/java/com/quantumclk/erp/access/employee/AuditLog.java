@@ -32,7 +32,7 @@ public class AuditLog {
         record(actor, action, "EMPLOYEE", employeeId, before, after, reason, success);
     }
 
-    /** Any entity type (e.g. "MEMBER" for Gold Membership, ERP-05). Same append-only table and rules. */
+    /** Any entity type (e.g. "MEMBER" for Loyalty Membership, ERP-05). Same append-only table and rules. */
     public void record(Actor actor, String action, String entityType, UUID entityId, Object before, Object after,
                        String reason, boolean success) {
         jdbc.update("""

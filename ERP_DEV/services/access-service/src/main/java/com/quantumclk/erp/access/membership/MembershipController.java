@@ -33,7 +33,7 @@ import java.nio.charset.StandardCharsets;
 import java.util.UUID;
 
 /**
- * Field registration of Gold Members by Sales Executives (ERP-05; api.md "Memberships"). An executive sees only the
+ * Field registration of Loyalty Members by Sales Executives (ERP-05; api.md "Memberships"). An executive sees only the
  * members they enrolled; verification lives in {@link MembershipAdminController}.
  */
 @RestController

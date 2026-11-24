@@ -55,7 +55,7 @@ Phase 1 permissions and their default holders:
 | `leads.claim` | | ✓ | ✓ |
 | `leads.assign`, `leads.reassign` | ✓ | ✓ | |
 | `audit.read` | ✓ | | |
-| `memberships.register` (register a Gold Member, D-116) | ✓ | ✓ | ✓ |
+| `memberships.register` (register a Loyalty Member, D-116) | ✓ | ✓ | ✓ |
 | `memberships.read_own` (own registrations and their screenshots) | ✓ | ✓ | ✓ |
 | `memberships.read_all` (verification queue) | ✓ | ✓ | |
 | `memberships.verify` (verify or reject; never one's own registration, D-118) | ✓ | ✓ | |

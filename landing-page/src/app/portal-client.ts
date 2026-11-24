@@ -42,7 +42,7 @@ export interface InquiryRecord {
 
 export const PORTAL_API_BASE = process.env.NEXT_PUBLIC_LEAD_API_URL || "/api/v1/portal";
 
-/** The signed-in member's own Gold Membership (access-service, api.md §3c). */
+/** The signed-in member's own Loyalty Membership (access-service, api.md §3c). */
 export interface PortalMembership {
   membershipId: string;
   firstName: string;

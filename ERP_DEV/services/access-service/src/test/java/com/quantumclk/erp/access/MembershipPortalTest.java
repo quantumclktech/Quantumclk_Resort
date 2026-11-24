@@ -18,7 +18,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 /**
- * GET /api/v1/portal/membership/me (REQ-MEM-009; S4): a signed-in member (gh-guests) reads only their own Gold
+ * GET /api/v1/portal/membership/me (REQ-MEM-009; S4): a signed-in member (gh-guests) reads only their own Loyalty
  * Membership; staff tokens and other members get nothing.
  */
 @SpringBootTest(properties = {"erp.keycloak.issuer=" + TestSupport.ISSUER})

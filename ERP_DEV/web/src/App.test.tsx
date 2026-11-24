@@ -64,7 +64,7 @@ describe("Dashboard", () => {
     };
     const request = vi.fn(async () => ({ membershipId: "GRH-LM-0105", provisional: true, items: [], total: 0 })) as never;
     render(<Dashboard loadMe={() => Promise.resolve(se)} onSignOut={() => {}} request={request} />);
-    expect(await screen.findByRole("heading", { name: "Gold Membership" })).toBeTruthy();
+    expect(await screen.findByRole("heading", { name: "Loyalty Membership" })).toBeTruthy();
     expect(screen.getAllByRole("link").map((a) => a.textContent)).toEqual(["Dashboard"]);
     expect(screen.queryByText(/Leads/)).toBeNull();
   });

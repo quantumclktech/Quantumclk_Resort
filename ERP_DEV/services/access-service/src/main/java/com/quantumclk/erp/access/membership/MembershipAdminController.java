@@ -19,7 +19,7 @@ import java.time.OffsetDateTime;
 import java.util.UUID;
 
 /**
- * Verification queue for Gold Membership payments (ERP-05; D-118): ADMIN and MANAGER see every registration,
+ * Verification queue for Loyalty Membership payments (ERP-05; D-118): ADMIN and MANAGER see every registration,
  * inspect the payment screenshot and verify or reject. Nobody verifies a member they enrolled.
  */
 @RestController

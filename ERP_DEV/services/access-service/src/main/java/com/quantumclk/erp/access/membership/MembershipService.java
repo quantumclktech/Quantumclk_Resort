@@ -36,7 +36,7 @@ import java.util.UUID;
 import java.util.regex.Pattern;
 
 /**
- * Gold Membership registration and verification (SOW ERP-05; inc-membership-PLAN S1; D-116…D-118).
+ * Loyalty Membership registration and verification (SOW ERP-05; inc-membership-PLAN S1; D-116…D-118).
  *
  * <p>A Sales Executive registers a customer and the payment (Cash, Card, or Scan QR with a screenshot). The member
  * gets the next number of the client's series GRH-LM-#### at once, and waits as PENDING_VERIFICATION until an
@@ -254,7 +254,7 @@ public class MembershipService {
         String state = IndianStates.find(f.state()).orElse(null);
         if (state == null) errors.put("state", "Choose the state or union territory.");
         String country = f.country() == null || f.country().isBlank() ? "India" : f.country().strip();
-        if (!"india".equalsIgnoreCase(country)) errors.put("country", "Gold Membership addresses must be in India.");
+        if (!"india".equalsIgnoreCase(country)) errors.put("country", "Loyalty Membership addresses must be in India.");
         country = "India";
 
         String email = f.email() == null ? "" : f.email().strip().toLowerCase(Locale.ROOT);

@@ -18,7 +18,7 @@ npm run dev
 
 Open http://localhost:3000. Stop the server with Ctrl+C.
 
-**Member sign-in (Gold Membership):** `/login`, `/profile` and `/membership` sign guests and members in with Keycloak (realm `gh-guests`, PKCE) through `src/app/guest-auth.ts`; passwords are typed only on Keycloak's page. The welcome-email link is `/member/activate`. API calls go to `/api/v1/portal` on the same origin (`next.config.ts` rewrites `/api` to the gateway on localhost:3000). Settings: `.env.example`. Design: `ERP_DEV/docs/02-architecture/identity/MEMBER-LOGIN.md`.
+**Member sign-in (Loyalty Membership):** `/login`, `/profile` and `/membership` sign guests and members in with Keycloak (realm `gh-guests`, PKCE) through `src/app/guest-auth.ts`; passwords are typed only on Keycloak's page. The welcome-email link is `/member/activate`. API calls go to `/api/v1/portal` on the same origin (`next.config.ts` rewrites `/api` to the gateway on localhost:3000). Settings: `.env.example`. Design: `ERP_DEV/docs/02-architecture/identity/MEMBER-LOGIN.md`.
 
 ## Checks and production
 

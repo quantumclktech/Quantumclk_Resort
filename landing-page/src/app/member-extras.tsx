@@ -5,7 +5,7 @@ import type { SampleMembership } from "./guest-session";
 import { memberBenefits, RESORT_DESK } from "./member-benefits";
 import { ArrowRight } from "./icons";
 
-/* /profile, for a real Gold Member (D-123): status and validity, the
+/* /profile, for a real Loyalty Member (D-123): status and validity, the
  * amenities (from member-benefits.ts, marked "to be confirmed" until the
  * resort approves them, Q-032) and the enrolling executive as concierge.
  * The executive's number is shown only if they chose to share it (WhatsApp
@@ -23,7 +23,7 @@ export default function MemberExtras({ membership: m }: { membership: SampleMemb
     <div className="mx">
       <div className="mx-status">
         <p className="mx-kicker">Status</p>
-        <p className="mx-active"><span aria-hidden="true">●</span> Active Gold Member · verified by resort management</p>
+        <p className="mx-active"><span aria-hidden="true">●</span> Active Loyalty Member · verified by resort management</p>
         <p className="mx-valid">Valid {fmt(m.validFrom)} – {fmt(m.validTo)}</p>
         <div className="mx-actions">
           <Link href="/plan-ahead" className="prof-link">Book a stay <ArrowRight size={15} /></Link>
@@ -32,7 +32,7 @@ export default function MemberExtras({ membership: m }: { membership: SampleMemb
       </div>
 
       <div className="mx-amenities">
-        <p className="mx-kicker">Included with Gold</p>
+        <p className="mx-kicker">Included with Loyalty Membership</p>
         <ul>
           {memberBenefits.map((b) => (
             <li key={b.title}>

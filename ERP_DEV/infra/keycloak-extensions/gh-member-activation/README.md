@@ -1,6 +1,6 @@
 # Keycloak extension `gh-member-activation`
 
-Lets a new Gold Member, from their welcome email, **set a password once and arrive signed in** on the landing page (Authorization Code + PKCE). There is no second login, and no password is ever in an email (D-121, D-122). Full design: MEMBER-LOGIN.md.
+Lets a new Loyalty Member, from their welcome email, **set a password once and arrive signed in** on the landing page (Authorization Code + PKCE). There is no second login, and no password is ever in an email (D-121, D-122). Full design: MEMBER-LOGIN.md.
 
 ## What is in the jar
 

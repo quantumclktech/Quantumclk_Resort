@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.UUID;
 
 /**
- * What the staff ERP sees of a Gold Membership registration (api.md "Memberships"). ID proof only as idType +
+ * What the staff ERP sees of a Loyalty Membership registration (api.md "Memberships"). ID proof only as idType +
  * idNumberMasked (never the full number, D-131); address = street address, with city/state/pincode/country separate.
  * Members registered before V3 (registration form 1) have null ID and structured-address fields.
  */

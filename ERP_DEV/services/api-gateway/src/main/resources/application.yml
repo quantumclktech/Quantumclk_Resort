@@ -23,7 +23,7 @@ spring:
                 redis-rate-limiter.burstCapacity: ${RATE_LIMIT_BURST:40}
                 redis-rate-limiter.requestedTokens: 1
           routes:
-            # Gold Membership registration (ERP-05): multipart with one payment screenshot of at most 5 MB, so this
+            # Loyalty Membership registration (ERP-05): multipart with one payment screenshot of at most 5 MB, so this
             # route alone allows 6 MB. Listed first so it wins over the general access-service route.
             - id: membership-registration
               uri: ${ACCESS_SERVICE_URL:http://localhost:8091}

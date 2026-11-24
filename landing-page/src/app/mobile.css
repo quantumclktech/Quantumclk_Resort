@@ -142,7 +142,7 @@
   .plan-demo-pill, .plan-angle-pill { min-height: 36px; }
 
   /* --- Signed-in folio on Plan your stay --------------------------------
-     The avatar shrank to a sliver, the "Gold Member · GRH-LM-…" pill was
+     The avatar shrank to a sliver, the "Loyalty Member · GRH-LM-…" pill was
      forced onto the name row and ran off the card, the uppercase stat
      labels broke mid-phrase and both buttons wrapped. Now: avatar fixed,
      name and email get the rest of the row (long emails break), the pill

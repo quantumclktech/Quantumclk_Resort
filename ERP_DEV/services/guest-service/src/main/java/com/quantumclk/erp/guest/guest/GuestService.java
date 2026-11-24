@@ -21,7 +21,7 @@ import java.util.Map;
 import java.util.UUID;
 
 /**
- * Member accounts in Keycloak gh-guests (D-120…D-122). Called by access-service when a Gold Membership is verified:
+ * Member accounts in Keycloak gh-guests (D-120…D-122). Called by access-service when a Loyalty Membership is verified:
  * find or create the account (no password), set its membershipId, then let Keycloak send the welcome email with a
  * one-time set-password link that signs the member in on the landing page.
  *

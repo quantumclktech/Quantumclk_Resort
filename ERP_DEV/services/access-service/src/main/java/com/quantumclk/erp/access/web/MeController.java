@@ -41,7 +41,7 @@ public class MeController {
 
     // Cosmetic only: the backend still checks every request (AUTHENTICATION §5 step 6).
     static List<String> modules(List<String> roles, List<String> permissions) {
-        // A Sales Executive's ERP is their Gold Membership work only; the web app shows it as their "Dashboard"
+        // A Sales Executive's ERP is their Loyalty Membership work only; the web app shows it as their "Dashboard"
         // (owner decision D-135, 2026-11-16). Leads come back here when increment 2 builds that screen.
         if (roles.equals(List.of("SALES_EXECUTIVE")) && permissions.contains("memberships.register")) return List.of("memberships");
         // Sales Admin (ADMIN) has no Dashboard and no Leads tab: executive lead performance lives inside Employees

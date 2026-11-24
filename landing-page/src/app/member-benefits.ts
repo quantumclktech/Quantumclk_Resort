@@ -1,4 +1,4 @@
-/* Gold Member amenities shown on /profile (D-123).
+/* Loyalty Member amenities shown on /profile (D-123).
  *
  * NOT confirmed by the client: these come from the draft membership plan, not
  * from a client document (OPEN_QUESTIONS Q-032). Every item is shown with

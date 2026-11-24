@@ -37,7 +37,7 @@ export default function ActivateMember() {
             <p><Link href="/membership#your-card" className="prof-link">Sign in with your email and password</Link></p>
           </>
         ) : (
-          <p>Next, choose your password on the secure Golden Hills page. You will come straight back to your Gold card. Next time, sign in with your email and this password; this link works only once.</p>
+          <p>Next, choose your password on the secure Golden Hills page. You will come straight back to your Loyalty card. Next time, sign in with your email and this password; this link works only once.</p>
         )}
       </div>
     </section>

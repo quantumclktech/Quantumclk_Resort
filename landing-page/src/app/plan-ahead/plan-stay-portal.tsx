@@ -102,7 +102,7 @@ export default function PlanStayPortal() {
   const [forgotEmail, setForgotEmail] = useState("");
   const [forgotSent, setForgotSent] = useState(false);
 
-  // A real sign-in (Keycloak, gh-guests; D-119) fills the same folio; a Gold Member's card shows their number.
+  // A real sign-in (Keycloak, gh-guests; D-119) fills the same folio; a Loyalty Member's card shows their number.
   const session = useSession();
   const realMembership = session?.membership?.real ? session.membership : null;
   useEffect(() => {
@@ -451,7 +451,7 @@ export default function PlanStayPortal() {
                   {/* Keycloak sessions carry no phone: no trailing " · " then. */}
                   <p>{[currentUser.email, currentUser.phone].filter(Boolean).join(" · ")}</p>
                 </div>
-                <span className="plan-folio-tier">{realMembership ? `Gold Member · ${realMembership.membershipNo}` : "Privilege Member"}</span>
+                <span className="plan-folio-tier">{realMembership ? `Loyalty Member · ${realMembership.membershipNo}` : "Privilege Member"}</span>
               </div>
 
               <div className="plan-folio-stats">

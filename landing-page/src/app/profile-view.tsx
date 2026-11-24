@@ -61,7 +61,7 @@ export default function ProfileView() {
           </>
         ) : (
           <>
-            <p>This account is not linked to a Gold Membership. Members are registered at the resort by our team.</p>
+            <p>This account is not linked to a Loyalty Membership. Members are registered at the resort by our team.</p>
             <Link href="/membership#inquire" className="prof-link">Become a member <ArrowRight size={15} /></Link>
           </>
         )}

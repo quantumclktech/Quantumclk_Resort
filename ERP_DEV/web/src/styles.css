@@ -3,7 +3,7 @@
    The landing page's world brought indoors: forest green, brass, warm paper,
    General Sans for headings and Inter for reading. Quiet chrome; the one
    bright element on each screen is the thing waiting for the person (the
-   verification queue on the dashboard, the Gold card on registration).
+   verification queue on the dashboard, the Loyalty card on registration).
    Mobile first: phones get a top bar and bottom tabs, tables become cards,
    the review drawer becomes a sheet. Desktop adds the sidebar.
    ========================================================================== */
@@ -715,7 +715,7 @@ td.is-empty { color: var(--muted); }
 .role-desc { font-size: 13px; color: var(--muted); font-weight: 400; }
 @media (min-width: 640px) { .role-cards { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
 
-/* --- Gold Membership ------------------------------------------------------------ */
+/* --- Loyalty Membership ------------------------------------------------------------ */
 .mem-tabs {
   display: flex;
   gap: 4px;
@@ -749,7 +749,7 @@ td.is-empty { color: var(--muted); }
   font-weight: 600;
 }
 
-/* Register: the Gold card is the moment of the form. */
+/* Register: the Loyalty card is the moment of the form. */
 .mem-head { display: grid; gap: 16px; margin-bottom: 4px; }
 .mem-head h2 { font-size: 22px; }
 .mem-head p { margin-top: 4px; color: var(--muted); font-size: 14px; }
@@ -940,7 +940,7 @@ td.is-empty { color: var(--muted); }
 }
 
 
-/* Smart fields on "New Gold Member" (D-131…D-134) */
+/* Smart fields on "New Loyalty Member" (D-131…D-134) */
 .mem-subhead { margin: 1rem 0 0.4rem; font-size: 0.8rem; font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase; color: var(--muted); }
 .mem-pills.compact { grid-template-columns: repeat(2, minmax(0, 220px)); margin-bottom: 0.6rem; }
 .mem-pills.compact .mem-pill { padding-top: 0.55rem; padding-bottom: 0.55rem; }

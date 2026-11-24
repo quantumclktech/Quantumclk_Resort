@@ -43,7 +43,7 @@ services:
       KC_PROXY_HEADERS: "xforwarded"
       # Placeholders resolved inside infra/keycloak/gh-staff-realm.json at import time
       KC_ACCESS_SERVICE_CLIENT_SECRET: ${KC_ACCESS_SERVICE_CLIENT_SECRET:?set KC_ACCESS_SERVICE_CLIENT_SECRET in ERP_DEV/.env}
-      # Realm gh-guests (Gold Membership members, D-119…D-122): guest-service's client secret and the public
+      # Realm gh-guests (Loyalty Membership members, D-119…D-122): guest-service's client secret and the public
       # landing-page origin (redirect URIs, web origins, the welcome-email link).
       KC_GUEST_SERVICE_CLIENT_SECRET: ${KC_GUEST_SERVICE_CLIENT_SECRET:?set KC_GUEST_SERVICE_CLIENT_SECRET in ERP_DEV/.env}
       LANDING_PUBLIC_URL: ${LANDING_PUBLIC_URL:-http://localhost:3000}

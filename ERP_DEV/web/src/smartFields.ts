@@ -1,4 +1,4 @@
-// Smart fields of the "New Gold Member" form (SOW ERP-05; D-131…D-134; docs/04-modules/membership.md).
+// Smart fields of the "New Loyalty Member" form (SOW ERP-05; D-131…D-134; docs/04-modules/membership.md).
 // Pure helpers: they make typing easier and catch mistakes early. The server repeats every rule
 // (access-service MembershipService.validate, IdentityNumbers), so nothing here is trusted on its own.
 

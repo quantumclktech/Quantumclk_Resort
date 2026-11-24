@@ -1,6 +1,6 @@
 # Member login: welcome email, set the password once, arrive signed in
 
-Customers of the Golden Hills Privilege Club (Gold Members, SOW ERP-05). Decisions D-119…D-122 (2026-11-16, Ashish). This **supersedes D-114** (password pass-through) for guests and members. Staff login is unchanged ([AUTHENTICATION.md](AUTHENTICATION.md), realm `gh-staff`).
+Customers of the Golden Hills Privilege Club (Loyalty Members, SOW ERP-05). Decisions D-119…D-122 (2026-11-16, Ashish). This **supersedes D-114** (password pass-through) for guests and members. Staff login is unchanged ([AUTHENTICATION.md](AUTHENTICATION.md), realm `gh-staff`).
 
 ## 1. The customer journey
 
@@ -9,7 +9,7 @@ Customers of the Golden Hills Privilege Club (Gold Members, SOW ERP-05). Decisio
 3. guest-service asks our Keycloak extension to send the **welcome email**. Keycloak sends it through the realm's SMTP server (the configured `SMTP_*`; Ashish's Google SMTP in dev). The email shows the name, **Member ID GRH-LM-####**, the validity date and one button, *Set your password*. **No password is ever in an email.**
 4. The button opens `https://<public host>/member/activate?t=<one-time token>` on the landing page. The page starts a normal **Authorization Code + PKCE** sign-in with Keycloak and adds the token as the extra parameter `activation_token`.
 5. Keycloak's first sign-in step (`gh-member-activation`) accepts the token. It recognises the member, marks the email verified (they clicked a link sent to it), and shows Keycloak's own **Update password** page.
-6. The member types the new password **once**. Keycloak completes the sign-in and redirects to the landing page with an authorization code. keycloak-js exchanges it for tokens, and the member **is signed in** and sees their Gold card. There is no second login.
+6. The member types the new password **once**. Keycloak completes the sign-in and redirects to the landing page with an authorization code. keycloak-js exchanges it for tokens, and the member **is signed in** and sees their Loyalty card. There is no second login.
 7. They stay signed in, also after closing the browser, for up to 30 days (§8). After that, or on another device or browser, they sign in with the **email they gave the Sales Executive** and their password on Keycloak's page (from `/login`, `/profile` or `/membership`). The same account works for the future mobile app and customer web app: each gets its own public PKCE client in `gh-guests`.
 
 Proved end to end on Keycloak 26.8.2 by `infra/keycloak-extensions/gh-member-activation/src/test/.../ActivationFlowIT.java` (5 tests, real Keycloak + Mailpit).

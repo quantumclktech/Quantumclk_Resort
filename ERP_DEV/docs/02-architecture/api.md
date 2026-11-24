@@ -81,7 +81,7 @@ Account changes return the updated `EmployeeView`. Errors: 400 without a reason;
 
 Audit response: page of `{ id, occurredAt, actorId, actor, actorIp, action, entityType, entityId, before, after, reason, correlationId, outcome }`, newest first; `size` at most 200.
 
-## 3a. Staff — Gold Membership in access-service (SOW ERP-05; D-116…D-118)
+## 3a. Staff — Loyalty Membership in access-service (SOW ERP-05; D-116…D-118)
 
 Module guide: [04-modules/membership.md](../04-modules/membership.md).
 
@@ -109,7 +109,7 @@ Errors: 400 `VALIDATION_FAILED` with `fields`; 403 `NO_EMPLOYEE_RECORD` (signed 
 
 After **verify**, access-service calls guest-service (below) to create the customer's account and send the welcome email. The outcome is in `accountStatus`: `NOT_PROVISIONED` | `INVITE_SENT` | `INVITE_FAILED` | `ACTIVE`. A failure there never undoes the verification ([MEMBER-LOGIN.md](identity/MEMBER-LOGIN.md)).
 
-## 3c. Member portal: own Gold Membership (access-service; S4, REQ-MEM-009)
+## 3c. Member portal: own Loyalty Membership (access-service; S4, REQ-MEM-009)
 
 | Method & path | Token | Purpose |
 |---|---|---|

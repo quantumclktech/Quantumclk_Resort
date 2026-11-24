@@ -46,7 +46,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 /**
- * Gold Membership core (SOW ERP-05; inc-membership-PLAN S1; D-116…D-118): field registration with payment proof,
+ * Loyalty Membership core (SOW ERP-05; inc-membership-PLAN S1; D-116…D-118): field registration with payment proof,
  * gap-free client numbering (GRH-LM-####), encrypted proof storage, verification by ADMIN/MANAGER only.
  */
 @SpringBootTest(properties = {"erp.keycloak.issuer=" + TestSupport.ISSUER})
