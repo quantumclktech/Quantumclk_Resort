@@ -487,3 +487,12 @@ History before 2026-11-15 is in `archive/hotel-draft:ERP_DEV/docs/logs/DEVLOG.md
 - Verified: `npx vitest run` 64/64 (new config.test.ts), `tsc --noEmit` clean, `vite build` OK. Not checked on the VPS by Claude (no access); Ashish to run the §1.2 steps there.
 - The laptop's own `web/.env` (ngrok values) was not touched.
 - Not committed (waiting for approval).
+
+## 2026-11-24T17:17:36+05:30 — Membership payment options: Pine Labs and UPI only (UI only)
+- Request (Ashish): on the Sales Admin / Sales Executive membership form, offer only Pine Labs and UPI instead of Cash, Card and Scan QR. Don't change anything in the backend that would affect how it works.
+- `web/src/Memberships.tsx`: the payment pills are now "Pine Labs" (sent as the existing `CARD` code, Pine Labs transaction ID required) and "UPI" (sent as the existing `SCAN_QR` code, QR + screenshot). Cash is removed from the form. The default is Pine Labs. Display labels: CARD → "Pine Labs", SCAN_QR → "UPI"; older CASH records still show "Cash".
+- Backend, DB constraint and API are unchanged (they still accept CASH/CARD/SCAN_QR).
+- `web/src/Memberships.test.tsx`: added a test that checks only those two options appear, and updated the tests for the new labels.
+- Verified: `npx vitest run` 65/65, `tsc --noEmit` clean. Not checked in a browser.
+- Not committed (waiting for approval).
+- 2026-11-24T17:40:01+05:30: user approved commit and push to origin/ngrok-fix ("yes, commit and push"). Not deployed to the VPS: SSH login from this laptop was refused.

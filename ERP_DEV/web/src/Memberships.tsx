@@ -33,10 +33,11 @@ export const MEMBER_STATUS: Record<string, string> = {
   ACTIVE: "Active",
   REJECTED: "Rejected",
 };
+// UI offers only Pine Labs and UPI. Backend codes are unchanged: Pine Labs is sent as CARD
+// (terminal transaction ID required) and UPI as SCAN_QR (screenshot required).
 const PAYMENT_TYPES = [
-  { value: "CASH", label: "Cash", hint: "Amount received in hand" },
-  { value: "CARD", label: "Card", hint: "Swipe / tap at the terminal" },
-  { value: "SCAN_QR", label: "Scan QR", hint: "Customer pays the resort UPI QR" },
+  { value: "CARD", label: "Pine Labs", hint: "Pay at the Pine Labs terminal" },
+  { value: "SCAN_QR", label: "UPI", hint: "Customer pays the resort UPI QR" },
 ];
 /** The customer's website account (Keycloak gh-guests) after verification (D-120…D-122). */
 export const ACCOUNT_STATUS: Record<string, string> = {
@@ -45,9 +46,10 @@ export const ACCOUNT_STATUS: Record<string, string> = {
   INVITE_FAILED: "Welcome email failed — resend it",
   ACTIVE: "Customer has signed in",
 };
-const PAYMENT_LABEL: Record<string, string> = { CASH: "Cash", CARD: "Card", SCAN_QR: "Scan QR (UPI)" };
+// CASH kept so older records still display correctly.
+const PAYMENT_LABEL: Record<string, string> = { CASH: "Cash", CARD: "Pine Labs", SCAN_QR: "UPI" };
 const EMPTY = {
-  firstName: "", lastName: "", dob: "", mobile: "", email: "", address: "", paymentType: "CASH", amount: "", transactionId: "",
+  firstName: "", lastName: "", dob: "", mobile: "", email: "", address: "", paymentType: "CARD", amount: "", transactionId: "",
   idType: "AADHAAR", idNumber: "", pincode: "", city: "", state: "Karnataka", country: "India",
 };
 const ID_LABEL: Record<string, string> = { AADHAAR: "Aadhaar", DRIVING_LICENCE: "Driving licence" };
@@ -387,7 +389,7 @@ function RegisterMember({ me, request, onRegistered }: { me: Me; request: Reques
           )}
           <div className={`form-row ${form.paymentType === "CASH" ? "" : "two-col"}`}>
             {input("amount", "Amount received (₹)", "text", { inputMode: "decimal", placeholder: "e.g. 25000" })}
-            {form.paymentType === "CARD" && input("transactionId", "Transaction ID", "text", { autoComplete: "off" })}
+            {form.paymentType === "CARD" && input("transactionId", "Pine Labs transaction ID", "text", { autoComplete: "off" })}
             {form.paymentType === "SCAN_QR" && (
               <label>UPI reference (UTR), optional
                 <input type="text" value={form.transactionId} onChange={(e) => set("transactionId")(e.target.value)} aria-invalid={!!fields.transactionId} />
