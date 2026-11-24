@@ -19,7 +19,7 @@ import java.util.Map;
 import java.util.UUID;
 
 /**
- * {@code GET /api/v1/portal/membership/me}: the signed-in member's own Gold Membership, for the landing page's
+ * {@code GET /api/v1/portal/membership/me}: the signed-in member's own Loyalty Membership, for the landing page's
  * /membership and /profile (SOW ERP-05 "member dashboard"; REQ-MEM-009; D-123).
  *
  * <p>The member is found by the token's {@code sub} (their gh-guests account id = {@code resort_member.guest_user_id});
@@ -88,6 +88,6 @@ public class PortalMembershipController {
     }
 
     private static ApiException noMembership() {
-        return new ApiException(HttpStatus.NOT_FOUND, "NO_MEMBERSHIP", "This account has no Gold Membership yet.");
+        return new ApiException(HttpStatus.NOT_FOUND, "NO_MEMBERSHIP", "This account has no Loyalty Membership yet.");
     }
 }

@@ -9,7 +9,7 @@ import { accessToken, initAuth, profile, signOutKeycloak } from "./guest-auth";
  * and the header (unit 3.30).
  *
  * The only session is a REAL one (D-119…D-123, D-142): signed in with Keycloak
- * (gh-guests, PKCE; guest-auth.ts). If the account has a verified Gold
+ * (gh-guests, PKCE; guest-auth.ts). If the account has a verified Loyalty
  * Membership the kind is "member" and `membership` is real (number, holder,
  * validity, enrolling executive); usage is 0 because the ERP does not record
  * redemptions yet. Without a membership the kind is "guest".
@@ -22,7 +22,7 @@ export type SampleMembership = {
   membershipNo: string;
   holder: string;
   validTo: string;
-  /** True for a verified Gold Membership from the ERP (not sample data). */
+  /** True for a verified Loyalty Membership from the ERP (not sample data). */
   real?: boolean;
   validFrom?: string;
   /** The Sales Executive who enrolled the member; mobile only if they share it. */

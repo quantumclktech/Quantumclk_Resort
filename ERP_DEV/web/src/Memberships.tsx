@@ -1,4 +1,4 @@
-// Gold Membership (SOW ERP-05; api.md §3a; docs/04-modules/membership.md).
+// Loyalty Membership (SOW ERP-05; api.md §3a; docs/04-modules/membership.md).
 // Sales Executives register members in the field (with a payment screenshot from the gallery or the camera);
 // Admins and Managers verify or reject in the queue. The backend checks every permission and rule; this screen
 // only hides what the signed-in person can't use and explains the rules before the server has to.
@@ -111,7 +111,7 @@ export function Memberships({ me, request }: { me: Me; request: Request }) {
     <section>
       <header className="page-head">
         <p className="page-kicker">Privilege Club</p>
-        <h1>Gold Membership</h1>
+        <h1>Loyalty Membership</h1>
       </header>
 
       <div className="mem-tabs" role="tablist" aria-label="Memberships">
@@ -228,10 +228,10 @@ function RegisterMember({ me, request, onRegistered }: { me: Me; request: Reques
 
   return (
     <div className="form-card">
-      <form onSubmit={(e) => void submit(e)} aria-label="Register Gold member" noValidate>
+      <form onSubmit={(e) => void submit(e)} aria-label="Register Loyalty member" noValidate>
         <div className="mem-head">
           <div>
-            <h2>New Gold Member</h2>
+            <h2>New Loyalty Member</h2>
           </div>
           <div className="mem-tag" aria-live="polite">
             <span className="mem-tag-label">Membership ID</span>
@@ -349,9 +349,9 @@ function RegisterMember({ me, request, onRegistered }: { me: Me; request: Reques
         <fieldset className="mem-section">
           <legend>2 · Membership</legend>
           <div className="mem-gold">
-            <span className="mem-gold-chip">GOLD</span>
+            <span className="mem-gold-chip">LOYALTY</span>
             <div>
-              <strong>Gold Membership</strong>
+              <strong>Loyalty Membership</strong>
               <small>Valid 12 months from verification · 180 resort privileges (55 vouchers + 125 coupons)</small>
               <p className="mem-gold-price">
                 <s>{rupees(149999)}</s> <strong>{rupees(23600)}</strong> <span>incl. GST</span>
@@ -621,7 +621,7 @@ function ReviewDrawer({ member: m, me, request, onClose, onDecided }:
       <aside className="mem-drawer" role="dialog" aria-modal="true" aria-label={`Review ${m.membershipId}`} onClick={(e) => e.stopPropagation()}>
         <div className="mem-drawer-head">
           <div>
-            <span className="mem-tag-label">Gold · {m.membershipId}</span>
+            <span className="mem-tag-label">Loyalty · {m.membershipId}</span>
             <h2>{m.firstName} {m.lastName}</h2>
             <StatusPill status={m.status} />
           </div>

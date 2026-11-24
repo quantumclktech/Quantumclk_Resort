@@ -24,7 +24,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 /**
- * Member accounts for verified Gold Memberships (REQ-MEM-008; D-120…D-122): provision, welcome email via Keycloak,
+ * Member accounts for verified Loyalty Memberships (REQ-MEM-008; D-120…D-122): provision, welcome email via Keycloak,
  * resend, own profile, and the two-realm security rules.
  */
 @SpringBootTest(properties = {

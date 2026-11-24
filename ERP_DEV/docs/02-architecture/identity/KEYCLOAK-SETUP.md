@@ -140,7 +140,7 @@ curl -s -o /dev/null -w '%{http_code}\n' -H "User-Agent: check/1.0" https://<hos
 - **Looking up a role to assign:** use `GET /users/{id}/role-mappings/realm/available` and pick the role by name. `GET /roles/{name}` needs `view-realm`, which we deliberately don't grant (S1 check 5x: 403).
 - Rotate the secret every 90 days, or at once if it might have leaked (F13).
 
-### 5.4 Adding permissions to an existing realm (Gold Membership, 2026-11-16)
+### 5.4 Adding permissions to an existing realm (Loyalty Membership, 2026-11-16)
 
 `--import-realm` only creates a realm that does not exist yet, so new permissions in `gh-staff-realm.json` do not reach a running database. Add them once with `kcadm` (this was run on the dev realm on 2026-11-16; it only adds, it removes nothing):
 
@@ -163,7 +163,7 @@ $K add-roles -r gh-staff --rname SALES_EXECUTIVE --cclientid erp-api --rolename 
 
 Check: `kcadm.sh get clients/$WEB/scope-mappings/clients/$API -r gh-staff --fields name` lists the four `memberships.*` roles. Staff must **sign in again** to get them in their token. The scope-mapping step matters: without it the roles are assigned but never appear in `erp-web` tokens.
 
-### 5.5 `guests.provision`: access-service may create member accounts (Gold Membership, D-120)
+### 5.5 `guests.provision`: access-service may create member accounts (Loyalty Membership, D-120)
 
 guest-service's `/internal/guests/**` accepts only a gh-staff token whose `erp-api` roles contain `guests.provision`. Only the **service account of `access-service`** holds it (not a job role, so no employee gets it), and it is in the `access-service` client's scope (fullScopeAllowed is false). The realm file has it. To add it to an existing realm:
 

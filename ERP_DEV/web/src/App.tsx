@@ -43,13 +43,13 @@ export const ROLE_LABELS: Record<string, string> = {
  *  starts the flow, the account's role decides what loads (backend enforces every request). */
 const WORKSPACES = [
   { role: "ADMIN", title: "Sales Admin", detail: "Sales team, lead performance and the audit log" },
-  { role: "SALES_EXECUTIVE", title: "Sales Executive", detail: "Gold Membership registrations" },
+  { role: "SALES_EXECUTIVE", title: "Sales Executive", detail: "Loyalty Membership registrations" },
 ];
 
 /** What each module is for, in one line, for the dashboard. */
 const MODULE_LINES: Record<string, string> = {
   employees: "Staff accounts and invitations",
-  memberships: "Register Gold members and verify payments",
+  memberships: "Register Loyalty members and verify payments",
   audit: "Every access and role change, as it happened",
   leads: "Guest enquiries from the website",
 };
@@ -262,7 +262,7 @@ export function Dashboard({ loadMe, onSignOut, request }: { loadMe: () => Promis
               {/* The one thing waiting on this person: payments to verify. */}
               {me.permissions.includes("memberships.read_all") && me.modules.includes("memberships") && (
                 <button type="button" className="dash-lead" onClick={() => navigateTo("memberships")}>
-                  <span className="dash-lead-label">Gold memberships waiting to be verified</span>
+                  <span className="dash-lead-label">Loyalty memberships waiting to be verified</span>
                   <span className="dash-lead-figure">{pendingMemberships ?? "—"}</span>
                   <span className="dash-lead-cta">Open the verification queue <ArrowRight size={16} aria-hidden="true" /></span>
                   <svg className="dash-lead-hills" viewBox="0 0 400 120" preserveAspectRatio="none" aria-hidden="true">

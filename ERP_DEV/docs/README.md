@@ -1,7 +1,7 @@
 # Golden Hills Resort ERP — Documentation
 
 **Phase 1: Guest Acquisition, Identity & Sales Lead Operations.** Built so far: employee identity and accounts (Keycloak),
-Gold Membership registration and verification, the member website sign-in, and Sales Admin lead and membership performance.
+Loyalty Membership registration and verification, the member website sign-in, and Sales Admin lead and membership performance.
 
 Start here:
 1. [00-onboarding/DAY-ONE.md](00-onboarding/DAY-ONE.md): get the repo running locally
@@ -9,7 +9,7 @@ Start here:
 3. [02-architecture/api.md](02-architecture/api.md): API contracts
 4. [02-architecture/identity/AUTHENTICATION.md](02-architecture/identity/AUTHENTICATION.md): employee onboarding, login, logout, RBAC (Keycloak)
 5. [02-architecture/identity/MEMBER-LOGIN.md](02-architecture/identity/MEMBER-LOGIN.md): member website sign-in
-6. [04-modules/membership.md](04-modules/membership.md): Gold Membership
+6. [04-modules/membership.md](04-modules/membership.md): Loyalty Membership
 
 | Folder | Contents |
 |---|---|

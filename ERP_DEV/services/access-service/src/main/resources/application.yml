@@ -17,7 +17,7 @@ spring:
     enabled: true
   servlet:
     multipart:
-      # Gold Membership payment proof: one image of at most 5 MB (inc-membership-PLAN S1). The gateway allows
+      # Loyalty Membership payment proof: one image of at most 5 MB (inc-membership-PLAN S1). The gateway allows
       # 6 MB on that route only. Bigger uploads get 413 before reaching the controller.
       max-file-size: 5MB
       max-request-size: 6MB
@@ -38,7 +38,7 @@ erp:
   web:
     origin: ${ERP_WEB_ORIGIN:http://localhost:5173}   # the ERP's origin (scheme + host), no path
     url: ${ERP_WEB_URL:http://localhost:5173/erp/}    # where the setup email's link returns to: origin + /erp/ (D-124)
-  membership:   # Gold Membership (ERP-05), docs/04-modules/membership.md
+  membership:   # Loyalty Membership (ERP-05), docs/04-modules/membership.md
     # Encrypted payment-proof files (AES-256-GCM). Keep this directory out of git and backed up with the DB.
     proof-dir: ${MEMBERSHIP_PROOF_DIR:./data/membership-proofs}
     # 32 random bytes, base64 (openssl rand -base64 32). Required: without it registrations with a proof fail.
@@ -47,7 +47,7 @@ erp:
     # Key for the ID-proof hash (HMAC-SHA256; D-131): at least 32 random bytes, base64 (openssl rand -base64 32).
     # Required for registration. Changing it later breaks duplicate detection against existing members.
     id-hash-key: ${MEMBERSHIP_ID_HASH_KEY:}
-    validity: ${MEMBERSHIP_VALIDITY:P12M}   # Gold validity from verification (membership-data.ts: 12 months)
+    validity: ${MEMBERSHIP_VALIDITY:P12M}   # Loyalty validity from verification (membership-data.ts: 12 months)
   guest-service:   # customer accounts + welcome email (D-120); internal API, not via the gateway
     url: ${GUEST_SERVICE_URL:http://localhost:8092}
   sync:

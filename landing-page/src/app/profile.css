@@ -534,7 +534,7 @@
   .nstay { animation: none; }
 }
 
-/* Real Gold Member extras on /profile (member-extras.tsx; D-123) */
+/* Real Loyalty Member extras on /profile (member-extras.tsx; D-123) */
 .mx { display: grid; gap: 16px; margin: 4px 0 24px; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); }
 .mx > div { border: 1px solid var(--color-line); border-radius: 14px; padding: 16px 18px; background: var(--color-chalk); }
 .mx-kicker { margin: 0 0 6px; font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--color-brass-ink); }

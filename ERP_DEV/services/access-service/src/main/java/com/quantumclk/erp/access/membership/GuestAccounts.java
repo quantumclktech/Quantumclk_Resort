@@ -4,7 +4,7 @@ import java.util.UUID;
 
 /**
  * The customer's account in Keycloak gh-guests, owned by guest-service (D-120). access-service asks for it when a
- * Gold Membership is verified; guest-service creates the account and Keycloak sends the welcome email with the
+ * Loyalty Membership is verified; guest-service creates the account and Keycloak sends the welcome email with the
  * one-time set-password link (D-121, D-122). Real implementation: {@link GuestServiceClient}; tests use a fake.
  */
 public interface GuestAccounts {

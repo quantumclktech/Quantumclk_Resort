@@ -98,7 +98,7 @@ class GatewayRoutingTest {
                 .exchange().expectStatus().isOk().expectBody().jsonPath("$.path").isEqualTo("/api/v1/sales/memberships");
     }
 
-    /** Gold Membership registration carries a payment screenshot: it alone gets the larger upload limit (S2). */
+    /** Loyalty Membership registration carries a payment screenshot: it alone gets the larger upload limit (S2). */
     @Test
     void membershipRegistrationAllowsTheUploadLimitButNotMore() {
         web.post().uri("/api/v1/sales/memberships").header(HttpHeaders.AUTHORIZATION, "Bearer " + GatewayTestSupport.token("erp-api"))

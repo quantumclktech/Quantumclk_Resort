@@ -1,7 +1,7 @@
 #!/bin/bash
 # Runs once, on the first start of an empty volume.
 # One database plus one least-privilege login per owner (Blueprint §6; ARCHITECTURE §4).
-# guest_db added for guest-service (Gold Membership, D-120). Increment 2 adds lead_db the same way.
+# guest_db added for guest-service (Loyalty Membership, D-120). Increment 2 adds lead_db the same way.
 # An existing volume does not re-run this file: create new databases by hand (KEYCLOAK-SETUP / DAY-ONE).
 set -euo pipefail
 psql -v ON_ERROR_STOP=1 --username "$POSTGRES_USER" --dbname postgres \

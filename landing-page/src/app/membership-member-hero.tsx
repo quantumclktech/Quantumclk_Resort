@@ -31,7 +31,7 @@ export function MemberHeroCopy({ children }: { children: ReactNode }) {
         <Link href="#your-card" className="mem-btn">See your booklet <ArrowDown size={16} /></Link>
         <Link href="/stay" className="mem-link">Plan a stay <ArrowRight size={15} /></Link>
       </div>
-      <p className="mem-hero-sample">{m.real ? "Gold Member · verified by resort management · redemptions are recorded at the resort" : "Sample usage — the ERP does not record redemptions yet"}</p>
+      <p className="mem-hero-sample">{m.real ? "Loyalty Member · verified by resort management · redemptions are recorded at the resort" : "Sample usage — the ERP does not record redemptions yet"}</p>
     </div>
   );
 }

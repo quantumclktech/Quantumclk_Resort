@@ -7,7 +7,7 @@ import ActivateMember from "./activate-member";
 
 export const metadata: Metadata = {
   title: "Welcome to the Privilege Club | Golden Hills Resort",
-  description: "Set your password and open your Gold Membership.",
+  description: "Set your password and open your Loyalty Membership.",
   robots: { index: false },
 };
 

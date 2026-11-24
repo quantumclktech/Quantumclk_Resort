@@ -27,7 +27,7 @@ import java.util.UUID;
 import java.util.regex.Pattern;
 
 /**
- * Payment-proof screenshots for Gold Membership (ERP-05; engineering rules §11: personal/payment files are stored
+ * Payment-proof screenshots for Loyalty Membership (ERP-05; engineering rules §11: personal/payment files are stored
  * encrypted and access-controlled).
  *
  * <ul>

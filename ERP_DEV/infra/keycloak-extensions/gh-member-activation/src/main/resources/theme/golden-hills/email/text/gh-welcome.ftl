@@ -1,7 +1,7 @@
 <#ftl output_format="plainText">
 Welcome to the Golden Hills Privilege Club<#if firstName?has_content>, ${firstName}</#if>.
 
-Your Gold Membership is now active.
+Your Loyalty Membership is now active.
 Membership ID: ${membershipId}
 <#if validUntil?has_content>Valid until: ${validUntil}
 </#if>

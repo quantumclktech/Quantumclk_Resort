@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-  Keycloak extension for the realm gh-guests (Gold Membership, SOW ERP-05; D-121, D-122):
+  Keycloak extension for the realm gh-guests (Loyalty Membership, SOW ERP-05; D-121, D-122):
   a one-time activation link in the welcome email that lets a new member set a password once and arrive
   signed in on the landing page (Authorization Code + PKCE). See README.md.
   Keycloak's own libraries are "provided": Keycloak supplies them at runtime, so the jar contains only our classes.

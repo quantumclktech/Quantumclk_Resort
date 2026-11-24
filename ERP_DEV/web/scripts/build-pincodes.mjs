@@ -1,4 +1,4 @@
-// Builds web/src/data/pincodes.json (pincode → [city, state]) for the Gold Member form's pincode auto-fill (D-133)
+// Builds web/src/data/pincodes.json (pincode → [city, state]) for the Loyalty Member form's pincode auto-fill (D-133)
 // from India Post's official "All India Pincode Directory" CSV (data.gov.in). The CSV lives in the project resource
 // folder (read-only); only this compact derived table is committed. Log the CSV's sha256 in docs/logs/RESOURCES_LOG.md.
 //
