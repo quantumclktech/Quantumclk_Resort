@@ -1,7 +1,7 @@
 # Project State
-Updated: 2026-11-18T07:58:33+05:30
-Phase: 1. Work unit: **Gold Membership increment (SOW ERP-05)** & **Sales Admin: Employees → Sales Performance (D-137, D-138)**.
-Branch: `feature/phase1-membership`.
+Updated: 2026-11-28T17:55:59+05:30
+Phase: **2 (final phase)** — planning stage: writing all sub-plans before an execution plan. Saved: **2.0 Identity: Keycloak → Auth0** (D-166…D-169; staff onboarding + OTP §2A/§2B added D-189…D-193, awaiting review), **2.1 OTA** (D-144, D-145), **2.2 RBAC** (D-146…D-149), **2.3 Room Management & Room Status Engine** (D-150…D-153), **2.4 Front Office + Housekeeping** (D-154…D-157), **2.5 Billing, Payments & Folio** (D-158…D-161), **2.6 Booking Engine + CRM** (D-162…D-165), **2.7 Membership, Loyalty & RFID** (D-170…D-175), **2.8 Maintenance, Facilities & Spa** (D-176…D-180), **2.9 Reports, Admin & CMS** (D-181…D-183), **2.10 Non-functional & go-live** (D-184…D-187). **All sub-plans written.** Earlier Phase 1 work below.
+Branch: `ngrok-fix` (current checkout; 2.1 code work will get its own `feature/` branch from `develop`).
 
 Done:
 1. S0 housekeeping: commits 9a58edb (mobile/HTTPS), 4dee064 (role cards + Employees UI), 4772b89 (landing page = Ritvik 2c164d9 + local map fix), f22f828 (logs). Hard delete reverted (D-125).
@@ -39,7 +39,23 @@ Done:
 
 19. VPS fix (D-143) on `fix/web-same-origin`, uncommitted: web uses its own origin when VITE_API_URL/VITE_KEYCLOAK_URL are empty; KEYCLOAK-SETUP §1.2 new-host checklist. Web 64/64 + tsc + build.
 
+20. Sub-phase 2.1 OTA plan saved (docs only, uncommitted): `docs/03-phases/phase-2/2.1-ota-PLAN.md`; client requests Q-041…Q-049; decisions D-144, D-145.
+21. Sub-phase 2.2 RBAC plan saved (docs only, uncommitted): `docs/03-phases/phase-2/2.2-rbac-PLAN.md`; Q-050…Q-057; D-146…D-149; CR-002.
+22. Sub-phase 2.3 room plan saved (docs only, uncommitted): `docs/03-phases/phase-2/2.3-room-status-PLAN.md`; Q-058…Q-064; D-150…D-153.
+23. Sub-phase 2.4 Front Office + Housekeeping plan saved (docs only, uncommitted): `docs/03-phases/phase-2/2.4-frontoffice-housekeeping-PLAN.md`; Q-065…Q-072; D-154…D-157.
+24. Sub-phase 2.5 billing plan saved (docs only, uncommitted): `docs/03-phases/phase-2/2.5-billing-payments-folio-PLAN.md`; Q-073…Q-081; D-158…D-161.
+25. Sub-phase 2.6 booking engine + CRM plan saved (docs only, uncommitted): `docs/03-phases/phase-2/2.6-booking-engine-crm-PLAN.md`; Q-082…Q-089; D-162…D-165.
+26. Sub-phase 2.0 identity migration plan saved (docs only, uncommitted): `docs/03-phases/phase-2/2.0-identity-auth0-PLAN.md`; Q-090…Q-096; D-166…D-169; R-AUTH0-1…5.
+27. Sub-phase 2.7 loyalty + RFID plan saved (docs only, uncommitted): `docs/03-phases/phase-2/2.7-loyalty-rfid-PLAN.md`; extract `loyalty-booklet-extract.md`; Q-097…Q-106; D-170…D-175.
+28. Sub-phase 2.8 maintenance, facilities & spa plan saved (docs only, uncommitted): `docs/03-phases/phase-2/2.8-maintenance-facilities-spa-PLAN.md`; Q-107…Q-116; D-176…D-180.
+29. Sub-phase 2.9 reports, admin & CMS plan saved (docs only, uncommitted): `docs/03-phases/phase-2/2.9-reports-admin-cms-PLAN.md`; Q-117…Q-124; D-181…D-183.
+30. Sub-phase 2.10 non-functional plan saved (docs only, uncommitted): `docs/03-phases/phase-2/2.10-nonfunctional-golive-PLAN.md`; Q-125…Q-135; D-184…D-187; R-012, R-013.
+31. ADR-004 Data & Platform (Proposed; Part D open: Q-136…Q-138) + CMS content rules in 2.9 (D-188), docs only, uncommitted.
+
 Next action:
+0a. Ashish to decide ADR-004 Part D (Q-136 pms-service merge, Q-137 event transport, Q-138 standby replica).
+00. **All Phase 2 sub-plans saved (2.0–2.10). Next: write the execution plan** (order all units; 2.10-N1…N6 and 2.0 early; 2.0 before 2.2-R1; RBAC R1–R4 before 2.1-A2; 2.3-M1…M3 before 2.1-A4). Execution order: 2.0 before 2.2-R1. After all plans: write the execution plan (RBAC R1–R4 before 2.1-A2). Commit of the plan docs waits for approval.
+0. **2.1 OTA plan saved; waiting for Ashish's approval to commit the docs and to start unit 2.1-A1 (ADR).** Send the Q-041…Q-049 credential/commercial requests to the client.
 1. Present changes to Ashish and request commit approval (Rule 7).
 2. Live check on phone / browser via tunnel.
 

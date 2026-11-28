@@ -24,3 +24,7 @@ Not consulted: pricing/experience PDFs, loyalty voucher and membership spreadshe
 | 2026-11-16 | Golden_Hills_Resort_Loyalty_Voucher_Numbers_5000.xlsx | fef2324a3d9c4363 | Member No. 1–5000 → `GRH-LM-0101 … GRH-LM-5100` (D-117) |
 | 2026-11-16 | Golden Hills Resorts(experience and pricing).pdf | 07c0157af2e9b9d0 | Searched for a membership fee / benefits: none found (Q-030, Q-032) |
 | 2026-11-16 | Golden_Hills_Discovery_Call_Summary_2026-10-28.md | 733068bcd2dc90d0 | "Guest details: … ID proof (Aadhaar or driving licence)" → Gold Member ID proof Aadhaar or DL (D-131) |
+| 2026-11-28 | GHR_Vouchers_Final.pdf | 0cb56f6fbad8a878 | Gold booklet vouchers: 55 leaves, 14 kinds, printed validity Jan–Dec 2027 → `source-extracts/loyalty-booklet-extract.md`, 2.7 plan (D-170…D-172) |
+| 2026-11-28 | GHR_Coupons_Final (1).pdf | 6c655ed834cb06e2 | Gold booklet coupons: 125 leaves, 13 kinds, no printed validity → same extract and plan |
+| 2026-11-28 | Golden Hills Resorts(experience and pricing).pdf | 07c0157af2e9b9d0 | Re-read for 2.8: venue names (Vedika Hall, Camelot Hall, Butterfly Lawn, Open Lawn, Pool Deck, Pool Side Gazebo, Bistro); no spa menu/prices; Mystery Experience catalogue by Wow Hospitality (out of SOW, Q-115) |
+| 2026-11-28 | GHR Resorts Mystery Experiences.pdf | 6ee8e6f8fd789d7e | Wow Hospitality "Mystery Experiences" business model (B2C/B2B, experience wallet): not in SOW → Q-115 |
