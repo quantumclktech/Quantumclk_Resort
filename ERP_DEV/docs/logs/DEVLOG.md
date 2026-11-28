@@ -496,3 +496,108 @@ History before 2026-11-15 is in `archive/hotel-draft:ERP_DEV/docs/logs/DEVLOG.md
 - Verified: `npx vitest run` 65/65, `tsc --noEmit` clean. Not checked in a browser.
 - Not committed (waiting for approval).
 - 2026-11-24T17:40:01+05:30: user approved commit and push to origin/ngrok-fix ("yes, commit and push"). Not deployed to the VPS: SSH login from this laptop was refused.
+
+## 2026-11-27T22:32:33+05:30 — Phase 2 / sub-phase 2.1: OTA integration plan saved (docs only)
+- Request (Ashish): analyse the pasted OTA integration plan against this project and make the best implementation plan; then "now i m entering into phase 2 (final phase) in which this ota implementation in subphase 1, just save this in the docs".
+- Analysis: SOW ERP-09 (core) and SRS §11.3 (MakeMyTrip, Booking.com; credentials and commission unsettled) read from source extracts; the repo has no rooms/rates/inventory/reservations yet and Kafka is not in compose.
+- Questions asked and answers: sequencing → "Full roadmap, foundation first" (D-144); route → one channel manager for MMT + Booking.com, add credential requests for the client (D-145).
+- Files: new `docs/03-phases/phase-2/2.1-ota-PLAN.md`; appended Q-041…Q-049 to OPEN_QUESTIONS, D-144/D-145 to DECISIONS; STATE updated.
+- No source code, schema or config changed. Not committed (waiting for approval).
+
+## 2026-11-27T23:22:37+05:30 — Phase 2 / sub-phase 2.2: RBAC plan saved (docs only)
+- Request (Ashish): plan the pasted RBAC architecture "in a much better way" and ask questions; planning stage only ("now just we are doc the plans"; execution is planned after all plans are done).
+- Analysis: existing RBAC read (AUTHENTICATION.md §3, access-service `SecurityConfig`/`MeController`, `gh-staff-realm.json`, SOW §22, Blueprint §11). The pasted plan assumed no Keycloak; the project already does OAuth2/OIDC with Keycloak, PKCE S256 and token permissions.
+- Questions and answers: storage → "use OAuth 2.0 + OIDC through Keycloak" (D-146); roles → SOW §22 + splits (D-147); customisation → fixed roles + audited extras (D-148); tenancy → one resort, ready for more (D-149).
+- Files: new `docs/03-phases/phase-2/2.2-rbac-PLAN.md`; appended D-146…D-149, Q-050…Q-057, CR-002; STATE updated.
+- Note for the execution plan: RBAC units R1–R4 should run before 2.1-A2.
+- No source code, schema or config changed. Not committed (waiting for approval).
+
+## 2026-11-28T07:19:22+05:30 — Phase 2 / sub-phase 2.3: Room Management & Room Status Engine plan saved (docs only)
+- Request (Ashish): "Room Management & Room Status Engine what about this?" then "ya plan it perfectly". Planning stage only.
+- Sources: discovery-call extract (36 keys: Premium 19 = 14 queen + 5 twin, Suite 1, Wooden 12, Private Pool 4; statuses; inspection conflict; dormitory C-14), SOW ERP-02/ERP-03/§19/§20, website `stay-data.ts`.
+- Questions and answers: room-service separate (D-150); inspection configurable, default ON (D-151); 5 sellable room types (D-152); daily cleaning job (D-153). All recommended options.
+- Files: new `docs/03-phases/phase-2/2.3-room-status-PLAN.md`; 2.1 plan now points its room master at 2.3 (A2/A4 dependencies); 2.2 catalogue gains `rooms.status_override`; appended D-150…D-153 and Q-058…Q-064; STATE updated.
+- Note for the execution plan: 2.3-M1…M3 before 2.1-A4.
+- No source code, schema or config changed. Not committed (waiting for approval).
+
+## 2026-11-28T07:29:08+05:30 — Phase 2 / sub-phase 2.4: Front Office + Housekeeping plan saved (docs only)
+- Request (Ashish): "yes plan" (2.4 Front Office + Housekeeping workflows). Planning stage only.
+- Sources: discovery-call extract §B (check-in 12:00, check-out 11:00 AM/PM unclear C-13, lounge wait, no-show, GM overrides), §D (reception assigns cleaning, inspection C-04, VIP/lost & found/minibar); SOW ERP-03 and §19.
+- Questions and answers: stays in reservation-service (D-154); HK tasks in room-service (D-155); ID masked + encrypted scan (D-156); check-out blocked unless settled (D-157). All recommended options.
+- Files: new `docs/03-phases/phase-2/2.4-frontoffice-housekeeping-PLAN.md`; 2.2 catalogue gains stay, override, night-audit, minibar and lost & found permissions; appended D-154…D-157, Q-065…Q-072; STATE updated.
+- No source code, schema or config changed. Not committed (waiting for approval).
+
+## 2026-11-28T07:54:42+05:30 — Phase 2 / sub-phase 2.5: Billing, Payments & Folio plan saved (docs only)
+- Request (Ashish): "yes plan" (2.5). Planning stage only.
+- Sources: SOW ERP-07, §21, §23; discovery-call extract §C/§F/§G (Razorpay in SRS, GST C-08, advance C-06, cancellation C-07, accounting export-only C-10); existing membership payment types (CASH/CARD/SCAN_QR shown as Pine Labs/UPI, bdc8dc2).
+- Questions and answers: neutral gateway adapter, Razorpay first (D-158); **Pine Labs terminal integration** (D-159, not the recommended manual option; manual kept as fallback); cashier shifts (D-160); basic company accounts / AR (D-161).
+- GST note recorded: hotel GST restructured Sept 2025, so rates come only from the CA (Q-073); nothing hard-coded.
+- Files: new `docs/03-phases/phase-2/2.5-billing-payments-folio-PLAN.md`; 2.2 catalogue gains billing permissions; appended D-158…D-161, Q-073…Q-081; STATE updated.
+- No source code, schema or config changed. Not committed (waiting for approval).
+
+## 2026-11-28T08:29:19+05:30 — Phase 2 / sub-phase 2.6: Online Booking Engine + Guest CRM plan saved (docs only)
+- Request (Ashish): "yes plan" (2.6). Planning stage only.
+- Sources: SOW ERP-02 (remaining) and ERP-04; website `plan-stay-portal.tsx` (inquiry only today), guest-service `V1__guest_account_audit.sql`; discovery C-03 (promo), C-12 (waitlist), SMS excluded.
+- Questions and answers: **sign-in required** (D-162, not the recommended guest checkout); instant up to N rooms (D-163); auto-link sure matches, suggest the rest (D-164); **no member pricing now** (D-165, not the recommended option).
+- Files: new `docs/03-phases/phase-2/2.6-booking-engine-crm-PLAN.md`; 2.2 catalogue gains guest/promo permissions; appended D-162…D-165, Q-082…Q-089; STATE updated.
+- No source code, schema or config changed. Not committed (waiting for approval).
+
+## 2026-11-28T08:59:52+05:30 — Phase 2 / sub-phase 2.0: Identity migration Keycloak → Auth0 plan saved (docs only)
+- Request (Ashish): "i want to plan the implementation OAuth instead of keycloak". Explained that Keycloak already is an OAuth 2.0/OIDC server and asked what he meant.
+- Answers: Auth0 (Okta) + Google sign-in; reason "want full control / learning" (noted: Auth0 is hosted, so less control over the identity server; recorded in the plan); both staff and guests (D-166); Google for guests only (D-167); **direct replacement** (D-168, not the recommended neutral layer); one tenant per environment (D-169).
+- Impact found: 28 files in access-service, 11 in guest-service, gateway, lead-service, web, landing, realm JSON, the `gh-member-activation` extension, `keycloak_user_id` columns, Testcontainers tests, docs.
+- Files: new `docs/03-phases/phase-2/2.0-identity-auth0-PLAN.md`; update banners in 2.2 and 2.6; appended D-166…D-169, Q-090…Q-096, R-AUTH0-1…5; STATE updated. ADR-002 will be marked superseded in unit I1 (with the new ADR).
+- No source code, schema or config changed. Not committed (waiting for approval).
+
+## 2026-11-28T10:03:28+05:30 — Phase 2 / sub-phase 2.7: Membership, Loyalty & RFID plan saved (docs only)
+- Request (Ashish): "first what is there in loyalty", then "yes" (2.7). He added two client files to the resource folder and asked me to read them.
+- Resources read (logged in RESOURCES_LOG): `GHR_Vouchers_Final.pdf` (55 leaves, 14 kinds, valid Jan–Dec 2027) and `GHR_Coupons_Final (1).pdf` (125 leaves, 13 kinds, no dates). Read with PyMuPDF from the scratchpad (text layer + 4 rendered sample pages). Total 180 leaves = website booklet. The 5,000-number sheet maps member no. → booklet no. = membership ID; no per-leaf serials. Extract: `source-extracts/loyalty-booklet-extract.md`.
+- Questions and answers: card tech NTAG 424 DNA + client question (D-174); no doors (D-175); configurable tiers starting with Gold (D-173); after reading the PDFs: validity per edition (D-171), balance + collect leaf (D-172), vouchers + points with points off (D-170).
+- Files: new `docs/03-phases/phase-2/2.7-loyalty-rfid-PLAN.md`, new extract; 2.2 catalogue gains loyalty/RFID permissions; appended D-170…D-175, Q-097…Q-106, RESOURCES_LOG rows; STATE updated.
+- Proposal for Ashish (ADR L1): move membership out of access-service into a new loyalty-service (Q-028).
+- No source code, schema or config changed. Not committed (waiting for approval).
+
+## 2026-11-28T10:11:59+05:30 — Phase 2 / sub-phase 2.8: Maintenance, Facilities & Spa plan saved (docs only)
+- Request (Ashish): "yes plan" (2.8). Planning stage only.
+- Sources: SOW §18, §20; discovery summary §3.5, §3.8, §3.9; experience PDFs re-read for venue names (logged in RESOURCES_LOG). No spa menu in the resource folder. Mystery Experiences = Wow Hospitality product, outside the SOW (Q-115).
+- Questions and answers: spa appointment book (D-176); facilities eligibility + entry log + optional slots (D-177); maintenance with vendors + preventive maintenance (D-178); guest requests in the same ticket system (D-179). Proposal operations-service (D-180).
+- Files: new `docs/03-phases/phase-2/2.8-maintenance-facilities-spa-PLAN.md`; 2.2 catalogue gains maintenance/facility/spa permissions; appended D-176…D-180, Q-107…Q-116, RESOURCES_LOG rows; STATE updated.
+- No source code, schema or config changed. Not committed (waiting for approval).
+
+## 2026-11-28T10:22:39+05:30 — Phase 2 / sub-phase 2.9: Dashboards, Reports, Admin & CMS plan saved (docs only)
+- Request (Ashish): "yes" (2.9). Planning stage only.
+- Sources: SOW ERP-08, §23, ERP-01; discovery summary §3.10 (daily/weekly reports, KPI dashboard, distribution list); landing-page extract (content pending); Q-015; current hard-coded site content files.
+- Questions and answers: reporting-service with read models (D-181); CMS inside the ERP (D-182); scheduled email reports (D-183). All recommended options.
+- Files: new `docs/03-phases/phase-2/2.9-reports-admin-cms-PLAN.md`; 2.2 catalogue gains report/system/CMS permissions; appended D-181…D-183, Q-117…Q-124; STATE updated.
+- No source code, schema or config changed. Not committed (waiting for approval).
+
+## 2026-11-28T10:27:28+05:30 — Phase 2 / sub-phase 2.10: Non-functional & go-live plan saved (docs only) — **all Phase 2 sub-plans written**
+- Request (Ashish): "yes" (2.10). Planning stage only.
+- Sources: SOW §25–§31; existing `.github/workflows/ci.yml`; D-142/D-143; DEVLOG (VPS SSH refused); Q-016, Q-024, Q-025.
+- Questions and answers: production on a VPS (D-184); nightly + PITR off-site backups (D-185); self-hosted monitoring (D-186); CI images + approved deploys (D-187, replaces part of D-142, Ashish was told).
+- Files: new `docs/03-phases/phase-2/2.10-nonfunctional-golive-PLAN.md`; appended D-184…D-187, Q-125…Q-135, R-012, R-013; STATE updated.
+- Phase 2 plans now: 2.0 identity, 2.1 OTA + reservations, 2.2 RBAC, 2.3 rooms, 2.4 front office + HK, 2.5 billing, 2.6 booking engine + CRM, 2.7 loyalty + RFID, 2.8 maintenance/facilities/spa, 2.9 reports/admin/CMS, 2.10 non-functional. Next: the execution plan.
+- No source code, schema or config changed. Not committed (waiting for approval).
+
+## 2026-11-28T10:54:42+05:30 — ADR-004 Data & Platform (Proposed) + CMS content rules added to 2.9 (docs only)
+- Request (Ashish): explain the architecture and databases for a real-world system with real data and payments; then how unstructured website content is managed; then "yes add them".
+- Answer given: Postgres 18 = only system of record; Redis non-durable; Kafka undecided; no MongoDB/Elasticsearch (JSONB + pg_trgm); object storage for files. Concerns raised: 13 services vs rule #17, Kafka decision, single-VPS SPOF, membership money in NUMERIC rupees (`V2__gold_membership.sql:54`) vs paise rule, Redis licence, secrets.
+- Files: new `docs/02-architecture/adr/ADR-004-data-and-platform.md` (Proposed; Part D open); ADR index updated; 2.9 plan: block JSON Schemas, rich-text JSON (no HTML), media sha256 de-dup + public/private buckets, work unit P9 and verification updated; 2.1 plan's reservation ADR renumbered to ADR-005; D-188; Q-136…Q-138.
+- No source code, schema or config changed. Not committed (waiting for approval).
+
+## 2026-11-28T11:39:14+05:30 — Hosting & storage sizing document + PDF (docs only)
+- Request (Ashish): "how much storage i require for my entire project to host and bring user?", then "give me a pdf for this storage detail".
+- Files: new `docs/03-phases/phase-2/2.10-hosting-storage-sizing.md` (estimates with stated assumptions: production 8 vCPU / 32 GB / 200 GB NVMe, staging 4 vCPU / 16 GB / 100 GB, off-site backup 100 GB; growth +15–20 GB/yr) and `2.10-hosting-storage-sizing.pdf` (6 pages A4, generated with the make-pdf tool, pages checked by rendering). Estimates only; to be confirmed by the 2.10-N8 load test and three months of live use. Supports Q-125.
+- Not committed (waiting for approval).
+
+## 2026-11-28T12:06:17+05:30 — Phase 2 team presentation (docs only)
+- Request (Ashish): "make a ppt of entire phase 2 so that i can present my plan to my team and take their opinion". Built first as a Slides artifact (24 slides, private link); export from the page did not work for him, so the same content was built as a native PowerPoint file.
+- File: `docs/03-phases/phase-2/Phase2-Plan-Team-Deck.pptx` (24 slides, speaker notes on every slide, 5 sections, native bar chart, Calibri/Cambria). Built with pptxgenjs installed only in the session scratchpad (not added to the project). `validate.py` passed. Not rendered visually (no LibreOffice on this machine); Ashish to flip through before presenting. Last slide has a "[date]" placeholder for the feedback deadline.
+- Not committed (waiting for approval).
+
+## 2026-11-28T17:55:59+05:30 — Phase 1 walkthrough + staff onboarding/OTP design added to 2.0 Auth0 plan (docs only)
+- Request (Ashish): explain Phase 1 sub-phase by sub-phase in simple words; for sub-phase 1 (staff identity), "fix the issues and we will use authO only"; wants a role-named welcome email, ERP login with email + password, and a one-time OTP; asked how real companies do it.
+- Advice given: never email or let the Admin know a password (one-time set-password link instead); one login page for all roles (role from the token); OTP = MFA, authenticator app stronger than email, SMS not advised.
+- Answers (AskUserQuestion): self-set password (D-189); OTP mixed by role (D-190); remember device 7 days, Admin every login + step-up (D-191); one login page (D-192). Weak-spot fixes recorded as D-193.
+- Files: `docs/03-phases/phase-2/2.0-identity-auth0-PLAN.md` (new §2A, §2B; status line, Q-095 answer, work-unit additions, verification 9–10); appended D-189…D-193, Q-095 answer, Q-139, Q-140, R-014.
+- No source code, schema or config changed. Not committed (waiting for approval).

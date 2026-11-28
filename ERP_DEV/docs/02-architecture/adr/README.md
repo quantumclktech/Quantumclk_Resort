@@ -7,5 +7,6 @@ One file per decision: context → decision → consequences. A record is never 
 | [ADR-001](ADR-001-microservices-and-stack.md) | Microservices per the Phase 1 Blueprint, same tech stack as before | Proposed (2026-11-15) |
 | [ADR-002](ADR-002-keycloak-employee-identity.md) | Keycloak is the only identity provider for employees | Proposed (2026-11-15) |
 | [ADR-003](ADR-003-fresh-start-archive.md) | Fresh start on a new branch, previous ERP archived | Accepted (2026-11-15, executed) |
+| [ADR-004](ADR-004-data-and-platform.md) | Data & platform architecture: Postgres as system of record, JSONB content, object storage, Redis non-durable, no MongoDB | Proposed (2026-11-28); Part D open (Q-136…Q-138) |
 
 Records of the previous ERP (ADR-001/002 in the archive) are on branch `archive/hotel-draft` and do not apply to this baseline.
